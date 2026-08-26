@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Griefcase — Leave it here. Feel a little lighter.</title>
+<meta name="description" content="Griefcase is a private, anonymous space to write down what's weighing on you, leave it there, and feel a little lighter. Not therapy, not a social network — just somewhere to put things down.">
+<meta name="keywords" content="griefcase, grief journal, anonymous venting app, private journaling, emotional release, digital journal, write your feelings, grief support">
+<meta name="author" content="Griefcase">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://griefcase.app/">
+<meta name="theme-color" content="#F4EEE3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#2A2724" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Griefcase — Leave it here. Feel a little lighter.">
+<meta property="og:description" content="Some things are easier to leave here. A private, anonymous space to write it down and let it go. Not therapy. Not social. Just somewhere to put it down.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://griefcase.app/">
+<meta property="og:site_name" content="Griefcase">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://griefcase.app/icons/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Griefcase — Leave it here. Feel a little lighter.">
+<meta name="twitter:description" content="A private, anonymous space to write down what's weighing on you, leave it there, and feel a little lighter.">
+<meta name="twitter:image" content="https://griefcase.app/icons/social-card.png">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Griefcase">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='2' y='9' width='20' height='13' rx='1.5' fill='%232A2724'/%3E%3Cpath d='M8 9V6.5A1.5 1.5 0 0 1 9.5 5h5A1.5 1.5 0 0 1 16 6.5V9' fill='none' stroke='%232A2724' stroke-width='1.6'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+
+<!-- Structured data: what this page is, in a shape both search engines and AI
+     answer engines (GEO) can quote directly. Kept in sync with data/content.json
+     by hand today; see README for how this maps if you move to a real CMS. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Griefcase",
+  "url": "https://griefcase.app/",
+  "description": "Griefcase is a private, anonymous space to write down what's weighing on you, leave it there, and feel a little lighter. Not therapy, not a social network — just somewhere to put things down.",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "Any (installable web app)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "featureList": [
+    "Private, distraction-free writing space",
+    "Optional voice notes",
+    "Entries stored only on your device",
+    "No account or sign-up required"
+  ],
+  "isAccessibleForFree": true
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is anyone reading what I write in Griefcase?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. In this version of Griefcase, nothing you write leaves your browser. There's no one on the other end reading it." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Griefcase therapy?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Griefcase is a space for private expression, not treatment, diagnosis, or crisis support. If you're looking for professional support, a therapist or counselor is a better place to start." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I lose what I've written in Griefcase?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Since entries are stored only in this browser, clearing your browser data, using a different device, or using private/incognito mode will mean they don't appear. There's no account to recover them from." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I have to write something polished in Griefcase?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Half-sentences, fragments, and things that don't make sense out loud are all welcome here." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="live-region" aria-live="polite" id="live-region"></div>
+
+<!-- ===================== HEADER ===================== -->
+<header class="site-header" id="site-header">
+  <a class="brand" href="#hero" aria-label="Griefcase, home">
+    <svg class="brand-mark" viewBox="0 0 24 20" aria-hidden="true">
+      <rect x="1" y="7" width="22" height="12.5" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+      <path d="M8 7V4.8A1.8 1.8 0 0 1 9.8 3h4.4A1.8 1.8 0 0 1 16 4.8V7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+      <line x1="1" y1="12.5" x2="23" y2="12.5" stroke="currentColor" stroke-width="1.2"/>
+    </svg>
+    <span>Griefcase</span>
+  </a>
+
+  <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav">
+    <span class="nav-toggle-icon"></span>
+    <span class="sr-only">Menu</span>
+  </button>
+
+  <nav class="main-nav" id="main-nav" aria-label="Primary">
+    <ul id="nav-list">
+      <li><a class="nav-link" href="#hero">Griefcase</a></li>
+      <li><button type="button" class="nav-link" data-action="open-writer">Write</button></li>
+      <li><button type="button" class="nav-link" data-action="open-library">My Griefcase</button></li>
+      <li><a class="nav-link" href="#why">Why Griefcase</a></li>
+      <li><a class="nav-link" href="#about">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="hero">
+    <div class="hero-atmosphere" aria-hidden="true">
+      <div class="grain"></div>
+      <div class="hero-light hero-light--a"></div>
+      <div class="hero-light hero-light--b"></div>
+      <div class="hero-particles" id="hero-particles"></div>
+      <div class="hero-glow" id="hero-glow"></div>
+    </div>
+
+    <div class="hero-inner">
+      <p class="hero-eyebrow" id="hero-eyebrow">A quiet place for what you're carrying</p>
+      <h1 class="hero-headline" id="hero-headline">Some things are easier to leave here.</h1>
+      <p class="hero-sub" id="hero-sub">Your thoughts don't need to make sense. They just need somewhere to go.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary is-magnetic" id="btn-open-writer" data-open-writer>
+          <span id="hero-cta-primary">Open Griefcase</span>
+        </button>
+        <a class="btn btn-ghost is-magnetic" href="#how-it-works" id="hero-cta-secondary">See how it works</a>
+      </div>
+    </div>
+
+    <a class="hero-scroll-cue" href="#how-it-works" aria-label="Scroll to learn how Griefcase works">
+      <span class="line" aria-hidden="true"></span>
+      <span>Scroll</span>
+    </a>
+  </section>
+
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section id="how-it-works">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow" id="how-eyebrow">How it works</span>
+        <h2 id="how-headline" style="font-size:var(--fs-h1)">There's no right way to use this.</h2>
+        <p class="lede" id="how-intro">But if it helps, here's roughly how it goes.</p>
+      </div>
+      <div class="steps-grid" id="steps-grid" data-reveal-group>
+        <div class="step-card"><div class="step-number">01</div><h3>Open the case</h3><p>No sign-up, no explanation. Just a quiet page and a blank space.</p></div>
+        <div class="step-card"><div class="step-number">02</div><h3>Write, or say it out loud</h3><p>Type it, ramble it, leave it half-finished. Or record a thought instead.</p></div>
+        <div class="step-card"><div class="step-number">03</div><h3>Fold it and let it go</h3><p>Watch it become something you can put down — not something you have to keep holding.</p></div>
+        <div class="step-card"><div class="step-number">04</div><h3>Leave it in the Griefcase</h3><p>It stays here, privately, if you ever want to see it again. You don't have to.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY GRIEFCASE EXISTS ===================== -->
+  <section class="section-dark" id="why">
+    <div class="grain" aria-hidden="true" style="opacity:0.035"></div>
+    <div class="container">
+      <div class="why-layout">
+        <div data-reveal>
+          <span class="eyebrow" id="why-eyebrow">Why Griefcase exists</span>
+          <h2 id="why-headline" style="font-size:var(--fs-h1)">You don't have to carry everything.</h2>
+        </div>
+        <div>
+          <div class="why-copy" id="why-copy" data-reveal>
+            <p>Some thoughts don't have anywhere to go. They're too heavy for a text message, too unfinished for a journal, too honest for a conversation you're not ready to have.</p>
+            <p>Griefcase isn't therapy, and it isn't trying to fix anything. It's just somewhere to put things down for a while — the anger you didn't say out loud, the grief that doesn't have an occasion, the sentence you keep almost sending.</p>
+            <p>Some thoughts aren't meant to be solved. Some days you just need somewhere to put them.</p>
+          </div>
+          <blockquote class="why-quote" id="why-quote" data-reveal>
+            <p>You are allowed to feel this. You don't have to explain it to anyone — not even to us.</p>
+            <cite>— Griefcase</cite>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== VISION / WHERE THIS IS HEADED ===================== -->
+  <section id="vision" class="section-alt">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow" id="vision-eyebrow">Where this is headed</span>
+        <h2 id="vision-headline" style="font-size:var(--fs-h1)">Presence first. Solutions only if you want them.</h2>
+        <p class="lede" id="vision-intro">Griefcase today is exactly what you're using right now: a private space to write and let go, held only in your own browser. The thinking behind it is bigger than that, and it's honest to say so.</p>
+      </div>
+
+      <div class="vision-copy" id="vision-copy" data-reveal>
+        <p>Griefcase started from lived grief — from noticing that most people don't want a diagnosis on day one. They want to be heard before anything else. Support that adapts to a person, instead of asking the person to adapt to a system.</p>
+        <p>The longer-term idea is a layered space that only ever goes as deep as you choose: reflective writing and listening; optional peer support; trained volunteers; and, when it's genuinely wanted, licensed professionals. Every step up would be something you choose — never something a system decides for you.</p>
+      </div>
+
+      <div class="vision-layers" id="vision-layers" data-reveal-group>
+        <div class="vision-layer"><span class="vision-layer-index">01</span><h3>Reflection</h3><p>A space to think out loud — private writing today, and eventually a gentle AI presence that reflects rather than diagnoses.</p></div>
+        <div class="vision-layer"><span class="vision-layer-index">02</span><h3>Peer support</h3><p>Optional, moderated company from people who understand, for whenever you want it.</p></div>
+        <div class="vision-layer"><span class="vision-layer-index">03</span><h3>Trained volunteers</h3><p>Real people, trained to listen, for moments that ask for more than reflection.</p></div>
+        <div class="vision-layer"><span class="vision-layer-index">04</span><h3>Professional care</h3><p>A clear, consent-based path to licensed support — never forced, never assumed on your behalf.</p></div>
+      </div>
+
+      <p class="vision-note" id="vision-note" data-reveal>Only the first layer — private writing and voice notes — exists in this version. The rest is roadmap, not a promise with a date. When any of it ships, it will be opt-in, clearly labeled, and never a stand-in for emergency care.</p>
+    </div>
+  </section>
+
+  <!-- ===================== EMOTIONAL PROMPTS ===================== -->
+  <section id="prompts">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow" id="prompts-eyebrow">If it helps</span>
+        <h2 style="font-size:var(--fs-h1)" id="prompts-headline">Emotional prompts</h2>
+        <p class="lede" id="prompts-intro">You never have to use these. Sometimes a starting line makes it easier.</p>
+      </div>
+    </div>
+    <div class="prompts-scroller" id="prompts-scroller" aria-label="Optional writing prompts" tabindex="0">
+      <div class="prompt-card"><p>Write the text you're never going to send.</p><button type="button" data-open-writer data-prefill="Write the text you're never going to send.">Start writing this &rarr;</button></div>
+      <div class="prompt-card"><p>What are you tired of holding?</p><button type="button" data-open-writer data-prefill="What are you tired of holding?">Start writing this &rarr;</button></div>
+      <div class="prompt-card"><p>Say the thing you'd only say once.</p><button type="button" data-open-writer data-prefill="Say the thing you'd only say once.">Start writing this &rarr;</button></div>
+      <div class="prompt-card"><p>What would you tell them if there were no consequences?</p><button type="button" data-open-writer data-prefill="What would you tell them if there were no consequences?">Start writing this &rarr;</button></div>
+      <div class="prompt-card"><p>Describe the day it changed, if you can.</p><button type="button" data-open-writer data-prefill="Describe the day it changed, if you can.">Start writing this &rarr;</button></div>
+      <div class="prompt-card"><p>What are you still angry about?</p><button type="button" data-open-writer data-prefill="What are you still angry about?">Start writing this &rarr;</button></div>
+    </div>
+  </section>
+
+  <!-- ===================== PRIVACY & SAFETY ===================== -->
+  <section id="privacy" class="section-alt">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow" id="privacy-eyebrow">Privacy &amp; safety</span>
+        <h2 style="font-size:var(--fs-h1)" id="privacy-headline">Your thoughts belong to you.</h2>
+      </div>
+      <div class="privacy-grid" id="privacy-grid" data-reveal-group>
+        <div class="privacy-card"><h3>Private by design</h3><p>In this version of Griefcase, what you write is stored only in your own browser, on this device. It isn't sent to a server, and we don't read it.</p></div>
+        <div class="privacy-card"><h3>Anonymous by default</h3><p>There's no account, no email, no name required. There's nothing here that identifies you unless you choose to add it yourself.</p></div>
+        <div class="privacy-card"><h3>Yours to keep or delete</h3><p>You can clear anything you've left here at any time. Closing or clearing your browser will remove it too — nothing is kept anywhere else.</p></div>
+      </div>
+      <p class="privacy-disclaimer" id="privacy-disclaimer" data-reveal>Griefcase is a space for private expression and reflection. It isn't therapy, medical care, or crisis support, and it isn't a substitute for professional help.</p>
+
+      <div class="safety-note" data-reveal>
+        <h4 id="safety-label">If you're in immediate danger</h4>
+        <p id="safety-body">If you or someone you know may be in immediate danger, please contact your local emergency number, or reach a crisis line where you live. findahelpline.com lists helplines by country if you're not sure where to start.</p>
+        <a class="btn-text" id="safety-link" href="https://findahelpline.com" target="_blank" rel="noopener">Find support in your country</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">A few questions</span>
+        <h2 style="font-size:var(--fs-h1)">Before you write</h2>
+      </div>
+      <div class="faq-list" id="faq-list" data-reveal>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-0"><span>Is anyone reading what I write?</span><span class="plus" aria-hidden="true"></span></button>
+          <div class="faq-answer" id="faq-answer-0"><p>No. In this version of Griefcase, nothing you write leaves your browser. There's no one on the other end reading it.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1"><span>Is this therapy?</span><span class="plus" aria-hidden="true"></span></button>
+          <div class="faq-answer" id="faq-answer-1"><p>No. Griefcase is a space for private expression, not treatment, diagnosis, or crisis support. If you're looking for professional support, a therapist or counselor is a better place to start.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2"><span>Can I lose what I've written?</span><span class="plus" aria-hidden="true"></span></button>
+          <div class="faq-answer" id="faq-answer-2"><p>Since entries are stored only in this browser, clearing your browser data, using a different device, or using private/incognito mode will mean they don't appear. There's no account to recover them from.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3"><span>Do I have to write something "good"?</span><span class="plus" aria-hidden="true"></span></button>
+          <div class="faq-answer" id="faq-answer-3"><p>No. Half-sentences, fragments, and things that don't make sense out loud are all welcome here.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about" class="section-alt">
+    <div class="container">
+      <div class="about-layout">
+        <div data-reveal>
+          <span class="eyebrow" id="about-eyebrow">About</span>
+          <h2 style="font-size:var(--fs-h1)" id="about-headline">A room, not a solution.</h2>
+        </div>
+        <div class="about-copy" id="about-copy" data-reveal>
+          <p>Griefcase was built on a simple idea: not every thought needs an audience, an answer, or a fix. Sometimes it just needs somewhere to exist outside of you for a while.</p>
+          <p>We're not a therapy platform, a social network, or a productivity app. We're closer to a drawer, a shoebox, a case you can close. A small, private container for the things you're carrying.</p>
+          <p>If Griefcase gives you five quieter minutes in a hard day, it's done its job.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CLOSING CTA ===================== -->
+  <section style="text-align:center">
+    <div class="container">
+      <h2 style="font-size:var(--fs-h1); max-width:14ch; margin:0 auto var(--space-5)" data-reveal>Whenever you're ready.</h2>
+      <button class="btn btn-primary is-magnetic" data-open-writer data-reveal>Open Griefcase</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h2 id="footer-tagline">Leave it here. Feel a little lighter.</h2>
+      </div>
+      <div class="footer-cols" id="footer-cols">
+        <div class="footer-col">
+          <h3>Griefcase</h3>
+          <ul>
+            <li><button type="button" data-action="open-writer">Open Griefcase</button></li>
+            <li><button type="button" data-action="open-library">My Griefcase</button></li>
+            <li><a href="#how-it-works">How it works</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>About</h3>
+          <ul>
+            <li><a href="#why">Why Griefcase exists</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#privacy">Privacy &amp; safety</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-safety" id="footer-safety-note">In immediate danger? Contact your local emergency number or findahelpline.com</p>
+      <p id="footer-copyright">Griefcase. A quiet place to put things down.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== WRITER OVERLAY ===================== -->
+<div class="overlay" id="writer-overlay" role="dialog" aria-modal="true" aria-labelledby="writer-prompt-heading" hidden>
+  <div class="overlay-inner">
+    <div class="overlay-bar">
+      <span class="brand"><svg class="brand-mark" viewBox="0 0 24 20" aria-hidden="true"><rect x="1" y="7" width="22" height="12.5" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 7V4.8A1.8 1.8 0 0 1 9.8 3h4.4A1.8 1.8 0 0 1 16 4.8V7" fill="none" stroke="currentColor" stroke-width="1.4"/><line x1="1" y1="12.5" x2="23" y2="12.5" stroke="currentColor" stroke-width="1.2"/></svg>Griefcase</span>
+      <button class="icon-btn" id="writer-close" aria-label="Close writing space">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 2l14 14M16 2L2 16" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="writer-stage">
+      <div class="writer-panel" id="writer-panel">
+        <h2 class="writer-prompt" id="writer-prompt-heading">What's weighing on you?</h2>
+
+        <div class="writer-mode-toggle" role="group" aria-label="How would you like to leave this thought?">
+          <button class="mode-btn" id="mode-write" aria-pressed="true">Write</button>
+          <button class="mode-btn" id="mode-voice" aria-pressed="false">Record a thought</button>
+          <button class="mode-btn" id="mode-unsure">I'm not sure what I'm feeling</button>
+        </div>
+
+        <div class="writer-field" id="writer-field-text">
+          <label for="writer-textarea" class="sr-only">What's weighing on you?</label>
+          <textarea id="writer-textarea" class="writer-textarea" placeholder="Say the thing you couldn't say." aria-describedby="writer-help-text"></textarea>
+        </div>
+
+        <div class="writer-voice" id="writer-field-voice">
+          <div class="record-dot" id="record-dot"><span class="core"></span></div>
+          <p class="voice-status" id="voice-status">Tap to record a thought. It stays on this device.</p>
+          <button class="btn btn-ghost" id="record-toggle" type="button">Start recording</button>
+          <div class="voice-playback" id="voice-playback" hidden></div>
+        </div>
+
+        <div class="writer-tags">
+          <span class="writer-tags-label">How does this feel? <span style="text-transform:none;letter-spacing:0">(optional, and only if you want to)</span></span>
+          <div class="mood-chips" id="writer-mood-chips" role="group" aria-label="Optional feeling tag">
+            <!-- populated from data/content.json (categories, excluding 'all') -->
+          </div>
+        </div>
+
+        <p class="writer-help" id="writer-help-text" aria-live="polite"></p>
+
+        <div class="writer-actions">
+          <button class="btn btn-primary is-magnetic" id="btn-leave-it" disabled>Leave it in the Griefcase</button>
+          <button class="btn btn-text" id="btn-discard">Discard</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== RELEASE RITUAL STAGE ===================== -->
+<div class="release-stage" id="release-stage" role="status" aria-live="polite" hidden>
+  <div class="release-scene">
+    <div class="release-paper" id="release-paper"></div>
+
+    <div class="release-case" id="release-case">
+      <svg width="180" height="130" viewBox="0 0 180 130" aria-hidden="true">
+        <rect x="6" y="52" width="168" height="70" rx="6" fill="#2A2724"/>
+        <rect x="6" y="52" width="168" height="10" rx="4" fill="#4A453F"/>
+        <rect x="80" y="30" width="20" height="10" rx="2" fill="none" stroke="#2A2724" stroke-width="3"/>
+        <g id="case-lid" style="transform-origin: 90px 60px; transition: transform 900ms cubic-bezier(0.22,1,0.36,1);">
+          <rect x="10" y="4" width="160" height="58" rx="6" fill="#352F2A"/>
+          <rect x="82" y="0" width="16" height="10" rx="2" fill="none" stroke="#352F2A" stroke-width="3"/>
+        </g>
+        <rect x="80" y="76" width="20" height="14" rx="2" fill="#B06A4A" opacity="0.85"/>
+      </svg>
+    </div>
+
+    <div class="release-message" id="release-message">
+      <p id="release-line-1">It's here now.<br>You don't have to carry it alone.</p>
+      <p id="release-line-2" hidden>It's safe here.<br>Take a breath.</p>
+    </div>
+
+    <div class="breathing-circle" id="breathing-circle" aria-hidden="true"><span>breathe</span></div>
+
+    <div class="release-actions" id="release-actions">
+      <button class="btn btn-ghost is-magnetic" id="btn-write-another">Write another</button>
+      <button class="btn btn-primary is-magnetic" id="btn-close-griefcase">Close Griefcase</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MY GRIEFCASE (LIBRARY) OVERLAY ===================== -->
+<div class="overlay" id="library-overlay" role="dialog" aria-modal="true" aria-labelledby="library-heading" hidden>
+  <div class="overlay-inner">
+    <div class="overlay-bar">
+      <span class="brand"><svg class="brand-mark" viewBox="0 0 24 20" aria-hidden="true"><rect x="1" y="7" width="22" height="12.5" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 7V4.8A1.8 1.8 0 0 1 9.8 3h4.4A1.8 1.8 0 0 1 16 4.8V7" fill="none" stroke="currentColor" stroke-width="1.4"/><line x1="1" y1="12.5" x2="23" y2="12.5" stroke="currentColor" stroke-width="1.2"/></svg>Griefcase</span>
+      <button class="icon-btn" id="library-close" aria-label="Close My Griefcase">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 2l14 14M16 2L2 16" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="library-header">
+      <span class="eyebrow" id="library-eyebrow">My Griefcase</span>
+      <h2 id="library-heading" style="font-size:var(--fs-h1)">What I've left here.</h2>
+      <p class="lede" id="library-intro" style="max-width:52ch;margin:var(--space-4) auto 0;color:var(--color-charcoal-soft)"></p>
+    </div>
+
+    <div class="library-filters" id="library-filters" role="group" aria-label="Filter by feeling">
+      <!-- populated from data/content.json (categories) -->
+    </div>
+
+    <div class="library-grid" id="library-grid" hidden>
+      <!-- populated from localStorage entries -->
+    </div>
+
+    <div class="library-empty" id="library-empty">
+      <svg width="64" height="48" viewBox="0 0 64 48" aria-hidden="true">
+        <rect x="2" y="18" width="60" height="26" rx="4" fill="none" stroke="#8F7F6B" stroke-width="1.6"/>
+        <path d="M26 18v-7a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v7" fill="none" stroke="#8F7F6B" stroke-width="1.6"/>
+        <line x1="2" y1="30" x2="62" y2="30" stroke="#8F7F6B" stroke-width="1.2"/>
+      </svg>
+      <h3 id="library-empty-title">Nothing here yet.</h3>
+      <p id="library-empty-body">Whatever you leave will stay here, quietly, whenever you're ready to look at it again.</p>
+      <button class="btn btn-primary is-magnetic" id="library-empty-cta" data-open-writer>Open Griefcase</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== ENTRY READER MODAL ===================== -->
+<div class="entry-modal-backdrop" id="entry-modal-backdrop" hidden>
+  <div class="entry-modal" role="dialog" aria-modal="true" aria-labelledby="entry-modal-date">
+    <div class="entry-modal-head">
+      <span class="entry-modal-date" id="entry-modal-date"></span>
+      <button class="icon-btn" id="entry-modal-close" aria-label="Close entry">
+        <svg width="16" height="16" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 2l14 14M16 2L2 16" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <p class="entry-modal-text" id="entry-modal-text"></p>
+    <div class="voice-playback" id="entry-modal-audio" hidden></div>
+    <div class="entry-modal-actions">
+      <span class="filter-chip" id="entry-modal-mood" style="pointer-events:none"></span>
+      <button class="btn-text" id="entry-modal-delete">Let this go</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CONFIRM DIALOG ===================== -->
+<div class="confirm-backdrop" id="confirm-backdrop" hidden>
+  <div class="confirm-box" role="alertdialog" aria-modal="true" aria-labelledby="confirm-text">
+    <p id="confirm-text">Leave without saving this?</p>
+    <div class="confirm-actions">
+      <button class="btn btn-ghost" id="confirm-cancel">Keep writing</button>
+      <button class="btn btn-primary" id="confirm-ok">Leave it</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TOAST ===================== -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ===================== AMBIENT SOUND TOGGLE ===================== -->
+<button type="button" class="sound-toggle" id="sound-toggle" aria-pressed="false" aria-label="Play soft ambient sound">
+  <svg class="sound-icon-on" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor"/>
+    <path d="M16.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M19 6a9 9 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.6"/>
+  </svg>
+  <svg class="sound-icon-off" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" hidden>
+    <path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor"/>
+    <path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  </svg>
+  <span class="sr-only">Toggle soft ambient sound</span>
+</button>
+
+<!-- ===================== PWA INSTALL BANNER ===================== -->
+<div class="install-banner" id="install-banner" hidden role="status">
+  <p><strong>Add Griefcase to your home screen</strong><br>Open it like any other app, even offline.</p>
+  <div class="install-banner-actions">
+    <button type="button" class="btn-text" id="install-dismiss">Not now</button>
+    <button type="button" class="btn btn-primary" id="install-confirm">Install</button>
+  </div>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

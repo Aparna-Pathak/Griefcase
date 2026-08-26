@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Griefcase — offline</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#F4EEE3">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-cream: #F4EEE3;
+    --color-charcoal: #2A2724;
+    --color-charcoal-soft: #4A453F;
+    --color-taupe: #B7A896;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-cream);
+    color: var(--color-charcoal);
+    font-family: "Inter", -apple-system, sans-serif;
+    text-align: center;
+    padding: 2rem;
+  }
+  .wrap { max-width: 420px; }
+  h1 {
+    font-family: "Newsreader", Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    margin: 0 0 1rem;
+  }
+  p { color: var(--color-charcoal-soft); line-height: 1.6; margin: 0 0 1.75rem; }
+  button {
+    font: inherit;
+    font-size: 0.95rem;
+    padding: 0.8rem 1.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-charcoal);
+    background: var(--color-charcoal);
+    color: var(--color-cream);
+    cursor: pointer;
+  }
+  svg { margin: 0 auto 1.5rem; display: block; opacity: 0.8; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <svg width="64" height="48" viewBox="0 0 64 48" aria-hidden="true">
+      <rect x="2" y="18" width="60" height="26" rx="4" fill="none" stroke="#8F7F6B" stroke-width="1.6"/>
+      <path d="M26 18v-7a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v7" fill="none" stroke="#8F7F6B" stroke-width="1.6"/>
+      <line x1="2" y1="30" x2="62" y2="30" stroke="#8F7F6B" stroke-width="1.2"/>
+    </svg>
+    <h1>You're offline, but it's still quiet here.</h1>
+    <p>Griefcase needs a connection the very first time it loads on a device. Once you've opened it once, writing and My Griefcase keep working without one — try going back.</p>
+    <button onclick="window.location.href = 'index.html'">Try again</button>
+  </div>
+</body>
+</html>

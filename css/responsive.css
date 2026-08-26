@@ -1,0 +1,49 @@
+/* ==========================================================================
+   Griefcase — Responsive refinements
+   Mobile-first base already lives in each component file via clamp() and
+   fluid units. This file handles layout-level breakpoint exceptions and
+   touch-specific comfort (the mobile writing moment matters most).
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .hero { padding-top: var(--space-7); min-height: 100svh; }
+  .hero-headline { max-width: 13ch; }
+
+  .writer-textarea { min-height: 42vh; font-size: 1.15rem; }
+  .writer-prompt { font-size: clamp(1.5rem, 6vw, 2.1rem); }
+
+  .release-paper { width: 168px; height: 220px; }
+
+  .btn { padding: var(--space-3) var(--space-4); font-size: 0.95rem; }
+
+  .privacy-grid, .steps-grid { gap: var(--space-4); }
+
+  .site-header { padding: var(--space-3) var(--space-4); }
+}
+
+/* Comfortable touch targets everywhere, per WCAG 2.5.5 guidance */
+@media (pointer: coarse) {
+  .btn, .mode-btn, .mood-chip, .filter-chip, .nav-link, .icon-btn, .entry-slip {
+    min-height: 44px;
+  }
+  .icon-btn { min-width: 44px; }
+}
+
+/* Respect safe areas on notched devices for fixed overlays */
+.overlay-bar, .site-header {
+  padding-left: max(var(--space-5), env(safe-area-inset-left));
+  padding-right: max(var(--space-5), env(safe-area-inset-right));
+}
+
+.release-actions, .writer-actions {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@media (min-width: 1400px) {
+  .container { max-width: 1280px; }
+}
+
+/* Print: nobody should print this, but degrade gracefully rather than break */
+@media print {
+  .site-header, .overlay, .release-stage, .toast { display: none !important; }
+}

@@ -1,0 +1,204 @@
+{
+  "site": {
+    "name": "Griefcase",
+    "tagline": "Leave it here. Feel a little lighter.",
+    "description": "Griefcase is a private, anonymous space to write down what's weighing on you, leave it there, and feel a little lighter. Not therapy. Not a social network. Just somewhere to put things down.",
+    "url": "https://griefcase.app",
+    "nav": [
+      { "label": "Griefcase", "target": "#hero" },
+      { "label": "Write", "target": "open-writer" },
+      { "label": "My Griefcase", "target": "open-library" },
+      { "label": "Why Griefcase", "target": "#why" },
+      { "label": "About", "target": "#about" }
+    ]
+  },
+
+  "hero": {
+    "eyebrow": "A quiet place for what you're carrying",
+    "headline": "Some things are easier to leave here.",
+    "subcopy": "Your thoughts don't need to make sense. They just need somewhere to go.",
+    "ctaPrimary": "Open Griefcase",
+    "ctaSecondary": "See how it works"
+  },
+
+  "howItWorks": {
+    "eyebrow": "How it works",
+    "headline": "There's no right way to use this.",
+    "intro": "But if it helps, here's roughly how it goes.",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Open the case",
+        "body": "No sign-up, no explanation. Just a quiet page and a blank space."
+      },
+      {
+        "number": "02",
+        "title": "Write, or say it out loud",
+        "body": "Type it, ramble it, leave it half-finished. Or record a thought instead."
+      },
+      {
+        "number": "03",
+        "title": "Fold it and let it go",
+        "body": "Watch it become something you can put down — not something you have to keep holding."
+      },
+      {
+        "number": "04",
+        "title": "Leave it in the Griefcase",
+        "body": "It stays here, privately, if you ever want to see it again. You don't have to."
+      }
+    ]
+  },
+
+  "why": {
+    "eyebrow": "Why Griefcase exists",
+    "headline": "You don't have to carry everything.",
+    "paragraphs": [
+      "Some thoughts don't have anywhere to go. They're too heavy for a text message, too unfinished for a journal, too honest for a conversation you're not ready to have.",
+      "Griefcase isn't therapy, and it isn't trying to fix anything. It's just somewhere to put things down for a while — the anger you didn't say out loud, the grief that doesn't have an occasion, the sentence you keep almost sending.",
+      "Some thoughts aren't meant to be solved. Some days you just need somewhere to put them."
+    ],
+    "quote": {
+      "text": "You are allowed to feel this. You don't have to explain it to anyone — not even to us.",
+      "attribution": "— Griefcase"
+    }
+  },
+
+  "vision": {
+    "eyebrow": "Where this is headed",
+    "headline": "Presence first. Solutions only if you want them.",
+    "intro": "Griefcase today is exactly what you're using right now: a private space to write and let go, held only in your own browser. The thinking behind it is bigger than that, and it's honest to say so out loud.",
+    "paragraphs": [
+      "Griefcase started from lived grief — from noticing that most people don't want a diagnosis on day one. They want to be heard before anything else. Support that adapts to a person, instead of asking the person to adapt to a system.",
+      "The longer-term idea is a layered space that only ever goes as deep as you choose: reflective writing and listening; optional peer support; trained volunteers; and, when it's genuinely wanted, licensed professionals. Every step up would be something you choose — never something a system decides for you."
+    ],
+    "layers": [
+      { "title": "Reflection", "body": "A space to think out loud — private writing today, and eventually a gentle AI presence that reflects rather than diagnoses." },
+      { "title": "Peer support", "body": "Optional, moderated company from people who understand, for whenever you want it." },
+      { "title": "Trained volunteers", "body": "Real people, trained to listen, for moments that ask for more than reflection." },
+      { "title": "Professional care", "body": "A clear, consent-based path to licensed support — never forced, never assumed on your behalf." }
+    ],
+    "note": "Only the first layer — private writing and voice notes — exists in this version. The rest is roadmap, not a promise with a date. When any of it ships, it will be opt-in, clearly labeled, and never a stand-in for emergency care."
+  },
+
+  "prompts": {
+    "eyebrow": "If it helps",
+    "headline": "Emotional prompts",
+    "intro": "You never have to use these. Sometimes a starting line makes it easier.",
+    "rotating": [
+      "Say the thing you couldn't say.",
+      "Write the message you won't send.",
+      "Put the anger somewhere.",
+      "Tell us what happened.",
+      "You don't have to make it beautiful.",
+      "Just let it out.",
+      "Say it exactly how it felt.",
+      "Start wherever it hurts."
+    ],
+    "cards": [
+      "Write the text you're never going to send.",
+      "What are you tired of holding?",
+      "Say the thing you'd only say once.",
+      "What would you tell them if there were no consequences?",
+      "Describe the day it changed, if you can.",
+      "What are you still angry about?"
+    ]
+  },
+
+  "categories": [
+    { "id": "all", "label": "Everything" },
+    { "id": "heavy", "label": "Heavy" },
+    { "id": "angry", "label": "Angry" },
+    { "id": "sad", "label": "Sad" },
+    { "id": "confused", "label": "Confused" },
+    { "id": "hopeful", "label": "Hopeful" },
+    { "id": "unspoken", "label": "Unspoken" }
+  ],
+
+  "library": {
+    "eyebrow": "My Griefcase",
+    "headline": "What I've left here.",
+    "intro": "Everything you leave stays quietly in this browser, on this device. Read it back whenever you want. Or don't.",
+    "emptyTitle": "Nothing here yet.",
+    "emptyBody": "Whatever you leave will stay here, quietly, whenever you're ready to look at it again.",
+    "emptyCta": "Open Griefcase"
+  },
+
+  "privacy": {
+    "eyebrow": "Privacy & safety",
+    "headline": "Your thoughts belong to you.",
+    "points": [
+      {
+        "title": "Private by design",
+        "body": "In this version of Griefcase, what you write is stored only in your own browser, on this device. It isn't sent to a server, and we don't read it."
+      },
+      {
+        "title": "Anonymous by default",
+        "body": "There's no account, no email, no name required. There's nothing here that identifies you unless you choose to add it yourself."
+      },
+      {
+        "title": "Yours to keep or delete",
+        "body": "You can clear anything you've left here at any time. Closing or clearing your browser will remove it too — nothing is kept anywhere else."
+      }
+    ],
+    "disclaimer": "Griefcase is a space for private expression and reflection. It isn't therapy, medical care, or crisis support, and it isn't a substitute for professional help.",
+    "safety": {
+      "label": "If you're in immediate danger",
+      "body": "If you or someone you know may be in immediate danger, please contact your local emergency number, or reach a crisis line where you live. findahelpline.com lists helplines by country if you're not sure where to start.",
+      "linkText": "Find support in your country",
+      "linkUrl": "https://findahelpline.com"
+    }
+  },
+
+  "about": {
+    "eyebrow": "About",
+    "headline": "A room, not a solution.",
+    "paragraphs": [
+      "Griefcase was built on a simple idea: not every thought needs an audience, an answer, or a fix. Sometimes it just needs somewhere to exist outside of you for a while.",
+      "We're not a therapy platform, a social network, or a productivity app. We're closer to a drawer, a shoebox, a case you can close. A small, private container for the things you're carrying.",
+      "If Griefcase gives you five quieter minutes in a hard day, it's done its job."
+    ]
+  },
+
+  "faq": [
+    {
+      "q": "Is anyone reading what I write?",
+      "a": "No. In this version of Griefcase, nothing you write leaves your browser. There's no one on the other end reading it."
+    },
+    {
+      "q": "Is this therapy?",
+      "a": "No. Griefcase is a space for private expression, not treatment, diagnosis, or crisis support. If you're looking for professional support, a therapist or counselor is a better place to start."
+    },
+    {
+      "q": "Can I lose what I've written?",
+      "a": "Since entries are stored only in this browser, clearing your browser data, using a different device, or using private/incognito mode will mean they don't appear. There's no account to recover them from."
+    },
+    {
+      "q": "Do I have to write something 'good'?",
+      "a": "No. Half-sentences, fragments, and things that don't make sense out loud are all welcome here."
+    }
+  ],
+
+  "footer": {
+    "tagline": "Leave it here. Feel a little lighter.",
+    "columns": [
+      {
+        "title": "Griefcase",
+        "links": [
+          { "label": "Open Griefcase", "target": "open-writer" },
+          { "label": "My Griefcase", "target": "open-library" },
+          { "label": "How it works", "target": "#how-it-works" }
+        ]
+      },
+      {
+        "title": "About",
+        "links": [
+          { "label": "Why Griefcase exists", "target": "#why" },
+          { "label": "About", "target": "#about" },
+          { "label": "Privacy & safety", "target": "#privacy" }
+        ]
+      }
+    ],
+    "safetyNote": "In immediate danger? Contact your local emergency number or findahelpline.com",
+    "copyright": "Griefcase. A quiet place to put things down."
+  }
+}

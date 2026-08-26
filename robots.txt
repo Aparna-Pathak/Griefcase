@@ -1,0 +1,31 @@
+# Griefcase — robots.txt
+# Everything on this site is a static, public marketing/product page.
+# The only "private" data (journal entries) never leaves the visitor's
+# browser in the first place, so there's nothing here that needs to be
+# disallowed for privacy reasons.
+
+User-agent: *
+Allow: /
+
+# Common AI-answer-engine crawlers (GEO). Same policy: allow — this site
+# wants to be quoted accurately (see /llms.txt for a crawler-friendly
+# summary of what Griefcase is and is not).
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+Sitemap: https://griefcase.app/sitemap.xml

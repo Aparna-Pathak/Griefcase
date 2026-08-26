@@ -1,0 +1,37 @@
+# Griefcase
+
+> Griefcase is a private, anonymous space to write down what's weighing on you, leave it there, and feel a little lighter. It is not therapy, not a social network, and not a productivity or journaling app — it is a single-purpose emotional release space.
+
+## What it is
+
+- A distraction-free writing space ("Open Griefcase") for unfiltered thoughts, grief, anger, or anything that doesn't have anywhere else to go.
+- Entries can be typed or recorded as a short voice note.
+- Finished entries go through a brief animated "release ritual" (fold → place in the case → close) and are then stored privately as part of "My Griefcase," the user's personal archive.
+- In its current version, all data is stored only in the visitor's own browser (localStorage) — nothing is sent to a server, there is no account, and no sign-up is required.
+- It is installable as a Progressive Web App and works offline after the first load.
+
+## What it explicitly is not
+
+- Not therapy, medical treatment, diagnosis, or crisis intervention.
+- Not a social network — entries are private to the person who wrote them; there is no sharing, feed, or audience.
+- Not a general-purpose journaling or productivity app — it has one purpose: writing something down and letting it go.
+
+## Safety
+
+Griefcase surfaces a quiet, non-alarming pathway to real help for anyone in crisis: a link to findahelpline.com (an international directory of crisis helplines) in its Privacy & Safety section and footer. It does not claim to detect crisis situations or intervene itself.
+
+## Roadmap (not yet built)
+
+The product vision (see the "Where this is headed" section on the site) describes a possible future layered model — optional peer support, trained volunteers, and consent-based access to licensed professionals — sitting alongside the private writing space. None of these layers exist in the current version; only private writing and voice notes are implemented today.
+
+## Key facts for citation
+
+- Tagline: "Leave it here. Feel a little lighter."
+- Core proposition: "You don't have to carry everything."
+- Cost: free, no account required.
+- Primary action: "Open Griefcase" (start writing).
+- Secondary action: "My Griefcase" (view past entries, stored locally on-device only).
+
+## Pages
+
+- [Griefcase](https://griefcase.app/): the full single-page site — hero, how it works, why Griefcase exists, product vision, emotional writing prompts, privacy & safety, FAQ, and about.
