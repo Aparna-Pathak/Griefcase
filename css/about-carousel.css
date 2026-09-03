@@ -52,6 +52,18 @@
   background: var(--color-espresso);
 }
 
+/* JS-driven parallax layer (about-carousel.js): shifts a few px opposite
+   the cursor on desktop pointers, independent of the Ken Burns zoom/pan
+   below so the two transforms never fight on the same element. Inset
+   -20px bleeds it past the frame so the JS translate never reveals an
+   edge. */
+.about-slide-parallax {
+  position: absolute;
+  inset: -20px;
+  transition: transform 500ms var(--ease-quiet);
+  will-change: transform;
+}
+
 .about-slide-img {
   position: absolute;
   inset: 0;
@@ -59,24 +71,45 @@
   height: 100%;
   object-fit: cover;
   transform: scale(1.04);
-  transition: transform 7s linear;
   will-change: transform;
 }
 
-/* Slow Ken Burns drift while a slide is active — a gentle push-in over
-   its whole dwell time, restarted (via a fresh transition) each time the
-   slide reactivates. */
-.about-slide.is-active .about-slide-img { transform: scale(1.12); }
+/* Ken Burns push-in, one direction per slide so the four beats read as
+   distinct rather than a single repeated zoom. A fast-out easing front-
+   loads most of the motion into roughly the first two seconds, so it
+   still reads on the short autoplay dwell; "forwards" holds the end
+   frame if a visitor hovers/pauses on a slide rather than snapping back. */
+.about-slide:nth-of-type(1).is-active .about-slide-img { animation: about-kenburns-1 5.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.about-slide:nth-of-type(2).is-active .about-slide-img { animation: about-kenburns-2 5.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.about-slide:nth-of-type(3).is-active .about-slide-img { animation: about-kenburns-3 5.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.about-slide:nth-of-type(4).is-active .about-slide-img { animation: about-kenburns-4 5.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+@keyframes about-kenburns-1 {
+  from { transform: scale(1.04) translate(0, 0); }
+  to   { transform: scale(1.16) translate(-2.2%, -1.4%); }
+}
+@keyframes about-kenburns-2 {
+  from { transform: scale(1.04) translate(0, 0); }
+  to   { transform: scale(1.16) translate(2.2%, 1.2%); }
+}
+@keyframes about-kenburns-3 {
+  from { transform: scale(1.04) translate(0, 0); }
+  to   { transform: scale(1.16) translate(-1.8%, 1.8%); }
+}
+@keyframes about-kenburns-4 {
+  from { transform: scale(1.04) translate(0, 0); }
+  to   { transform: scale(1.16) translate(2%, -1.4%); }
+}
 
 .about-slide-scrim {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(35, 18, 7, 0.90) 0%,
-    rgba(58, 36, 22, 0.56) 40%,
-    rgba(58, 36, 22, 0.26) 64%,
-    rgba(35, 18, 7, 0.42) 100%
+    rgba(35, 18, 7, 0.88) 0%,
+    rgba(58, 36, 22, 0.42) 38%,
+    rgba(58, 36, 22, 0.14) 62%,
+    rgba(35, 18, 7, 0.30) 100%
   );
 }
 
@@ -87,9 +120,39 @@
   background: linear-gradient(
     to top,
     rgba(244, 238, 227, 0.92) 0%,
-    rgba(244, 238, 227, 0.55) 45%,
-    rgba(244, 238, 227, 0.15) 100%
+    rgba(244, 238, 227, 0.5) 42%,
+    rgba(244, 238, 227, 0.12) 68%,
+    rgba(244, 238, 227, 0.28) 100%
   );
+}
+
+/* A single soft light sweep across the frame each time a slide becomes
+   active — the same "premium sheen" language as .premium-card, applied
+   to a photo instead of a card. Pure CSS, one-shot (no infinite loop),
+   sits above the scrim via z-index since it's generated content painted
+   last. */
+.about-slide-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    115deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.14) 49%,
+    rgba(227, 168, 87, 0.2) 52%,
+    transparent 60%
+  );
+  transform: translateX(-130%);
+  pointer-events: none;
+}
+
+.about-slide.is-active .about-slide-media::after {
+  animation: about-sheen-sweep 2.2s var(--ease-quiet) 250ms 1;
+}
+
+@keyframes about-sheen-sweep {
+  to { transform: translateX(130%); }
 }
 
 .about-slide .grain { opacity: 0.06; }

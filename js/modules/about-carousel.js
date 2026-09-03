@@ -28,12 +28,14 @@ const AUTOPLAY_MS = 2000;
 const RESUME_DELAY_MS = 3200;
 
 const prefersReducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isFinePointer = () => window.matchMedia("(pointer: fine)").matches;
 
 export function initAboutCarousel() {
   const root = document.getElementById("about");
   if (!root) return;
 
   wireImages(root);
+  initParallax(root);
 
   const slides = Array.from(root.querySelectorAll(".about-slide"));
   const dots = Array.from(root.querySelectorAll(".about-carousel-dot"));
@@ -169,6 +171,40 @@ export function initAboutCarousel() {
 
   paint();
   startAutoplay();
+}
+
+/* Subtle cursor-follow depth on desktop: the image shifts a few px
+   opposite the pointer within the carousel frame, independent of the
+   Ken Burns zoom/pan (see about-carousel.css) which lives on the img
+   itself rather than this wrapper. No-op on touch/coarse pointers and
+   under prefers-reduced-motion — like every other pointer effect in
+   this codebase, it's garnish on top of a fully working carousel. */
+function initParallax(root) {
+  if (prefersReducedMotion() || !isFinePointer()) return;
+  const track = root.querySelector(".about-carousel-track");
+  if (!track) return;
+
+  const MAX_PX = 16;
+  let raf = null;
+
+  track.addEventListener("pointermove", (e) => {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = null;
+      const rect = track.getBoundingClientRect();
+      const px = (((e.clientX - rect.left) / rect.width) - 0.5) * -2 * MAX_PX;
+      const py = (((e.clientY - rect.top) / rect.height) - 0.5) * -2 * MAX_PX;
+      track.querySelectorAll(".about-slide-parallax").forEach((layer) => {
+        layer.style.transform = `translate(${px.toFixed(1)}px, ${py.toFixed(1)}px)`;
+      });
+    });
+  });
+
+  track.addEventListener("pointerleave", () => {
+    track.querySelectorAll(".about-slide-parallax").forEach((layer) => {
+      layer.style.transform = "";
+    });
+  });
 }
 
 function wireImages(root) {
