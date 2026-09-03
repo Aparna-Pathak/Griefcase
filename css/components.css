@@ -98,6 +98,44 @@
   z-index: 0;
 }
 
+/* Background video — bright/warm sunlit field footage, tablet+ only (kept
+   off mobile for data/performance; the gradient + particles below already
+   carry the mood there). A cream scrim sits between the video and the
+   existing light/particle/glow layers so it reads as one atmosphere, not
+   a video pasted under it, and keeps the dark hero copy legible. Hidden
+   entirely under reduced motion — the hero already works with none of
+   this playing. */
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  display: none;
+}
+
+.hero-video-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: none;
+  background: radial-gradient(
+    ellipse 90% 75% at 50% 38%,
+    rgba(255, 251, 242, 0.5) 0%,
+    rgba(251, 246, 237, 0.8) 55%,
+    rgba(243, 233, 216, 0.94) 100%
+  );
+}
+
+@media (min-width: 768px) {
+  .hero-video, .hero-video-scrim { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video, .hero-video-scrim { display: none !important; }
+}
+
 .hero-light {
   position: absolute;
   border-radius: 50%;
@@ -727,19 +765,63 @@
    FAQ (accordion)
    ========================================================================== */
 
+/* ---- "Before you write" background video (dark section) ---- */
+.faq-section { position: relative; }
+
+.faq-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  display: none;
+}
+
+.faq-video video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.faq-video-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(35, 18, 7, 0.85) 0%,
+    rgba(58, 36, 22, 0.62) 32%,
+    rgba(58, 36, 22, 0.58) 68%,
+    rgba(35, 18, 7, 0.88) 100%
+  );
+}
+
+@media (min-width: 768px) {
+  .faq-video { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-video { display: none !important; }
+}
+
 .faq-list {
   max-width: var(--content-reading);
   margin: 0 auto;
 }
 
 .faq-item {
-  border-bottom: 1px solid var(--color-line);
+  border-bottom: 1px solid rgba(251, 248, 243, 0.14);
   border-radius: var(--radius-md);
-  transition: background var(--dur-fast) var(--ease-standard);
+  margin-bottom: var(--space-3);
+  background: rgba(35, 18, 7, 0.4);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: background var(--dur-fast) var(--ease-standard), border-color var(--dur-fast) var(--ease-standard);
 }
 
 .faq-item:hover, .faq-item.is-open {
-  background: var(--color-paper);
+  background: rgba(58, 36, 22, 0.62);
+  border-color: rgba(227, 168, 87, 0.28);
 }
 
 .faq-question {
@@ -752,6 +834,7 @@
   text-align: left;
   font-family: var(--font-serif);
   font-size: var(--fs-h3);
+  color: var(--color-paper);
 }
 
 .faq-question .plus {
@@ -784,7 +867,7 @@
 
 .faq-answer p {
   padding: 0 var(--space-4) var(--space-5);
-  color: var(--color-charcoal-soft);
+  color: rgba(251, 248, 243, 0.78);
   max-width: 58ch;
 }
 
