@@ -333,6 +333,31 @@ was a deliberate choice, not a shortcut:
   `ambient-sound.js` for an `<audio>` element or `AudioBufferSourceNode`
   pointed at your file, keeping the same fade-in/out and opt-in behavior.
 
+## Visual language: warm espresso, premium cards
+
+The marketing pages (hero through footer, plus the About experience) use a
+warm espresso-brown palette rather than flat black for every "dark"
+surface — `.section-dark` ("Why Griefcase exists"), the site footer, the
+install banner, and the About cinematic scenes all use `--gradient-dark`
+(`--color-espresso` → `--color-espresso-deep`, defined in
+`css/variables.css`) instead of a solid near-black. Body ink itself
+(`--color-charcoal`) is a dark brown, not black, and a new `--color-gold`
+accent sits alongside the existing terracotta `--color-accent` for a
+livelier, more premium accent — gradient number badges, stat values,
+button hover glows, and the FAQ's open-state icon all use it.
+
+Repeated content (How it works, Vision's stats/layers, Glossary, Privacy,
+the prompt cards, and the founding-circle form) is wrapped in a shared
+`.premium-card` class (`css/layout.css`) — a soft sheen background, a
+quiet border, gentle elevation at rest, and a lift + glow on hover. On
+desktop with a fine pointer, `initPremiumCardGlow()` in
+`js/modules/interactions.js` tracks the cursor over each card and feeds
+its position into a `--mx`/`--my` custom property, which the card's
+`::before` reads to paint a soft gold spotlight that follows the mouse —
+purely decorative, and a no-op (never wired up) under
+`prefers-reduced-motion` or on a coarse/touch pointer, where the card
+already looks complete without it.
+
 ## Animation & interaction pass
 
 Building on the original micro-interactions, this pass adds a few

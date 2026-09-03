@@ -9,8 +9,8 @@
 <meta name="author" content="Griefcase">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://griefcase.app/">
-<meta name="theme-color" content="#F4EEE3" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#2A2724" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FBF6ED" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#231207" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light">
 
 <!-- Open Graph -->
@@ -39,7 +39,7 @@
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='2' y='9' width='20' height='13' rx='1.5' fill='%232A2724'/%3E%3Cpath d='M8 9V6.5A1.5 1.5 0 0 1 9.5 5h5A1.5 1.5 0 0 1 16 6.5V9' fill='none' stroke='%232A2724' stroke-width='1.6'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='2' y='9' width='20' height='13' rx='1.5' fill='%233D2A1C'/%3E%3Cpath d='M8 9V6.5A1.5 1.5 0 0 1 9.5 5h5A1.5 1.5 0 0 1 16 6.5V9' fill='none' stroke='%233D2A1C' stroke-width='1.6'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -144,6 +144,7 @@
       <div class="grain"></div>
       <div class="hero-light hero-light--a"></div>
       <div class="hero-light hero-light--b"></div>
+      <div class="hero-light hero-light--c"></div>
       <div class="hero-particles" id="hero-particles"></div>
       <div class="hero-glow" id="hero-glow"></div>
     </div>
@@ -175,10 +176,10 @@
         <p class="lede" id="how-intro">But if it helps, here's roughly how it goes.</p>
       </div>
       <div class="steps-grid" id="steps-grid" data-reveal-group>
-        <div class="step-card"><div class="step-number">01</div><h3>Open the case</h3><p>No sign-up, no explanation. Just a quiet page and a blank space.</p></div>
-        <div class="step-card"><div class="step-number">02</div><h3>Write, or say it out loud</h3><p>Type it, ramble it, leave it half-finished. Or record a thought instead.</p></div>
-        <div class="step-card"><div class="step-number">03</div><h3>Fold it and let it go</h3><p>Watch it become something you can put down — not something you have to keep holding.</p></div>
-        <div class="step-card"><div class="step-number">04</div><h3>Leave it in the Griefcase</h3><p>It stays here, privately, if you ever want to see it again. You don't have to.</p></div>
+        <div class="step-card premium-card"><div class="step-number">01</div><h3>Open the case</h3><p>No sign-up, no explanation. Just a quiet page and a blank space.</p></div>
+        <div class="step-card premium-card"><div class="step-number">02</div><h3>Write, or say it out loud</h3><p>Type it, ramble it, leave it half-finished. Or record a thought instead.</p></div>
+        <div class="step-card premium-card"><div class="step-number">03</div><h3>Fold it and let it go</h3><p>Watch it become something you can put down — not something you have to keep holding.</p></div>
+        <div class="step-card premium-card"><div class="step-number">04</div><h3>Leave it in the Griefcase</h3><p>It stays here, privately, if you ever want to see it again. You don't have to.</p></div>
       </div>
     </div>
   </section>
@@ -222,17 +223,17 @@
       </div>
 
       <div class="vision-stats" id="vision-stats" data-reveal-group>
-        <div class="vision-stat"><span class="vision-stat-value">91%</span><p>of respondents had personally experienced grief — most navigating it quietly, without support</p><cite>Independent survey, India, 2025 (n=65)</cite></div>
-        <div class="vision-stat"><span class="vision-stat-value">4.2 / 5</span><p>average expected helpfulness of talking to someone who'd been through something similar</p><cite>Same survey</cite></div>
-        <div class="vision-stat"><span class="vision-stat-value">150M → &lt;30M</span><p>Indians estimated to need active mental health care, versus those who actually receive it</p><cite>National Mental Health Survey, 2015–16</cite></div>
+        <div class="vision-stat premium-card"><span class="vision-stat-value">91%</span><p>of respondents had personally experienced grief — most navigating it quietly, without support</p><cite>Independent survey, India, 2025 (n=65)</cite></div>
+        <div class="vision-stat premium-card"><span class="vision-stat-value">4.2 / 5</span><p>average expected helpfulness of talking to someone who'd been through something similar</p><cite>Same survey</cite></div>
+        <div class="vision-stat premium-card"><span class="vision-stat-value">150M → &lt;30M</span><p>Indians estimated to need active mental health care, versus those who actually receive it</p><cite>National Mental Health Survey, 2015–16</cite></div>
       </div>
       <p class="vision-stats-caveat" id="vision-stats-caveat" data-reveal>That first study was small — 65 people, skewed toward urban, English-speaking respondents. It's an early signal worth building on, not a guarantee.</p>
 
       <div class="vision-layers" id="vision-layers" data-reveal-group>
-        <div class="vision-layer"><span class="vision-layer-index">01</span><h3>Reflection</h3><p>A space to think out loud — private writing today, and eventually a gentle AI presence that reflects rather than diagnoses.</p></div>
-        <div class="vision-layer"><span class="vision-layer-index">02</span><h3>Peer support</h3><p>Optional, moderated company from people who understand, for whenever you want it.</p></div>
-        <div class="vision-layer"><span class="vision-layer-index">03</span><h3>Trained volunteers</h3><p>Real people, trained to listen, for moments that ask for more than reflection.</p></div>
-        <div class="vision-layer"><span class="vision-layer-index">04</span><h3>Professional care</h3><p>A clear, consent-based path to licensed support — never forced, never assumed on your behalf.</p></div>
+        <div class="vision-layer premium-card"><span class="vision-layer-index">01</span><h3>Reflection</h3><p>A space to think out loud — private writing today, and eventually a gentle AI presence that reflects rather than diagnoses.</p></div>
+        <div class="vision-layer premium-card"><span class="vision-layer-index">02</span><h3>Peer support</h3><p>Optional, moderated company from people who understand, for whenever you want it.</p></div>
+        <div class="vision-layer premium-card"><span class="vision-layer-index">03</span><h3>Trained volunteers</h3><p>Real people, trained to listen, for moments that ask for more than reflection.</p></div>
+        <div class="vision-layer premium-card"><span class="vision-layer-index">04</span><h3>Professional care</h3><p>A clear, consent-based path to licensed support — never forced, never assumed on your behalf.</p></div>
       </div>
 
       <p class="vision-note" id="vision-note" data-reveal>Only the first layer — private writing and voice notes — exists in this version. The rest is roadmap, not a promise with a date. When any of it ships, it will be opt-in, clearly labeled, and never a stand-in for emergency care.</p>
@@ -249,12 +250,12 @@
       </div>
     </div>
     <div class="prompts-scroller" id="prompts-scroller" aria-label="Optional writing prompts" tabindex="0">
-      <div class="prompt-card"><p>Write the text you're never going to send.</p><button type="button" data-open-writer data-prefill="Write the text you're never going to send.">Start writing this &rarr;</button></div>
-      <div class="prompt-card"><p>What are you tired of holding?</p><button type="button" data-open-writer data-prefill="What are you tired of holding?">Start writing this &rarr;</button></div>
-      <div class="prompt-card"><p>Say the thing you'd only say once.</p><button type="button" data-open-writer data-prefill="Say the thing you'd only say once.">Start writing this &rarr;</button></div>
-      <div class="prompt-card"><p>What would you tell them if there were no consequences?</p><button type="button" data-open-writer data-prefill="What would you tell them if there were no consequences?">Start writing this &rarr;</button></div>
-      <div class="prompt-card"><p>Describe the day it changed, if you can.</p><button type="button" data-open-writer data-prefill="Describe the day it changed, if you can.">Start writing this &rarr;</button></div>
-      <div class="prompt-card"><p>What are you still angry about?</p><button type="button" data-open-writer data-prefill="What are you still angry about?">Start writing this &rarr;</button></div>
+      <div class="prompt-card premium-card"><p>Write the text you're never going to send.</p><button type="button" data-open-writer data-prefill="Write the text you're never going to send.">Start writing this &rarr;</button></div>
+      <div class="prompt-card premium-card"><p>What are you tired of holding?</p><button type="button" data-open-writer data-prefill="What are you tired of holding?">Start writing this &rarr;</button></div>
+      <div class="prompt-card premium-card"><p>Say the thing you'd only say once.</p><button type="button" data-open-writer data-prefill="Say the thing you'd only say once.">Start writing this &rarr;</button></div>
+      <div class="prompt-card premium-card"><p>What would you tell them if there were no consequences?</p><button type="button" data-open-writer data-prefill="What would you tell them if there were no consequences?">Start writing this &rarr;</button></div>
+      <div class="prompt-card premium-card"><p>Describe the day it changed, if you can.</p><button type="button" data-open-writer data-prefill="Describe the day it changed, if you can.">Start writing this &rarr;</button></div>
+      <div class="prompt-card premium-card"><p>What are you still angry about?</p><button type="button" data-open-writer data-prefill="What are you still angry about?">Start writing this &rarr;</button></div>
     </div>
   </section>
 
@@ -280,7 +281,7 @@
         <p class="lede" id="founding-intro">The peer support layer above doesn't exist yet — and we're not going to fake it into existence. Before we build it, we want to know who it's actually for.</p>
       </div>
 
-      <form id="founding-form" class="founding-form" data-reveal novalidate>
+      <form id="founding-form" class="founding-form premium-card" data-reveal novalidate>
         <p class="founding-form-note" id="founding-form-note">Unlike everything else on this page, this form leaves your browser — your email goes to a small, private list we use to reach out when this is ready. Nothing else you do on Griefcase does that.</p>
 
         <div class="form-row">
@@ -334,9 +335,9 @@
         <h2 style="font-size:var(--fs-h1)" id="privacy-headline">Your thoughts belong to you.</h2>
       </div>
       <div class="privacy-grid" id="privacy-grid" data-reveal-group>
-        <div class="privacy-card"><h3>Private by design</h3><p>In this version of Griefcase, what you write is stored only in your own browser, on this device. It isn't sent to a server, and we don't read it.</p></div>
-        <div class="privacy-card"><h3>Anonymous by default</h3><p>There's no account, no email, no name required. There's nothing here that identifies you unless you choose to add it yourself.</p></div>
-        <div class="privacy-card"><h3>Yours to keep or delete</h3><p>You can clear anything you've left here at any time. Closing or clearing your browser will remove it too — nothing is kept anywhere else.</p></div>
+        <div class="privacy-card premium-card"><h3>Private by design</h3><p>In this version of Griefcase, what you write is stored only in your own browser, on this device. It isn't sent to a server, and we don't read it.</p></div>
+        <div class="privacy-card premium-card"><h3>Anonymous by default</h3><p>There's no account, no email, no name required. There's nothing here that identifies you unless you choose to add it yourself.</p></div>
+        <div class="privacy-card premium-card"><h3>Yours to keep or delete</h3><p>You can clear anything you've left here at any time. Closing or clearing your browser will remove it too — nothing is kept anywhere else.</p></div>
       </div>
       <p class="privacy-disclaimer" id="privacy-disclaimer" data-reveal>Griefcase is a space for private expression and reflection. It isn't therapy, medical care, or crisis support, and it isn't a substitute for professional help.</p>
 

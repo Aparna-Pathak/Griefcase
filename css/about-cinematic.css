@@ -62,19 +62,19 @@
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(20, 18, 16, 0.88) 0%,
-    rgba(20, 18, 16, 0.55) 38%,
-    rgba(20, 18, 16, 0.28) 62%,
-    rgba(20, 18, 16, 0.42) 100%
+    rgba(35, 18, 7, 0.90) 0%,
+    rgba(58, 36, 22, 0.58) 38%,
+    rgba(58, 36, 22, 0.30) 62%,
+    rgba(35, 18, 7, 0.44) 100%
   );
 }
 
 .about-scene-scrim-light {
   background: linear-gradient(
     to top,
-    rgba(20, 18, 16, 0.78) 0%,
-    rgba(20, 18, 16, 0.35) 45%,
-    rgba(20, 18, 16, 0.15) 100%
+    rgba(35, 18, 7, 0.80) 0%,
+    rgba(58, 36, 22, 0.36) 45%,
+    rgba(58, 36, 22, 0.15) 100%
   );
 }
 

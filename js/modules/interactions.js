@@ -19,6 +19,7 @@ export function initInteractions() {
   initMagneticButtons();
   initHeroGlow();
   initCardTilt();
+  initPremiumCardGlow();
 }
 
 /* ---- Magnetic buttons: a few px of cursor-follow within their own bounds ---- */
@@ -110,4 +111,19 @@ function initCardTilt() {
     card.classList.remove("is-tilting");
     card.style.transform = "";
   }
+}
+
+/* ---- Premium card spotlight — a soft cursor-follow glow (--mx/--my read
+   by the .premium-card::before radial-gradient in layout.css). Delegated,
+   like the effects above, since cards are re-rendered from content.json. ---- */
+function initPremiumCardGlow() {
+  document.addEventListener("pointermove", (e) => {
+    const card = e.target.closest(".premium-card");
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    card.style.setProperty("--mx", `${x.toFixed(1)}%`);
+    card.style.setProperty("--my", `${y.toFixed(1)}%`);
+  });
 }

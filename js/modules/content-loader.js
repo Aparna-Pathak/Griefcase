@@ -63,7 +63,7 @@ export function renderHowItWorks(section) {
   grid.innerHTML = "";
   section.steps.forEach((step, i) => {
     const card = document.createElement("div");
-    card.className = "step-card";
+    card.className = "step-card premium-card";
     card.style.setProperty("--i", i);
     card.innerHTML = `
       <div class="step-number">${step.number}</div>
@@ -105,7 +105,7 @@ export function renderVision(vision) {
     layers.innerHTML = "";
     vision.layers.forEach((layer, i) => {
       const card = document.createElement("div");
-      card.className = "vision-layer";
+      card.className = "vision-layer premium-card";
       card.style.setProperty("--i", i);
       card.innerHTML = `<span class="vision-layer-index">${String(i + 1).padStart(2, "0")}</span><h3>${layer.title}</h3><p>${layer.body}</p>`;
       layers.appendChild(card);
@@ -116,9 +116,10 @@ export function renderVision(vision) {
   const stats = document.getElementById("vision-stats");
   if (stats && Array.isArray(vision.stats)) {
     stats.innerHTML = "";
-    vision.stats.forEach((stat) => {
+    vision.stats.forEach((stat, i) => {
       const el = document.createElement("div");
-      el.className = "vision-stat";
+      el.className = "vision-stat premium-card";
+      el.style.setProperty("--i", i);
       el.innerHTML = `<span class="vision-stat-value">${stat.value}</span><p>${stat.label}</p><cite>${stat.source}</cite>`;
       stats.appendChild(el);
     });
@@ -137,9 +138,9 @@ export function renderGlossary(glossary) {
     grid.innerHTML = "";
     glossary.terms.forEach((item, i) => {
       const card = document.createElement("div");
-      card.className = "glossary-term";
+      card.className = "glossary-term premium-card";
       card.style.setProperty("--i", i);
-      card.innerHTML = `<h3>${item.term}</h3><p>${item.body}</p>`;
+      card.innerHTML = `<span class="glossary-mark" aria-hidden="true">${item.term.charAt(0)}</span><h3>${item.term}</h3><p>${item.body}</p>`;
       grid.appendChild(card);
     });
   }
@@ -170,7 +171,7 @@ export function renderPrompts(prompts) {
   scroller.innerHTML = "";
   prompts.cards.forEach((text) => {
     const card = document.createElement("div");
-    card.className = "prompt-card";
+    card.className = "prompt-card premium-card";
     card.innerHTML = `<p>${text}</p><button type="button" data-open-writer data-prefill="${escapeAttr(text)}">Start writing this &rarr;</button>`;
     scroller.appendChild(card);
   });
@@ -194,7 +195,7 @@ export function renderPrivacy(privacy) {
     grid.innerHTML = "";
     privacy.points.forEach((point, i) => {
       const card = document.createElement("div");
-      card.className = "privacy-card";
+      card.className = "privacy-card premium-card";
       card.style.setProperty("--i", i);
       card.innerHTML = `<h3>${point.title}</h3><p>${point.body}</p>`;
       grid.appendChild(card);
