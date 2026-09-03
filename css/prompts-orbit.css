@@ -1,0 +1,123 @@
+/* ==========================================================================
+   EMOTIONAL PROMPTS — orbit layout (desktop / fine pointer)
+   --------------------------------------------------------------------------
+   The same prompt cards as .prompts-scroller, arranged in a slow-spinning
+   ring instead of a horizontal scroller. Only one of the two layouts is
+   ever visible at a time — see the media queries at the bottom, which
+   also make touch/coarse-pointer and reduced-motion visitors always get
+   the plain scroller (no ring to spin, nothing to hover).
+
+   The ring trick: .prompts-ring itself rotates via a CSS animation, and
+   each card's .prompt-orbit-inner wrapper runs the exact opposite
+   rotation at the same duration, canceling the parent's spin so the card
+   stays upright while its *position* (set by rotate + translateY on
+   .prompt-orbit-item) carries it around the circle.
+   ========================================================================== */
+
+.prompts-orbit {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  aspect-ratio: 1 / 1;
+  margin: var(--space-6) auto var(--space-2);
+  --radius: clamp(150px, 21vw, 230px);
+}
+
+.prompts-ring {
+  position: absolute;
+  inset: 0;
+  animation: orbit-spin 50s linear infinite;
+}
+
+.prompts-orbit.is-paused .prompts-ring { animation-play-state: paused; }
+
+.prompt-orbit-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 190px;
+  height: 210px;
+  margin: -105px 0 0 -95px;
+  transform: rotate(var(--angle)) translateY(calc(-1 * var(--radius)));
+  z-index: 1;
+}
+
+.prompt-orbit-inner {
+  width: 100%;
+  height: 100%;
+  /* Starts already canceling this item's own --angle (so the card reads
+     upright immediately, not just once the animation has looped back
+     around), then keeps canceling the ring's ongoing spin on top of that. */
+  animation: orbit-counter-spin 50s linear infinite;
+}
+
+.prompts-orbit.is-paused .prompt-orbit-inner { animation-play-state: paused; }
+
+.prompt-orbit-item .prompt-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 0.98rem;
+  padding: var(--space-4);
+  transition: transform var(--dur-med) var(--ease-settle), box-shadow var(--dur-fast) var(--ease-quiet), border-color var(--dur-fast) var(--ease-quiet);
+}
+
+.prompt-orbit-item.is-popped {
+  z-index: 20;
+}
+
+.prompt-orbit-item.is-popped .prompt-card {
+  transform: scale(1.16) translateY(-6px);
+  box-shadow: var(--shadow-card-hover), var(--glow-gold);
+  border-color: var(--color-gold);
+}
+
+@keyframes orbit-spin { to { transform: rotate(360deg); } }
+
+/* Cancels both this item's static placement angle (--angle, set inline
+   per card) AND the ring's ongoing spin — without this, only the ring's
+   motion was being canceled and every card sat rotated by its own
+   --angle, reading sideways or upside-down. */
+@keyframes orbit-counter-spin {
+  from { transform: rotate(calc(-1 * var(--angle))); }
+  to   { transform: rotate(calc(-1 * var(--angle) - 360deg)); }
+}
+
+.prompts-orbit-hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--gradient-warm);
+  color: var(--color-paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  line-height: 1.2;
+  padding: var(--space-2);
+  box-shadow: var(--shadow-lift);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Show the orbit only where it can actually work well: wide viewport,
+   fine pointer, motion allowed. Everyone else gets the scroller. */
+.prompts-orbit { display: none; }
+
+@media (min-width: 920px) and (pointer: fine) {
+  #prompts-scroller { display: none; }
+  .prompts-orbit { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prompts-orbit { display: none !important; }
+  #prompts-scroller { display: flex !important; }
+}

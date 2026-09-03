@@ -1,0 +1,119 @@
+/* ==========================================================================
+   FINALE — the closing "Whenever you're ready." CTA
+   --------------------------------------------------------------------------
+   Deliberately the most turned-up moment on the page: a breathing gold
+   aura, three slow-orbiting sparks, and a bigger, bolder closing line —
+   the site's one moment of unambiguous, premium "pop" before the calm
+   footer. Every animation here is opacity/transform only and already
+   collapses under prefers-reduced-motion via the global rule in
+   base.css, so no extra guarding is needed in this file.
+   ========================================================================== */
+
+.finale {
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  padding: var(--space-9) 0;
+  background: radial-gradient(ellipse 90% 70% at 50% 30%, #FFF8EA 0%, var(--color-cream) 55%, var(--color-cream-alt) 100%);
+}
+
+.finale-glow {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  width: min(60vw, 620px);
+  height: min(60vw, 620px);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(227, 168, 87, 0.30), transparent 68%);
+  filter: blur(4px);
+  animation: finale-breathe var(--dur-breath) ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes finale-breathe {
+  0%, 100% { opacity: 0.65; transform: translate(-50%, -50%) scale(1); }
+  50%      { opacity: 1;    transform: translate(-50%, -50%) scale(1.08); }
+}
+
+.finale-orbit {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.finale-dot-track {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  animation: finale-orbit-spin var(--dur, 18s) linear infinite;
+}
+
+.finale-dot {
+  position: absolute;
+  top: calc(-1 * var(--r, 150px));
+  left: 0;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  box-shadow: 0 0 10px 2px rgba(227, 168, 87, 0.45);
+  opacity: 0.7;
+}
+
+@keyframes finale-orbit-spin {
+  to { transform: rotate(360deg); }
+}
+
+.finale-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.finale-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--color-paper);
+  color: var(--color-accent);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: var(--space-5);
+}
+
+.finale-headline {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2.3rem, 6vw, var(--fs-hero));
+  line-height: 1.08;
+  max-width: 15ch;
+  margin: 0 auto var(--space-4);
+  color: var(--color-charcoal);
+}
+
+.finale-sub {
+  max-width: 46ch;
+  margin: 0 auto var(--space-6);
+  font-size: var(--fs-body-lg);
+  color: var(--color-charcoal-soft);
+}
+
+.finale-cta {
+  font-size: 1.05rem;
+  padding: var(--space-4) var(--space-7);
+  box-shadow: var(--shadow-lift);
+}
+
+.finale-cta:hover {
+  box-shadow: var(--shadow-lift), var(--glow-gold);
+}
+
+@media (max-width: 640px) {
+  .finale { padding: var(--space-8) 0; }
+  .finale-headline { max-width: 12ch; }
+}

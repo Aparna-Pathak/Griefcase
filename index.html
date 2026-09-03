@@ -49,7 +49,9 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/about-cinematic.css">
+<link rel="stylesheet" href="css/about-carousel.css">
+<link rel="stylesheet" href="css/prompts-orbit.css">
+<link rel="stylesheet" href="css/finale.css">
 <link rel="stylesheet" href="css/animations.css">
 <link rel="stylesheet" href="css/responsive.css">
 
@@ -257,6 +259,16 @@
       <div class="prompt-card premium-card"><p>Describe the day it changed, if you can.</p><button type="button" data-open-writer data-prefill="Describe the day it changed, if you can.">Start writing this &rarr;</button></div>
       <div class="prompt-card premium-card"><p>What are you still angry about?</p><button type="button" data-open-writer data-prefill="What are you still angry about?">Start writing this &rarr;</button></div>
     </div>
+
+    <!-- Desktop/fine-pointer only (see prompts-orbit.css, which hides
+         whichever of these two is not the active layout via display:none
+         — display:none already removes it from the accessibility tree
+         and tab order, so no manual aria-hidden juggling is needed here).
+         Same cards, arranged in a slow-spinning ring; hovering pauses the
+         ring and pops that card forward. Populated by renderPrompts()
+         alongside the scroller above so content.json stays the single
+         source of the prompt copy. -->
+    <div class="prompts-orbit" id="prompts-orbit" aria-label="Optional writing prompts"></div>
   </section>
 
   <!-- ===================== GLOSSARY ===================== -->
@@ -377,64 +389,75 @@
     </div>
   </section>
 
-  <!-- ===================== ABOUT ===================== -->
-  <section id="about" class="about-cinematic" aria-label="About Griefcase">
+  <!-- ===================== ABOUT (auto-advancing carousel) ===================== -->
+  <section id="about" class="about-carousel" aria-label="About Griefcase" aria-roledescription="carousel">
+    <div class="about-carousel-track">
 
-    <!-- Scene 1 — The moment -->
-    <div class="about-scene" id="about-scene-1">
-      <div class="about-scene-media">
-        <img class="about-scene-img" data-about-image="moment" data-eager="true" alt="">
-        <div class="about-scene-scrim"></div>
-        <div class="grain" aria-hidden="true"></div>
-      </div>
-      <div class="about-scene-copy">
-        <h2 class="about-scene-headline" data-reveal>Something changes. All at once, nothing is routine.</h2>
-      </div>
-    </div>
-
-    <!-- Scene 2 — What still needs to be handled -->
-    <div class="about-scene" id="about-scene-2">
-      <div class="about-scene-media">
-        <img class="about-scene-img" data-about-image="practicalBurden" alt="">
-        <div class="about-scene-scrim"></div>
-        <div class="grain" aria-hidden="true"></div>
-      </div>
-      <div class="about-scene-copy">
-        <h2 class="about-scene-headline" data-reveal>And everything else still needs to be handled.</h2>
-        <p class="about-scene-sub" data-reveal>The calls. The forms. The decisions nobody prepared you for. None of it pauses for what you're feeling.</p>
-      </div>
-    </div>
-
-    <!-- Scene 3 — The turn: what Griefcase actually is, with the cursor reveal -->
-    <div class="about-scene about-scene-reveal" id="about-scene-3">
-      <div class="about-scene-media">
-        <img class="about-scene-img" data-about-image="reflectionBase" alt="">
-        <div class="about-reveal-layer" id="about-reveal-layer">
-          <img data-about-image="reflectionReveal" alt="">
+      <!-- Slide 1 — The moment -->
+      <div class="about-slide is-active" data-slide="0" aria-roledescription="slide" aria-label="1 of 4">
+        <div class="about-slide-media">
+          <img class="about-slide-img" data-about-image="moment" data-eager="true" alt="">
+          <div class="about-slide-scrim"></div>
+          <div class="grain" aria-hidden="true"></div>
         </div>
-        <div class="about-scene-scrim"></div>
-        <div class="grain" aria-hidden="true"></div>
-      </div>
-      <div class="about-scene-copy">
-        <h2 class="about-scene-headline" data-reveal>Griefcase won't do any of that for you.</h2>
-        <p class="about-scene-sub" data-reveal>What it can do is give you somewhere to put it down while you get through it — five honest minutes in an impossible week.</p>
-        <p class="about-reveal-hint" id="about-reveal-hint" aria-hidden="true">Move your cursor across the image</p>
-      </div>
-    </div>
-
-    <!-- Scene 4 — The outcome -->
-    <div class="about-scene about-scene-warm" id="about-scene-4">
-      <div class="about-scene-media">
-        <img class="about-scene-img" data-about-image="outcome" alt="">
-        <div class="about-scene-scrim about-scene-scrim-light"></div>
-      </div>
-      <div class="about-scene-copy">
-        <h2 class="about-scene-headline" data-reveal>You don't have to carry it by yourself.</h2>
-        <p class="about-scene-sub" data-reveal>Most people navigating loss do it quietly, without saying much to anyone — that's a real early research finding behind Griefcase, not just a guess. A private space today. Real people who understand, when you're ready for that.</p>
-        <div class="about-scene-actions" data-reveal>
-          <button type="button" class="btn btn-primary is-magnetic" data-open-writer>Open Griefcase</button>
-          <a class="btn-text" href="#founding-circle">Join the founding circle</a>
+        <div class="about-slide-copy">
+          <h2 class="about-slide-headline">Something changes. All at once, nothing is routine.</h2>
         </div>
+      </div>
+
+      <!-- Slide 2 — What still needs to be handled -->
+      <div class="about-slide" data-slide="1" aria-roledescription="slide" aria-label="2 of 4">
+        <div class="about-slide-media">
+          <img class="about-slide-img" data-about-image="practicalBurden" alt="">
+          <div class="about-slide-scrim"></div>
+          <div class="grain" aria-hidden="true"></div>
+        </div>
+        <div class="about-slide-copy">
+          <h2 class="about-slide-headline">And everything else still needs to be handled.</h2>
+          <p class="about-slide-sub">The calls. The forms. The decisions nobody prepared you for. None of it pauses for what you're feeling.</p>
+        </div>
+      </div>
+
+      <!-- Slide 3 — The turn: what Griefcase actually is -->
+      <div class="about-slide" data-slide="2" aria-roledescription="slide" aria-label="3 of 4">
+        <div class="about-slide-media">
+          <img class="about-slide-img" data-about-image="reflectionBase" alt="">
+          <div class="about-slide-scrim"></div>
+          <div class="grain" aria-hidden="true"></div>
+        </div>
+        <div class="about-slide-copy">
+          <h2 class="about-slide-headline">Griefcase won't do any of that for you.</h2>
+          <p class="about-slide-sub">What it can do is give you somewhere to put it down while you get through it — five honest minutes in an impossible week.</p>
+        </div>
+      </div>
+
+      <!-- Slide 4 — The outcome -->
+      <div class="about-slide about-slide-warm" data-slide="3" aria-roledescription="slide" aria-label="4 of 4">
+        <div class="about-slide-media">
+          <img class="about-slide-img" data-about-image="outcome" alt="">
+          <div class="about-slide-scrim about-slide-scrim-light"></div>
+        </div>
+        <div class="about-slide-copy">
+          <h2 class="about-slide-headline">You don't have to carry it by yourself.</h2>
+          <p class="about-slide-sub">Most people navigating loss do it quietly, without saying much to anyone — that's a real early research finding behind Griefcase, not just a guess. A private space today. Real people who understand, when you're ready for that.</p>
+          <div class="about-slide-actions">
+            <button type="button" class="btn btn-primary is-magnetic" data-open-writer>Open Griefcase</button>
+            <a class="btn-text" href="#founding-circle">Join the founding circle</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-carousel-progress" aria-hidden="true"><span id="about-carousel-progress-bar"></span></div>
+
+      <div class="about-carousel-controls">
+        <button type="button" class="about-carousel-arrow" data-dir="-1" aria-label="Previous slide">&lsaquo;</button>
+        <div class="about-carousel-dots" role="tablist" aria-label="About slides">
+          <button type="button" class="about-carousel-dot is-active" aria-selected="true" aria-label="Slide 1"></button>
+          <button type="button" class="about-carousel-dot" aria-selected="false" aria-label="Slide 2"></button>
+          <button type="button" class="about-carousel-dot" aria-selected="false" aria-label="Slide 3"></button>
+          <button type="button" class="about-carousel-dot" aria-selected="false" aria-label="Slide 4"></button>
+        </div>
+        <button type="button" class="about-carousel-arrow" data-dir="1" aria-label="Next slide">&rsaquo;</button>
       </div>
     </div>
 
@@ -456,11 +479,23 @@
     </div>
   </section>
 
-  <!-- ===================== CLOSING CTA ===================== -->
-  <section style="text-align:center">
-    <div class="container">
-      <h2 style="font-size:var(--fs-h1); max-width:14ch; margin:0 auto var(--space-5)" data-reveal>Whenever you're ready.</h2>
-      <button class="btn btn-primary is-magnetic" data-open-writer data-reveal>Open Griefcase</button>
+  <!-- ===================== CLOSING CTA (finale) ===================== -->
+  <section class="finale" aria-label="Ready when you are">
+    <div class="finale-glow" aria-hidden="true"></div>
+    <div class="finale-orbit" aria-hidden="true">
+      <div class="finale-dot-track" style="--r:120px; --dur:16s;"><span class="finale-dot"></span></div>
+      <div class="finale-dot-track" style="--r:168px; --dur:23s; animation-direction:reverse;"><span class="finale-dot"></span></div>
+      <div class="finale-dot-track" style="--r:210px; --dur:29s;"><span class="finale-dot"></span></div>
+    </div>
+    <div class="container finale-inner">
+      <span class="finale-mark" aria-hidden="true">
+        <svg width="26" height="22" viewBox="0 0 24 20"><rect x="1" y="7" width="22" height="12.5" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 7V4.8A1.8 1.8 0 0 1 9.8 3h4.4A1.8 1.8 0 0 1 16 4.8V7" fill="none" stroke="currentColor" stroke-width="1.4"/><line x1="1" y1="12.5" x2="23" y2="12.5" stroke="currentColor" stroke-width="1.2"/></svg>
+      </span>
+      <h2 class="finale-headline" data-reveal>Whenever you're ready.</h2>
+      <p class="finale-sub" data-reveal>No sign-up, no streak to keep, no wrong time. Today, tonight, or three years from now — this stays exactly as quiet as you need it to be.</p>
+      <button class="btn btn-primary is-magnetic finale-cta" data-open-writer data-reveal>
+        <span>Open Griefcase</span>
+      </button>
     </div>
   </section>
 

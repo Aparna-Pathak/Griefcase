@@ -376,6 +376,7 @@
   display: block;
   font-family: var(--font-serif);
   font-size: var(--fs-h2);
+  font-variant-numeric: tabular-nums;
   background: var(--gradient-warm);
   -webkit-background-clip: text;
   background-clip: text;

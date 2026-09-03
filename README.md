@@ -56,7 +56,9 @@ griefcase/
 │   ├── base.css                Reset, global element styles, a11y utilities
 │   ├── layout.css              Header, section rhythm, footer grid
 │   ├── components.css          Hero, writer, release ritual, library, modals, PWA/sound UI…
-│   ├── about-cinematic.css     The four-scene cinematic About experience (see below)
+│   ├── about-carousel.css      The auto-advancing About carousel (see below)
+│   ├── prompts-orbit.css       Emotional prompts' desktop ring layout (see below)
+│   ├── finale.css              The closing "Whenever you're ready." section
 │   ├── animations.css          Scroll-reveal + shared motion utilities
 │   └── responsive.css          Breakpoint & touch-target refinements
 ├── js/
@@ -67,17 +69,18 @@ griefcase/
 │       ├── ui-utils.js         Overlay open/close, focus trap, toast, confirm dialog
 │       ├── navigation.js       Header scroll state + mobile menu
 │       ├── reveal.js           IntersectionObserver scroll-reveal
+│       ├── counters.js         Animated count-up for the Vision section's stat numbers
 │       ├── hero-particles.js   Decorative hero atmosphere particles
 │       ├── faq.js              Accessible accordion
 │       ├── writer.js           The "Open Griefcase" writing experience
 │       ├── release-ritual.js   Fold → case → close → relief animation sequence
 │       ├── library.js          "My Griefcase": browse, filter, read, let go
-│       ├── interactions.js     Magnetic buttons, hero cursor glow, card tilt (pointer-driven polish)
+│       ├── interactions.js     Magnetic buttons, hero cursor glow, card tilt, premium-card glow, prompts orbit hover-pop
 │       ├── ambient-sound.js    Generative ambient pad + release-ritual chime (Web Audio, opt-in)
 │       ├── pwa.js               Service worker registration + custom install prompt
 │       ├── interest-form.js    "Founding circle" form — the one thing that calls the API below
-│       ├── about-images.js     Centralized image config for the cinematic About section
-│       └── about-cinematic.js  Scroll-in reveal, cursor spotlight, parallax for #about
+│       ├── about-images.js     Centralized image config for the About carousel
+│       └── about-carousel.js   Autoplay, dots/arrows, swipe, and pause behavior for #about
 ├── icons/                      Generated app icons, favicons, OG/social card, manifest screenshots
 ├── scripts/
 │   └── make_icons.py           Regenerates everything in icons/ from plain geometry (no art assets)
@@ -384,20 +387,20 @@ Accessibility below):
 
 ---
 
-## The About section (cinematic experience)
+## The About section (auto-advancing carousel)
 
 `#about` is deliberately treated as the emotional centerpiece of the site,
-not a footnote section. It's four full-viewport photographic scenes that
-scroll past like a short film, followed by the original compact "About"
-statement (`.about-settle`) that brings the page back down to the site's
-calmer everyday register.
+not a footnote section. It's a four-slide carousel that advances on its
+own every 2 seconds, followed by the original compact "About" statement
+(`.about-settle`) that brings the page back down to the site's calmer
+everyday register.
 
-**The story, and why it's told this way:** the four scenes deliberately
+**The story, and why it's told this way:** the four slides deliberately
 open with the *practical* overwhelm of loss (the calls, the forms, the
 decisions) rather than going straight to something softer — that's the
-honest, relatable hook. Scene 3 is the turn: Griefcase is upfront that it
+honest, relatable hook. Slide 3 is the turn: Griefcase is upfront that it
 won't do any of that administrative work for you, and instead offers
-somewhere to put down what you're carrying. Scene 4 closes on the thesis's
+somewhere to put down what you're carrying. Slide 4 closes on the thesis's
 actual finding (most people navigating loss stay quiet about it) and
 gestures at peer connection as where this is headed, without overclaiming
 that it exists today. This blend was a deliberate choice — see [Where the
@@ -409,31 +412,55 @@ why the copy doesn't just adopt an "estate paperwork" framing wholesale.
   hunting through `index.html` or CSS. Each entry also carries the
   photographer credit and profile URL, kept for good practice even though
   the license doesn't require it (see licensing below).
-- **`js/modules/about-cinematic.js`** wires it up in three independent,
-  optional pieces: (1) reads `about-images.js` into the `<img>` tags via
-  `data-about-image` attributes; (2) a per-scene `IntersectionObserver`
-  that triggers a slow image settle + scrim as each scene scrolls into
-  view; (3) on fine-pointer, motion-OK devices only, a cursor-following
-  "spotlight" mask on scene 3 that reveals a second photograph under the
-  cursor, plus a subtle scroll parallax drift on every scene's image.
-- **`css/about-cinematic.css`** holds all the scene/reveal/parallax
-  styling, including the responsive breakpoints and the static fallback
-  (see next point).
-- **Accessibility & fallback**: on a coarse pointer (touch) or under
-  `prefers-reduced-motion`, the cursor-spotlight and parallax never
-  initialize at all — `about-cinematic.js` adds an `is-static-reveal`
-  class to `#about` instead, and `about-cinematic.css` fades the second
-  scene-3 photograph in at low, fixed opacity once the scene is in view,
-  so nobody is asked to perform a hover interaction their device or
-  preference can't or won't do. All other scene transitions are
-  transform/opacity only and already collapse to effectively-instant under
-  the global `prefers-reduced-motion` rule in `base.css`.
-- **Imagery & licensing**: all five photographs are sourced from Unsplash
+- **`js/modules/about-carousel.js`** drives the autoplay: one slide every
+  2 seconds (`AUTOPLAY_MS`), with a progress bar that fills in sync so the
+  cadence is visible, not just felt. Hovering, focusing, or using a
+  dot/arrow pauses it; it resumes a few seconds after you look away. It
+  also pauses whenever the section scrolls out of view or the browser tab
+  is hidden, and supports touch swipe. It is never the *only* way through
+  the carousel — every slide is reachable via the dot and arrow buttons,
+  which are real `<button>` elements with `aria-label`s.
+- **`css/about-carousel.css`** holds the slide cross-fade, the slow
+  Ken-Burns image drift on the active slide, and the arrow/dot/progress
+  styling.
+- **Accessibility & fallback**: under `prefers-reduced-motion`, autoplay
+  never starts and the progress bar is hidden entirely — the carousel
+  becomes purely click/tap/keyboard-driven, with the same four slides
+  reachable the same way. All slide transitions are opacity/transform
+  only and already collapse to effectively-instant under the global
+  `prefers-reduced-motion` rule in `base.css`.
+- **Imagery & licensing**: all four photographs are sourced from Unsplash
   and used under the [Unsplash License](https://unsplash.com/license) —
   free for commercial and non-commercial use, no permission required.
   Deliberately avoided: crying faces, funeral imagery, candles,
   tombstones, and staged "sad family" stock photography — the direction
   throughout is quiet, ordinary, and specific rather than performative.
+
+## Emotional prompts orbit (desktop) & animated stat counters
+
+Two smaller, more playful touches added alongside the carousel:
+
+- **The prompt cards orbit.** On a wide viewport with a fine pointer (see
+  the media query in `css/prompts-orbit.css`), the "Emotional prompts"
+  cards arrange themselves in a slow-spinning ring instead of the
+  horizontal scroller — `renderPrompts()` in `content-loader.js` builds
+  both layouts from the same `content.json` array so there's only ever
+  one source of the copy, and CSS shows exactly one of the two (the
+  hidden one is `display:none`, which also removes it from the tab order
+  and screen-reader tree automatically — no manual `aria-hidden`
+  juggling needed). Hovering or focusing a card pauses the ring and pops
+  that card forward (`initPromptOrbit()` in `interactions.js`); everyone
+  else — touch, narrow viewports, `prefers-reduced-motion` — always gets
+  the plain scroller, since a spinning ring with no hover isn't useful.
+- **The Vision stat numbers count up** when they scroll into view
+  (`js/modules/counters.js`). It's deliberately generic: it doesn't
+  hardcode "91%" or "4.2 / 5" anywhere, it finds every numeric substring
+  in the element's rendered text and animates each one from 0 to its real
+  value, leaving the surrounding `%`, `/`, `→`, `<`, and spacing exactly
+  where they were — so editing the numbers in `data/content.json` never
+  requires touching this file. No-ops under `prefers-reduced-motion`
+  (the correct final numbers are already there; there's nothing to
+  animate).
 
 ---
 

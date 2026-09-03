@@ -20,6 +20,7 @@ export function initInteractions() {
   initHeroGlow();
   initCardTilt();
   initPremiumCardGlow();
+  initPromptOrbit();
 }
 
 /* ---- Magnetic buttons: a few px of cursor-follow within their own bounds ---- */
@@ -126,4 +127,38 @@ function initPremiumCardGlow() {
     card.style.setProperty("--mx", `${x.toFixed(1)}%`);
     card.style.setProperty("--my", `${y.toFixed(1)}%`);
   });
+}
+
+/* ---- Emotional prompts orbit: pause the ring and pop the hovered/
+   focused card forward. Delegated (capture phase) since pointerenter/
+   pointerleave/focusin/focusout don't bubble, and the ring is rebuilt
+   from content.json on every renderPrompts() call. A no-op if the ring
+   isn't on the page or isn't the active layout (see prompts-orbit.css —
+   it's display:none outside wide/fine-pointer viewports anyway). ---- */
+function initPromptOrbit() {
+  const orbit = document.querySelector(".prompts-orbit");
+  if (!orbit) return;
+
+  const pop = (e) => {
+    const item = e.target.closest && e.target.closest(".prompt-orbit-item");
+    if (item && orbit.contains(item)) {
+      orbit.classList.add("is-paused");
+      item.classList.add("is-popped");
+    }
+  };
+
+  const unpop = (e) => {
+    const item = e.target.closest && e.target.closest(".prompt-orbit-item");
+    if (item && orbit.contains(item)) {
+      item.classList.remove("is-popped");
+      if (!orbit.querySelector(".prompt-orbit-item:hover, .prompt-orbit-item:focus-within")) {
+        orbit.classList.remove("is-paused");
+      }
+    }
+  };
+
+  document.addEventListener("pointerenter", pop, true);
+  document.addEventListener("pointerleave", unpop, true);
+  document.addEventListener("focusin", pop, true);
+  document.addEventListener("focusout", unpop, true);
 }

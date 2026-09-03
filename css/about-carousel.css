@@ -1,0 +1,280 @@
+/* ==========================================================================
+   ABOUT — auto-advancing carousel
+   --------------------------------------------------------------------------
+   A fixed-height stage (.about-carousel-track) holding four stacked
+   .about-slide panels that cross-fade via opacity/transform, driven by
+   js/modules/about-carousel.js. Followed by the compact "settling"
+   statement (.about-settle, unchanged from the previous build) that
+   brings the page back down to the calmer register of the rest of the
+   app — its styling lives in css/components.css (.about-layout etc).
+
+   Motion is opacity/transform only, and every transition here already
+   collapses under prefers-reduced-motion via the global rule in
+   base.css. about-carousel.js additionally disables the autoplay timer
+   and progress bar entirely under reduced motion — the carousel becomes
+   purely click/tap/keyboard-driven.
+   ========================================================================== */
+
+.about-carousel {
+  position: relative;
+  background: var(--color-espresso-deep);
+}
+
+.about-carousel-track {
+  position: relative;
+  min-height: 88svh;
+  min-height: 88vh;
+  overflow: hidden;
+}
+
+.about-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 900ms var(--ease-quiet), visibility 0s linear 900ms;
+  pointer-events: none;
+}
+
+.about-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 900ms var(--ease-quiet);
+  pointer-events: auto;
+}
+
+.about-slide-media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--color-espresso);
+}
+
+.about-slide-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.04);
+  transition: transform 7s linear;
+  will-change: transform;
+}
+
+/* Slow Ken Burns drift while a slide is active — a gentle push-in over
+   its whole dwell time, restarted (via a fresh transition) each time the
+   slide reactivates. */
+.about-slide.is-active .about-slide-img { transform: scale(1.12); }
+
+.about-slide-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(35, 18, 7, 0.90) 0%,
+    rgba(58, 36, 22, 0.56) 40%,
+    rgba(58, 36, 22, 0.26) 64%,
+    rgba(35, 18, 7, 0.42) 100%
+  );
+}
+
+/* The closing "warm" slide reads dark ink on a light scrim (see
+   .about-slide-warm below), so — unlike every other slide's scrim — this
+   one fades to cream, not brown. */
+.about-slide-scrim-light {
+  background: linear-gradient(
+    to top,
+    rgba(244, 238, 227, 0.92) 0%,
+    rgba(244, 238, 227, 0.55) 45%,
+    rgba(244, 238, 227, 0.15) 100%
+  );
+}
+
+.about-slide .grain { opacity: 0.06; }
+
+.about-slide-copy {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: var(--space-7) var(--space-5) var(--space-9);
+  max-width: var(--content-max);
+  margin: 0 auto;
+  text-align: left;
+}
+
+.about-slide-headline {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  color: var(--color-paper);
+  font-size: clamp(2rem, 5.6vw, 3.8rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  max-width: 16ch;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 700ms var(--ease-quiet) 200ms, transform 700ms var(--ease-quiet) 200ms;
+}
+
+.about-slide.is-active .about-slide-headline { opacity: 1; transform: translateY(0); }
+
+.about-slide-sub {
+  margin-top: var(--space-4);
+  font-family: var(--font-sans);
+  font-size: clamp(0.98rem, 1.5vw, 1.15rem);
+  line-height: var(--lh-relaxed);
+  color: rgba(251, 248, 243, 0.8);
+  max-width: 42ch;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 700ms var(--ease-quiet) 320ms, transform 700ms var(--ease-quiet) 320ms;
+}
+
+.about-slide.is-active .about-slide-sub { opacity: 1; transform: translateY(0); }
+
+.about-slide-actions {
+  margin-top: var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 700ms var(--ease-quiet) 440ms, transform 700ms var(--ease-quiet) 440ms;
+}
+
+.about-slide.is-active .about-slide-actions { opacity: 1; transform: translateY(0); }
+
+.about-slide-actions .btn-text { color: var(--color-paper); text-decoration-color: rgba(251,248,243,0.4); }
+
+/* Warm closing slide: lighter scrim, dark ink */
+.about-slide-warm .about-slide-headline { color: var(--color-charcoal); }
+.about-slide-warm .about-slide-sub { color: var(--color-charcoal-soft); }
+.about-slide-warm .about-slide-actions .btn-text {
+  color: var(--color-charcoal-soft);
+  text-decoration-color: var(--color-line);
+}
+.about-slide-warm .about-slide-actions .btn-text:hover { color: var(--color-charcoal); }
+
+/* ---- Carousel controls: arrows + dots + progress bar ---- */
+.about-carousel-controls {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: var(--space-5);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  padding: 0 var(--space-5);
+}
+
+.about-carousel-arrow {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(251, 248, 243, 0.3);
+  color: var(--color-paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  line-height: 1;
+  transition: background var(--dur-fast) var(--ease-standard), border-color var(--dur-fast) var(--ease-standard), transform var(--dur-fast) var(--ease-standard);
+}
+
+.about-carousel-arrow:hover {
+  background: rgba(251, 248, 243, 0.12);
+  border-color: var(--color-gold);
+  transform: translateY(-1px);
+}
+
+.about-carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.about-carousel-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(251, 248, 243, 0.35);
+  transition: background var(--dur-fast) var(--ease-standard), transform var(--dur-fast) var(--ease-standard);
+}
+
+.about-carousel-dot:hover { background: rgba(251, 248, 243, 0.6); }
+
+.about-carousel-dot.is-active {
+  background: var(--color-gold);
+  transform: scale(1.3);
+}
+
+.about-carousel-progress {
+  position: absolute;
+  left: var(--space-5); right: var(--space-5);
+  bottom: calc(var(--space-5) + 52px);
+  z-index: 3;
+  height: 2px;
+  background: rgba(251, 248, 243, 0.18);
+  border-radius: 2px;
+  overflow: hidden;
+  max-width: 220px;
+  margin: 0 auto;
+}
+
+.about-carousel-progress span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: var(--gradient-warm);
+}
+
+/* The controls sit at a fixed spot regardless of which slide is active,
+   but the warm closing slide fades to a light scrim right where they
+   live — flip them to dark ink on that slide so they stay legible. */
+.about-carousel-track:has(.about-slide-warm.is-active) .about-carousel-arrow {
+  border-color: rgba(61, 42, 28, 0.25);
+  color: var(--color-charcoal);
+}
+.about-carousel-track:has(.about-slide-warm.is-active) .about-carousel-arrow:hover {
+  background: rgba(61, 42, 28, 0.08);
+  border-color: var(--color-gold-deep);
+}
+.about-carousel-track:has(.about-slide-warm.is-active) .about-carousel-dot {
+  background: rgba(61, 42, 28, 0.3);
+}
+.about-carousel-track:has(.about-slide-warm.is-active) .about-carousel-dot:hover {
+  background: rgba(61, 42, 28, 0.55);
+}
+.about-carousel-track:has(.about-slide-warm.is-active) .about-carousel-dot.is-active {
+  background: var(--color-gold-deep);
+}
+
+@media (max-width: 860px) {
+  .about-carousel-track { min-height: 82svh; min-height: 82vh; }
+  .about-slide-copy { padding: var(--space-6) var(--space-4) var(--space-8); }
+  .about-slide-headline { font-size: clamp(1.8rem, 8vw, 2.4rem); max-width: 14ch; }
+  .about-slide-sub { max-width: 34ch; }
+  .about-carousel-controls { gap: var(--space-4); bottom: var(--space-4); }
+  .about-carousel-progress { bottom: calc(var(--space-4) + 48px); }
+}
+
+@media (max-width: 560px) {
+  .about-slide-actions { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-carousel-progress { display: none; }
+}
+
+/* ---- Settling statement (previous compact About copy) ---- */
+.about-settle {
+  background: var(--color-cream);
+  padding: var(--space-8) 0;
+}

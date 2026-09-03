@@ -37,7 +37,8 @@ import { initInteractions } from "./modules/interactions.js";
 import { initAmbientSound } from "./modules/ambient-sound.js";
 import { initPWA } from "./modules/pwa.js";
 import { initInterestForm } from "./modules/interest-form.js";
-import { initAboutCinematic } from "./modules/about-cinematic.js";
+import { initAboutCarousel } from "./modules/about-carousel.js";
+import { initCounters } from "./modules/counters.js";
 
 /** Minimal fallback so the app still functions if content.json can't be
  *  fetched (e.g. opened directly via file:// in a browser that blocks
@@ -117,7 +118,8 @@ async function bootstrap() {
   initAmbientSound();
   initPWA();
   initInterestForm(content);
-  initAboutCinematic();
+  initAboutCarousel();
+  initCounters();
 
   wireGlobalActions();
   handleLaunchShortcut();

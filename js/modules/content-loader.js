@@ -167,14 +167,48 @@ export function renderPrompts(prompts) {
   setText("prompts-intro", prompts.intro);
 
   const scroller = document.getElementById("prompts-scroller");
-  if (!scroller) return;
-  scroller.innerHTML = "";
-  prompts.cards.forEach((text) => {
-    const card = document.createElement("div");
-    card.className = "prompt-card premium-card";
-    card.innerHTML = `<p>${text}</p><button type="button" data-open-writer data-prefill="${escapeAttr(text)}">Start writing this &rarr;</button>`;
-    scroller.appendChild(card);
-  });
+  if (scroller) {
+    scroller.innerHTML = "";
+    prompts.cards.forEach((text) => {
+      scroller.appendChild(buildPromptCard(text));
+    });
+  }
+
+  // Same cards again, arranged in a ring — only ever visible instead of
+  // (never alongside) the scroller above; see css/prompts-orbit.css.
+  const orbit = document.getElementById("prompts-orbit");
+  if (orbit) {
+    orbit.innerHTML = "";
+    const total = prompts.cards.length;
+    if (total) {
+      const ring = document.createElement("div");
+      ring.className = "prompts-ring";
+      prompts.cards.forEach((text, i) => {
+        const item = document.createElement("div");
+        item.className = "prompt-orbit-item";
+        item.style.setProperty("--angle", `${(360 / total) * i}deg`);
+        const inner = document.createElement("div");
+        inner.className = "prompt-orbit-inner";
+        inner.appendChild(buildPromptCard(text));
+        item.appendChild(inner);
+        ring.appendChild(item);
+      });
+      orbit.appendChild(ring);
+
+      const hub = document.createElement("div");
+      hub.className = "prompts-orbit-hub";
+      hub.setAttribute("aria-hidden", "true");
+      hub.textContent = "Pick one, or skip them all";
+      orbit.appendChild(hub);
+    }
+  }
+}
+
+function buildPromptCard(text) {
+  const card = document.createElement("div");
+  card.className = "prompt-card premium-card";
+  card.innerHTML = `<p>${text}</p><button type="button" data-open-writer data-prefill="${escapeAttr(text)}">Start writing this &rarr;</button>`;
+  return card;
 }
 
 export function renderPrivacy(privacy) {
