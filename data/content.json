@@ -77,7 +77,44 @@
       { "title": "Trained volunteers", "body": "Real people, trained to listen, for moments that ask for more than reflection." },
       { "title": "Professional care", "body": "A clear, consent-based path to licensed support — never forced, never assumed on your behalf." }
     ],
-    "note": "Only the first layer — private writing and voice notes — exists in this version. The rest is roadmap, not a promise with a date. When any of it ships, it will be opt-in, clearly labeled, and never a stand-in for emergency care."
+    "note": "Only the first layer — private writing and voice notes — exists in this version. The rest is roadmap, not a promise with a date. When any of it ships, it will be opt-in, clearly labeled, and never a stand-in for emergency care.",
+    "stats": [
+      { "value": "91%", "label": "of respondents had personally experienced grief — most navigating it quietly, without support", "source": "Independent survey, India, 2025 (n=65)" },
+      { "value": "4.2 / 5", "label": "average expected helpfulness of talking to someone who'd been through something similar", "source": "Same survey" },
+      { "value": "150M → <30M", "label": "Indians estimated to need active mental health care, versus those who actually receive it", "source": "National Mental Health Survey, 2015–16" }
+    ],
+    "statsCaveat": "That first study was small — 65 people, skewed toward urban, English-speaking respondents. It's an early signal worth building on, not a guarantee."
+  },
+
+  "glossary": {
+    "eyebrow": "Worth knowing",
+    "headline": "Therapist, counselor, psychologist, psychiatrist — what's the difference?",
+    "intro": "Research into mental health in India keeps finding the same thing: most people can't tell these apart, and that confusion alone stops people from getting help. No pressure to use any of them — just plain definitions.",
+    "terms": [
+      { "term": "Counselor", "body": "Typically trained to help with a specific, often shorter-term concern — grief, a relationship, a decision — through talking and coping strategies. Usually can't prescribe medication or diagnose a clinical disorder." },
+      { "term": "Therapist / Psychotherapist", "body": "A broader term for someone trained in structured, talk-based treatment, often for longer-term or recurring patterns rather than a single event. Overlaps a lot with \"counselor\" in everyday use." },
+      { "term": "Psychologist", "body": "Holds an advanced degree in the science of the mind and behavior. Can assess, diagnose, and treat mental health conditions through therapy — but in most places, can't prescribe medication." },
+      { "term": "Psychiatrist", "body": "A medical doctor who specializes in mental health. Can diagnose, prescribe and manage medication, and treat more complex or severe conditions — often alongside a therapist or psychologist." }
+    ],
+    "note": "If you're not sure where to start, a general physician or a counselor is usually a reasonable first stop — they can point you toward the right kind of specialist if you need one."
+  },
+
+  "foundingCircle": {
+    "eyebrow": "Be part of what's next",
+    "headline": "Join the founding circle.",
+    "intro": "The peer support layer above doesn't exist yet — and we're not going to fake it into existence. Before we build it, we want to know who it's actually for.",
+    "formNote": "Unlike everything else on this page, this form leaves your browser — your email goes to a small, private list we use to reach out when this is ready. Nothing else you do on Griefcase does that.",
+    "emailLabel": "Email",
+    "griefTypeLabel": "What kind of grief, if you're comfortable sharing? (optional)",
+    "peerCheckboxLabel": "I'd be interested in training to become a peer listener",
+    "motivationLabel": "Why does that feel right for you? (optional)",
+    "availabilityLabel": "Roughly how much time could you offer? (optional)",
+    "messageLabel": "Anything else you want us to know? (optional)",
+    "submitLabel": "Join the founding circle",
+    "submittingLabel": "Sending…",
+    "successBody": "You're on the list. Thank you for trusting us with this before there's anything to show for it — we'll reach out when there's something real to invite you into.",
+    "errorGeneric": "Something went wrong on our end. Please try again in a moment.",
+    "errorEmail": "Please enter a valid email address."
   },
 
   "prompts": {
@@ -186,7 +223,8 @@
         "links": [
           { "label": "Open Griefcase", "target": "open-writer" },
           { "label": "My Griefcase", "target": "open-library" },
-          { "label": "How it works", "target": "#how-it-works" }
+          { "label": "How it works", "target": "#how-it-works" },
+          { "label": "Join the founding circle", "target": "#founding-circle" }
         ]
       },
       {

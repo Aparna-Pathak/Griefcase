@@ -73,7 +73,8 @@ griefcase/
 │       ├── library.js          "My Griefcase": browse, filter, read, let go
 │       ├── interactions.js     Magnetic buttons, hero cursor glow, card tilt (pointer-driven polish)
 │       ├── ambient-sound.js    Generative ambient pad + release-ritual chime (Web Audio, opt-in)
-│       └── pwa.js               Service worker registration + custom install prompt
+│       ├── pwa.js               Service worker registration + custom install prompt
+│       └── interest-form.js    "Founding circle" form — the one thing that calls the API below
 ├── icons/                      Generated app icons, favicons, OG/social card, manifest screenshots
 ├── scripts/
 │   └── make_icons.py           Regenerates everything in icons/ from plain geometry (no art assets)
@@ -81,6 +82,12 @@ griefcase/
 │   └── aso-copy-kit.md         Draft Play Store / App Store listing copy, character-limit checked
 ├── data/
 │   └── content.json            All editable copy — the mock CMS
+├── worker/
+│   └── index.js                API layer: POST /api/interest only — see "Backend" below
+├── migrations/
+│   └── 0001_init.sql           D1 schema: interest_signups (live) + Phase 2 tables (schema only)
+├── wrangler.toml                Worker + D1 binding + static-assets config
+├── ARCHITECTURE.md              What's built vs. designed-but-not-built, and why — read this first
 └── README.md
 ```
 
@@ -102,7 +109,8 @@ hardcoded in HTML or JS. To change copy:
 3. Save and refresh. No rebuild needed.
 
 The file is organized by section (`hero`, `howItWorks`, `why`, `vision`,
-`prompts`, `categories`, `library`, `privacy`, `about`, `faq`, `footer`) and every
+`glossary`, `foundingCircle`, `prompts`, `categories`, `library`,
+`privacy`, `about`, `faq`, `footer`) and every
 key is a plain string or array of strings — safe to hand to someone who
 has never opened a code editor, as long as they keep the JSON structure
 (quotes, commas, brackets) intact. A JSON validator (many free ones
@@ -193,6 +201,37 @@ and store a URL instead once there's a backend.
   page. A console warning notes when this happens.
 - Microphone permission denial in the voice recorder is handled calmly —
   the interface suggests writing instead rather than showing a hard error.
+
+---
+
+## Backend (Phase 1 API)
+
+Griefcase is still a static site first — everything above this section is
+served straight from Cloudflare's asset store with no server involved.
+The one exception is `POST /api/interest`, which backs the "Join the
+founding circle" form.
+
+- **`wrangler.toml`** — declares the Worker (`worker/index.js`) and binds
+  a D1 database (`griefcase-db`) to it. `run_worker_first` is scoped to
+  `/api/*` only, so the Worker script is never invoked for the site
+  itself — a request for `index.html` or any asset never touches it.
+- **`worker/index.js`** — the entire API surface. One route,
+  `POST /api/interest`: validates the email server-side, honors a hidden
+  honeypot field for basic bot resistance, clips every field length, and
+  writes a row to `interest_signups`. Returns JSON either way.
+- **`migrations/0001_init.sql`** — the full schema: `interest_signups`
+  (live) plus the Phase 2 tables (`grief_profiles`, `matches`, `messages`,
+  `reports`, `distress_flags` — schema only, not queried by anything
+  yet). See [ARCHITECTURE.md](./ARCHITECTURE.md) for what those are for.
+- **Local development**: `npx wrangler dev` serves the site and the API
+  together with a local D1 instance. `npx wrangler d1 execute
+  griefcase-db --local --file=migrations/0001_init.sql` applies the
+  schema locally first.
+- **Deployment**: this repo is connected to Cloudflare via Git
+  integration — pushing to `main` redeploys automatically, the same way
+  it already did before this Worker/D1 setup existed. If Cloudflare's
+  dashboard prompts for a one-time approval of the new D1 binding on the
+  first deploy after this change, that's expected — approve it there.
 
 ---
 
@@ -319,29 +358,31 @@ Accessibility below):
 
 ## Where the product vision came from
 
-The "Where this is headed" section on the homepage, and the philosophy in
-the Why/About copy ("presence before solutions," "support that adapts to
-a person, not the other way around") draws directly on the founder pitch
-deck this update was built from — its emphasis on listening before
-fixing, earned (not forced) escalation, and a layered model from AI
-reflection through to licensed professionals.
+The "Where this is headed" section on the homepage, the mental-health
+glossary, and the research citations in the vision copy draw directly on
+["Grief in the digital age — Exploring peer-based emotional support"](.)
+(Amit Chansikar, MBA research paper, SSODL, 2025) — its survey findings,
+its literature review, and its explicit suggestion to start small and
+build trust before building a matching engine.
 
-**None of the layers beyond private writing and voice notes are built.**
-That's a deliberate scope decision, not an oversight: a static frontend
-prototype has no real backend, no moderation, no crisis-detection
-capability, and no way to actually connect someone to a trained volunteer
-or professional. Building UI that *implied* those things worked — a fake
-"AI listener" chat, a "connect to a volunteer" button that goes nowhere
-real — would be actively misleading to someone in a vulnerable moment,
-which is precisely the audience this product exists to be gentle with.
-The vision section says this openly on the page itself (see its closing
-note), rather than only in this README, so a visitor never mistakes
-roadmap language for a working feature.
+**Peer matching and messaging (the thesis's central proposal) are not
+built.** That's a deliberate scope decision, not an oversight — see
+[ARCHITECTURE.md](./ARCHITECTURE.md) for the full reasoning and the
+phased plan. In short: connecting grieving people with strangers for 1:1
+conversation without safety moderation, distress escalation, and peer
+vetting infrastructure *first* would be a real harm risk, not a
+hypothetical one. Building UI that implied matching already worked — a
+fake "connect to a peer" button that goes nowhere real — would be
+actively misleading to someone in a vulnerable moment.
 
-If those layers get built for real, they'll need their own safety design
-(consent flows, escalation policy, moderation, professional vetting) well
-beyond what belongs in a frontend README — this prototype intentionally
-stops at the boundary of what it can honestly deliver today.
+**What is built now:** a real interest-capture backend (Cloudflare
+Worker + D1 — see `worker/index.js`, `wrangler.toml`,
+`migrations/0001_init.sql`) behind the "Join the founding circle" form,
+so real demand signal exists before Phase 2 gets built. The Phase 2
+database schema (`grief_profiles`, `matches`, `messages`, `reports`,
+`distress_flags`) is already laid down in the same migration, but nothing
+queries it yet — see ARCHITECTURE.md for why it's sequenced this way and
+what has to exist before it does.
 
 ---
 

@@ -336,6 +336,53 @@
   margin-bottom: var(--space-4);
 }
 
+.vision-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  max-width: var(--content-max);
+  margin: 0 auto var(--space-3);
+}
+
+.vision-stat {
+  text-align: center;
+  padding: var(--space-4);
+}
+
+.vision-stat-value {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: var(--fs-h2);
+  color: var(--color-accent);
+  margin-bottom: var(--space-2);
+}
+
+.vision-stat p {
+  font-size: var(--fs-small);
+  color: var(--color-charcoal-soft);
+  margin-bottom: var(--space-2);
+}
+
+.vision-stat cite {
+  font-style: normal;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-taupe-deep);
+}
+
+.vision-stats-caveat {
+  max-width: var(--content-narrow);
+  margin: 0 auto var(--space-6);
+  text-align: center;
+  font-size: var(--fs-micro);
+  color: var(--color-taupe-deep);
+}
+
+@media (max-width: 700px) {
+  .vision-stats { grid-template-columns: 1fr; gap: var(--space-2); }
+}
+
 .vision-layers {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -457,6 +504,146 @@
 @media (max-width: 860px) {
   .privacy-grid { grid-template-columns: 1fr; }
 }
+
+/* ==========================================================================
+   GLOSSARY
+   ========================================================================== */
+
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  max-width: var(--content-max);
+  margin: 0 auto var(--space-5);
+}
+
+.glossary-term {
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.glossary-term h3 {
+  font-size: var(--fs-h3);
+  margin-bottom: var(--space-2);
+  color: var(--color-accent);
+}
+
+.glossary-term p {
+  color: var(--color-charcoal-soft);
+  font-size: var(--fs-small);
+}
+
+.glossary-note {
+  max-width: var(--content-narrow);
+  margin: 0 auto;
+  text-align: center;
+  font-size: var(--fs-small);
+  color: var(--color-taupe-deep);
+}
+
+@media (max-width: 700px) {
+  .glossary-grid { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   FOUNDING CIRCLE — interest form
+   ========================================================================== */
+
+.founding-form {
+  max-width: var(--content-reading);
+  margin: 0 auto;
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+}
+
+.founding-form-note {
+  font-size: var(--fs-small);
+  color: var(--color-taupe-deep);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.founding-form .form-row {
+  margin-bottom: var(--space-4);
+}
+
+.founding-form label {
+  display: block;
+  font-size: var(--fs-small);
+  color: var(--color-charcoal-soft);
+  margin-bottom: var(--space-2);
+}
+
+.founding-form input[type="email"],
+.founding-form input[type="text"],
+.founding-form textarea {
+  width: 100%;
+  background: var(--color-cream);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  color: var(--color-charcoal);
+  resize: vertical;
+}
+
+.founding-form input:focus-visible,
+.founding-form textarea:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.founding-hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.founding-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  cursor: pointer;
+}
+
+.founding-checkbox input {
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.founding-checkbox span {
+  font-size: var(--fs-body);
+  color: var(--color-charcoal);
+}
+
+.founding-peer-fields {
+  border-left: 2px solid var(--color-accent-soft);
+  padding-left: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.founding-form .btn-primary {
+  width: 100%;
+  text-align: center;
+}
+
+.founding-status {
+  margin-top: var(--space-4);
+  font-size: var(--fs-small);
+  text-align: center;
+}
+
+.founding-status.is-success { color: var(--mood-hopeful); }
+.founding-status.is-error { color: var(--mood-angry); }
 
 .privacy-disclaimer {
   max-width: var(--content-narrow);

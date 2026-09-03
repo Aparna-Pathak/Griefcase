@@ -220,6 +220,13 @@
         <p>The longer-term idea is a layered space that only ever goes as deep as you choose: reflective writing and listening; optional peer support; trained volunteers; and, when it's genuinely wanted, licensed professionals. Every step up would be something you choose — never something a system decides for you.</p>
       </div>
 
+      <div class="vision-stats" id="vision-stats" data-reveal-group>
+        <div class="vision-stat"><span class="vision-stat-value">91%</span><p>of respondents had personally experienced grief — most navigating it quietly, without support</p><cite>Independent survey, India, 2025 (n=65)</cite></div>
+        <div class="vision-stat"><span class="vision-stat-value">4.2 / 5</span><p>average expected helpfulness of talking to someone who'd been through something similar</p><cite>Same survey</cite></div>
+        <div class="vision-stat"><span class="vision-stat-value">150M → &lt;30M</span><p>Indians estimated to need active mental health care, versus those who actually receive it</p><cite>National Mental Health Survey, 2015–16</cite></div>
+      </div>
+      <p class="vision-stats-caveat" id="vision-stats-caveat" data-reveal>That first study was small — 65 people, skewed toward urban, English-speaking respondents. It's an early signal worth building on, not a guarantee.</p>
+
       <div class="vision-layers" id="vision-layers" data-reveal-group>
         <div class="vision-layer"><span class="vision-layer-index">01</span><h3>Reflection</h3><p>A space to think out loud — private writing today, and eventually a gentle AI presence that reflects rather than diagnoses.</p></div>
         <div class="vision-layer"><span class="vision-layer-index">02</span><h3>Peer support</h3><p>Optional, moderated company from people who understand, for whenever you want it.</p></div>
@@ -247,6 +254,74 @@
       <div class="prompt-card"><p>What would you tell them if there were no consequences?</p><button type="button" data-open-writer data-prefill="What would you tell them if there were no consequences?">Start writing this &rarr;</button></div>
       <div class="prompt-card"><p>Describe the day it changed, if you can.</p><button type="button" data-open-writer data-prefill="Describe the day it changed, if you can.">Start writing this &rarr;</button></div>
       <div class="prompt-card"><p>What are you still angry about?</p><button type="button" data-open-writer data-prefill="What are you still angry about?">Start writing this &rarr;</button></div>
+    </div>
+  </section>
+
+  <!-- ===================== GLOSSARY ===================== -->
+  <section id="glossary">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow" id="glossary-eyebrow">Worth knowing</span>
+        <h2 style="font-size:var(--fs-h1)" id="glossary-headline">Therapist, counselor, psychologist, psychiatrist — what's the difference?</h2>
+        <p class="lede" id="glossary-intro">Research into mental health in India keeps finding the same thing: most people can't tell these apart, and that confusion alone stops people from getting help. No pressure to use any of them — just plain definitions.</p>
+      </div>
+      <div class="glossary-grid" id="glossary-grid" data-reveal-group></div>
+      <p class="glossary-note" id="glossary-note" data-reveal>If you're not sure where to start, a general physician or a counselor is usually a reasonable first stop — they can point you toward the right kind of specialist if you need one.</p>
+    </div>
+  </section>
+
+  <!-- ===================== FOUNDING CIRCLE ===================== -->
+  <section id="founding-circle" class="section-alt">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow" id="founding-eyebrow">Be part of what's next</span>
+        <h2 style="font-size:var(--fs-h1)" id="founding-headline">Join the founding circle.</h2>
+        <p class="lede" id="founding-intro">The peer support layer above doesn't exist yet — and we're not going to fake it into existence. Before we build it, we want to know who it's actually for.</p>
+      </div>
+
+      <form id="founding-form" class="founding-form" data-reveal novalidate>
+        <p class="founding-form-note" id="founding-form-note">Unlike everything else on this page, this form leaves your browser — your email goes to a small, private list we use to reach out when this is ready. Nothing else you do on Griefcase does that.</p>
+
+        <div class="form-row">
+          <label for="founding-email" id="founding-email-label">Email</label>
+          <input type="email" id="founding-email" name="email" required autocomplete="email" placeholder="you@example.com">
+        </div>
+
+        <div class="form-row">
+          <label for="founding-grief-type" id="founding-grief-type-label">What kind of grief, if you're comfortable sharing? (optional)</label>
+          <input type="text" id="founding-grief-type" name="griefType" placeholder="e.g. losing a parent, a breakup, a miscarriage, a pet">
+        </div>
+
+        <!-- Honeypot — hidden from real visitors, catches simple bots -->
+        <div class="founding-hp" aria-hidden="true">
+          <label for="founding-website">Website</label>
+          <input type="text" id="founding-website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <label class="founding-checkbox">
+          <input type="checkbox" id="founding-wants-peer" name="wantsToBePeer">
+          <span id="founding-peer-checkbox-label">I'd be interested in training to become a peer listener</span>
+        </label>
+
+        <div id="founding-peer-fields" class="founding-peer-fields" hidden>
+          <div class="form-row">
+            <label for="founding-motivation" id="founding-motivation-label">Why does that feel right for you? (optional)</label>
+            <textarea id="founding-motivation" name="motivation" rows="3"></textarea>
+          </div>
+          <div class="form-row">
+            <label for="founding-availability" id="founding-availability-label">Roughly how much time could you offer? (optional)</label>
+            <input type="text" id="founding-availability" name="availability" placeholder="e.g. a couple of hours a week">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="founding-message" id="founding-message-label">Anything else you want us to know? (optional)</label>
+          <textarea id="founding-message" name="message" rows="2"></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary" id="founding-submit">Join the founding circle</button>
+        <p class="founding-status" id="founding-status" role="status" aria-live="polite" hidden></p>
+      </form>
     </div>
   </section>
 

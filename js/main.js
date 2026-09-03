@@ -13,6 +13,8 @@ import {
   renderHowItWorks,
   renderWhy,
   renderVision,
+  renderGlossary,
+  renderFoundingCircle,
   renderPrompts,
   renderPrivacy,
   renderFaq,
@@ -34,6 +36,7 @@ import { showToast, closeOverlay } from "./modules/ui-utils.js";
 import { initInteractions } from "./modules/interactions.js";
 import { initAmbientSound } from "./modules/ambient-sound.js";
 import { initPWA } from "./modules/pwa.js";
+import { initInterestForm } from "./modules/interest-form.js";
 
 /** Minimal fallback so the app still functions if content.json can't be
  *  fetched (e.g. opened directly via file:// in a browser that blocks
@@ -52,7 +55,9 @@ const FALLBACK_CONTENT = {
   hero: { eyebrow: "A quiet place for what you're carrying", headline: "Some things are easier to leave here.", subcopy: "Your thoughts don't need to make sense. They just need somewhere to go.", ctaPrimary: "Open Griefcase", ctaSecondary: "See how it works" },
   howItWorks: { eyebrow: "How it works", headline: "There's no right way to use this.", intro: "But if it helps, here's roughly how it goes.", steps: [] },
   why: { eyebrow: "Why Griefcase exists", headline: "You don't have to carry everything.", paragraphs: [], quote: { text: "You are allowed to feel this.", attribution: "— Griefcase" } },
-  vision: { eyebrow: "Where this is headed", headline: "Presence first. Solutions only if you want them.", intro: "", paragraphs: [], layers: [], note: "" },
+  vision: { eyebrow: "Where this is headed", headline: "Presence first. Solutions only if you want them.", intro: "", paragraphs: [], layers: [], note: "", stats: [], statsCaveat: "" },
+  glossary: { eyebrow: "Worth knowing", headline: "Therapist, counselor, psychologist, psychiatrist — what's the difference?", intro: "", terms: [], note: "" },
+  foundingCircle: { eyebrow: "Be part of what's next", headline: "Join the founding circle.", intro: "", formNote: "", emailLabel: "Email", griefTypeLabel: "Grief type (optional)", peerCheckboxLabel: "I'd be interested in training to become a peer listener", motivationLabel: "Motivation (optional)", availabilityLabel: "Availability (optional)", messageLabel: "Anything else? (optional)", submitLabel: "Join the founding circle", submittingLabel: "Sending…", successBody: "You're on the list.", errorGeneric: "Something went wrong. Please try again.", errorEmail: "Please enter a valid email address." },
   prompts: { eyebrow: "If it helps", headline: "Emotional prompts", intro: "", rotating: ["Say the thing you couldn't say.", "Write the message you won't send.", "Just let it out."], cards: [] },
   categories: [
     { id: "all", label: "Everything" }, { id: "heavy", label: "Heavy" }, { id: "angry", label: "Angry" },
@@ -79,6 +84,8 @@ async function bootstrap() {
   renderHowItWorks(content.howItWorks);
   renderWhy(content.why);
   renderVision(content.vision);
+  renderGlossary(content.glossary);
+  renderFoundingCircle(content.foundingCircle);
   renderPrompts(content.prompts);
   renderPrivacy(content.privacy);
   renderFaq(content.faq);
@@ -108,6 +115,7 @@ async function bootstrap() {
   initInteractions();
   initAmbientSound();
   initPWA();
+  initInterestForm(content);
 
   wireGlobalActions();
   handleLaunchShortcut();

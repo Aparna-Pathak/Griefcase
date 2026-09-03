@@ -1,0 +1,21 @@
+name = "griefcase"
+main = "worker/index.js"
+compatibility_date = "2026-08-26"
+
+# Static site (index.html, css/, js/, icons/, data/, etc.) is served directly
+# from Cloudflare's asset store — the Worker script below is only invoked for
+# /api/* routes, so the existing site keeps working exactly as it does today
+# even where this Worker doesn't touch a request at all.
+[assets]
+directory = "./"
+binding = "ASSETS"
+run_worker_first = ["/api/*"]
+
+# Phase 1 backend: the "founding circle" interest-capture form.
+# See migrations/0001_init.sql for the full schema (including the Phase 2
+# tables for matching/messaging/safety, which nothing queries yet) and
+# ARCHITECTURE.md for what's built vs. what's designed-but-not-shipped.
+[[d1_databases]]
+binding = "DB"
+database_name = "griefcase-db"
+database_id = "8e3039ff-9d95-4dbf-8b99-6a6d867e953e"

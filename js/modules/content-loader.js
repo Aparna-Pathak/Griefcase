@@ -111,6 +111,53 @@ export function renderVision(vision) {
       layers.appendChild(card);
     });
   }
+
+  setText("vision-stats-caveat", vision.statsCaveat);
+  const stats = document.getElementById("vision-stats");
+  if (stats && Array.isArray(vision.stats)) {
+    stats.innerHTML = "";
+    vision.stats.forEach((stat) => {
+      const el = document.createElement("div");
+      el.className = "vision-stat";
+      el.innerHTML = `<span class="vision-stat-value">${stat.value}</span><p>${stat.label}</p><cite>${stat.source}</cite>`;
+      stats.appendChild(el);
+    });
+  }
+}
+
+export function renderGlossary(glossary) {
+  if (!glossary) return;
+  setText("glossary-eyebrow", glossary.eyebrow);
+  setText("glossary-headline", glossary.headline);
+  setText("glossary-intro", glossary.intro);
+  setText("glossary-note", glossary.note);
+
+  const grid = document.getElementById("glossary-grid");
+  if (grid && Array.isArray(glossary.terms)) {
+    grid.innerHTML = "";
+    glossary.terms.forEach((item, i) => {
+      const card = document.createElement("div");
+      card.className = "glossary-term";
+      card.style.setProperty("--i", i);
+      card.innerHTML = `<h3>${item.term}</h3><p>${item.body}</p>`;
+      grid.appendChild(card);
+    });
+  }
+}
+
+export function renderFoundingCircle(founding) {
+  if (!founding) return;
+  setText("founding-eyebrow", founding.eyebrow);
+  setText("founding-headline", founding.headline);
+  setText("founding-intro", founding.intro);
+  setText("founding-form-note", founding.formNote);
+  setText("founding-email-label", founding.emailLabel);
+  setText("founding-grief-type-label", founding.griefTypeLabel);
+  setText("founding-peer-checkbox-label", founding.peerCheckboxLabel);
+  setText("founding-motivation-label", founding.motivationLabel);
+  setText("founding-availability-label", founding.availabilityLabel);
+  setText("founding-message-label", founding.messageLabel);
+  setText("founding-submit", founding.submitLabel);
 }
 
 export function renderPrompts(prompts) {
