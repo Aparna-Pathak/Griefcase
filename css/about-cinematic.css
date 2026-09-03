@@ -1,0 +1,202 @@
+/* ==========================================================================
+   ABOUT — cinematic experience
+   --------------------------------------------------------------------------
+   Four full-viewport scenes (#about-scene-1..4) followed by a compact
+   "settling" statement (.about-settle, the section's previous simple copy
+   block) that brings the page back down to the calmer register of the rest
+   of the app. Every scene follows the same anatomy:
+
+     .about-scene
+       .about-scene-media (position: relative, overflow hidden)
+         img.about-scene-img         — the photograph, JS-wired via
+                                        about-images.js / about-cinematic.js
+         .about-reveal-layer         — scene 3 only, the cursor-revealed
+                                        second photograph
+         .about-scene-scrim          — gradient for text legibility
+         .grain                      — reused from base.css, subtle texture
+       .about-scene-copy             — the editorial headline + sub copy
+
+   Motion is transform/opacity only throughout, and every transition here
+   already collapses under prefers-reduced-motion via the global rule in
+   base.css (`transition-duration: 1ms !important`) — nothing extra needed
+   in this file for that. The one exception is the pointer-driven reveal
+   spotlight and scroll parallax, which about-cinematic.js only wires up
+   at all when motion is not reduced and the pointer is fine (see
+   `.about.is-static-reveal` below for the fallback).
+   ========================================================================== */
+
+.about-cinematic {
+  position: relative;
+  background: var(--color-charcoal);
+}
+
+.about-scene {
+  position: relative;
+  min-height: 100svh;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.about-scene-media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--color-charcoal);
+}
+
+.about-scene-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.06);
+  transition: transform 1.6s var(--ease-quiet);
+  will-change: transform;
+}
+
+.about-scene-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(20, 18, 16, 0.88) 0%,
+    rgba(20, 18, 16, 0.55) 38%,
+    rgba(20, 18, 16, 0.28) 62%,
+    rgba(20, 18, 16, 0.42) 100%
+  );
+}
+
+.about-scene-scrim-light {
+  background: linear-gradient(
+    to top,
+    rgba(20, 18, 16, 0.78) 0%,
+    rgba(20, 18, 16, 0.35) 45%,
+    rgba(20, 18, 16, 0.15) 100%
+  );
+}
+
+.about-scene .grain { opacity: 0.06; }
+
+.about-scene-copy {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: var(--space-7) var(--space-5) var(--space-8);
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+.about-scene-headline {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  color: var(--color-paper);
+  font-size: clamp(2.1rem, 6vw, 4.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  max-width: 16ch;
+  margin: 0;
+}
+
+.about-scene-sub {
+  margin-top: var(--space-4);
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  line-height: var(--lh-relaxed);
+  color: rgba(251, 248, 243, 0.78);
+  max-width: 42ch;
+}
+
+.about-scene-actions {
+  margin-top: var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.about-scene-actions .btn-text { color: var(--color-paper); text-decoration-color: rgba(251,248,243,0.4); }
+
+/* Scene 1 & 2: left-aligned, text sits low in the frame */
+.about-scene-copy { text-align: left; }
+
+/* Scene 4: slightly warmer scrim tone, text can breathe a touch more */
+.about-scene-warm .about-scene-headline { color: var(--color-charcoal); }
+.about-scene-warm .about-scene-sub { color: var(--color-charcoal-soft); }
+.about-scene-warm .about-scene-scrim {
+  background: linear-gradient(
+    to top,
+    rgba(244, 238, 227, 0.92) 0%,
+    rgba(244, 238, 227, 0.55) 45%,
+    rgba(244, 238, 227, 0.15) 100%
+  );
+}
+
+/* ---- Scene 3: the reveal ---- */
+.about-scene-reveal .about-scene-media { cursor: none; }
+
+.about-reveal-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--dur-med) var(--ease-quiet);
+  --rx: 50%;
+  --ry: 50%;
+  mask-image: radial-gradient(circle at var(--rx) var(--ry), black 0%, black 14%, transparent 44%);
+  -webkit-mask-image: radial-gradient(circle at var(--rx) var(--ry), black 0%, black 14%, transparent 44%);
+}
+
+.about-reveal-layer img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-reveal-layer.is-active { opacity: 1; }
+
+.about-reveal-hint {
+  margin-top: var(--space-4);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: rgba(251, 248, 243, 0.5);
+  transition: opacity var(--dur-med) var(--ease-quiet);
+}
+
+.about-reveal-hint.is-dismissed { opacity: 0; }
+
+/* Static fallback: no fine pointer, or reduced motion — the second image
+   settles in at low opacity once the scene is in view, unmasked, rather
+   than requiring an interaction the device/user can't or won't do. */
+#about.is-static-reveal .about-reveal-layer {
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+#about.is-static-reveal .about-scene.is-in-view .about-reveal-layer {
+  opacity: 0.32;
+}
+
+#about.is-static-reveal .about-reveal-hint { display: none; }
+
+/* ---- Settling statement (previous compact About copy) ---- */
+.about-settle {
+  background: var(--color-cream);
+  padding: var(--space-8) 0;
+}
+
+@media (max-width: 860px) {
+  .about-scene { min-height: 88svh; min-height: 88vh; align-items: flex-end; }
+  .about-scene-copy { padding: var(--space-6) var(--space-4) var(--space-6); }
+  .about-scene-headline { font-size: clamp(1.9rem, 8vw, 2.6rem); max-width: 14ch; }
+  .about-scene-sub { max-width: 34ch; }
+  .about-scene-reveal .about-scene-media { cursor: auto; }
+}
+
+@media (max-width: 560px) {
+  .about-scene-actions { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+}

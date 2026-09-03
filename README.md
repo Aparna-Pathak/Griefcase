@@ -56,6 +56,7 @@ griefcase/
 │   ├── base.css                Reset, global element styles, a11y utilities
 │   ├── layout.css              Header, section rhythm, footer grid
 │   ├── components.css          Hero, writer, release ritual, library, modals, PWA/sound UI…
+│   ├── about-cinematic.css     The four-scene cinematic About experience (see below)
 │   ├── animations.css          Scroll-reveal + shared motion utilities
 │   └── responsive.css          Breakpoint & touch-target refinements
 ├── js/
@@ -74,7 +75,9 @@ griefcase/
 │       ├── interactions.js     Magnetic buttons, hero cursor glow, card tilt (pointer-driven polish)
 │       ├── ambient-sound.js    Generative ambient pad + release-ritual chime (Web Audio, opt-in)
 │       ├── pwa.js               Service worker registration + custom install prompt
-│       └── interest-form.js    "Founding circle" form — the one thing that calls the API below
+│       ├── interest-form.js    "Founding circle" form — the one thing that calls the API below
+│       ├── about-images.js     Centralized image config for the cinematic About section
+│       └── about-cinematic.js  Scroll-in reveal, cursor spotlight, parallax for #about
 ├── icons/                      Generated app icons, favicons, OG/social card, manifest screenshots
 ├── scripts/
 │   └── make_icons.py           Regenerates everything in icons/ from plain geometry (no art assets)
@@ -353,6 +356,59 @@ Accessibility below):
   expands" note without adding a per-keystroke effect.
 - **Library filter fade** — switching mood filters fades the grid rather
   than swapping instantly.
+
+---
+
+## The About section (cinematic experience)
+
+`#about` is deliberately treated as the emotional centerpiece of the site,
+not a footnote section. It's four full-viewport photographic scenes that
+scroll past like a short film, followed by the original compact "About"
+statement (`.about-settle`) that brings the page back down to the site's
+calmer everyday register.
+
+**The story, and why it's told this way:** the four scenes deliberately
+open with the *practical* overwhelm of loss (the calls, the forms, the
+decisions) rather than going straight to something softer — that's the
+honest, relatable hook. Scene 3 is the turn: Griefcase is upfront that it
+won't do any of that administrative work for you, and instead offers
+somewhere to put down what you're carrying. Scene 4 closes on the thesis's
+actual finding (most people navigating loss stay quiet about it) and
+gestures at peer connection as where this is headed, without overclaiming
+that it exists today. This blend was a deliberate choice — see [Where the
+product vision came from](#where-the-product-vision-came-from) below for
+why the copy doesn't just adopt an "estate paperwork" framing wholesale.
+
+- **`js/modules/about-images.js`** is the single place every photo URL for
+  this section lives — swap an image by changing one line here, never by
+  hunting through `index.html` or CSS. Each entry also carries the
+  photographer credit and profile URL, kept for good practice even though
+  the license doesn't require it (see licensing below).
+- **`js/modules/about-cinematic.js`** wires it up in three independent,
+  optional pieces: (1) reads `about-images.js` into the `<img>` tags via
+  `data-about-image` attributes; (2) a per-scene `IntersectionObserver`
+  that triggers a slow image settle + scrim as each scene scrolls into
+  view; (3) on fine-pointer, motion-OK devices only, a cursor-following
+  "spotlight" mask on scene 3 that reveals a second photograph under the
+  cursor, plus a subtle scroll parallax drift on every scene's image.
+- **`css/about-cinematic.css`** holds all the scene/reveal/parallax
+  styling, including the responsive breakpoints and the static fallback
+  (see next point).
+- **Accessibility & fallback**: on a coarse pointer (touch) or under
+  `prefers-reduced-motion`, the cursor-spotlight and parallax never
+  initialize at all — `about-cinematic.js` adds an `is-static-reveal`
+  class to `#about` instead, and `about-cinematic.css` fades the second
+  scene-3 photograph in at low, fixed opacity once the scene is in view,
+  so nobody is asked to perform a hover interaction their device or
+  preference can't or won't do. All other scene transitions are
+  transform/opacity only and already collapse to effectively-instant under
+  the global `prefers-reduced-motion` rule in `base.css`.
+- **Imagery & licensing**: all five photographs are sourced from Unsplash
+  and used under the [Unsplash License](https://unsplash.com/license) —
+  free for commercial and non-commercial use, no permission required.
+  Deliberately avoided: crying faces, funeral imagery, candles,
+  tombstones, and staged "sad family" stock photography — the direction
+  throughout is quiet, ordinary, and specific rather than performative.
 
 ---
 

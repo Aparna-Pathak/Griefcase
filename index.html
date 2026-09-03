@@ -49,6 +49,7 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/about-cinematic.css">
 <link rel="stylesheet" href="css/animations.css">
 <link rel="stylesheet" href="css/responsive.css">
 
@@ -376,17 +377,79 @@
   </section>
 
   <!-- ===================== ABOUT ===================== -->
-  <section id="about" class="section-alt">
-    <div class="container">
-      <div class="about-layout">
-        <div data-reveal>
-          <span class="eyebrow" id="about-eyebrow">About</span>
-          <h2 style="font-size:var(--fs-h1)" id="about-headline">A room, not a solution.</h2>
+  <section id="about" class="about-cinematic" aria-label="About Griefcase">
+
+    <!-- Scene 1 — The moment -->
+    <div class="about-scene" id="about-scene-1">
+      <div class="about-scene-media">
+        <img class="about-scene-img" data-about-image="moment" data-eager="true" alt="">
+        <div class="about-scene-scrim"></div>
+        <div class="grain" aria-hidden="true"></div>
+      </div>
+      <div class="about-scene-copy">
+        <h2 class="about-scene-headline" data-reveal>Something changes. All at once, nothing is routine.</h2>
+      </div>
+    </div>
+
+    <!-- Scene 2 — What still needs to be handled -->
+    <div class="about-scene" id="about-scene-2">
+      <div class="about-scene-media">
+        <img class="about-scene-img" data-about-image="practicalBurden" alt="">
+        <div class="about-scene-scrim"></div>
+        <div class="grain" aria-hidden="true"></div>
+      </div>
+      <div class="about-scene-copy">
+        <h2 class="about-scene-headline" data-reveal>And everything else still needs to be handled.</h2>
+        <p class="about-scene-sub" data-reveal>The calls. The forms. The decisions nobody prepared you for. None of it pauses for what you're feeling.</p>
+      </div>
+    </div>
+
+    <!-- Scene 3 — The turn: what Griefcase actually is, with the cursor reveal -->
+    <div class="about-scene about-scene-reveal" id="about-scene-3">
+      <div class="about-scene-media">
+        <img class="about-scene-img" data-about-image="reflectionBase" alt="">
+        <div class="about-reveal-layer" id="about-reveal-layer">
+          <img data-about-image="reflectionReveal" alt="">
         </div>
-        <div class="about-copy" id="about-copy" data-reveal>
-          <p>Griefcase was built on a simple idea: not every thought needs an audience, an answer, or a fix. Sometimes it just needs somewhere to exist outside of you for a while.</p>
-          <p>We're not a therapy platform, a social network, or a productivity app. We're closer to a drawer, a shoebox, a case you can close. A small, private container for the things you're carrying.</p>
-          <p>If Griefcase gives you five quieter minutes in a hard day, it's done its job.</p>
+        <div class="about-scene-scrim"></div>
+        <div class="grain" aria-hidden="true"></div>
+      </div>
+      <div class="about-scene-copy">
+        <h2 class="about-scene-headline" data-reveal>Griefcase won't do any of that for you.</h2>
+        <p class="about-scene-sub" data-reveal>What it can do is give you somewhere to put it down while you get through it — five honest minutes in an impossible week.</p>
+        <p class="about-reveal-hint" id="about-reveal-hint" aria-hidden="true">Move your cursor across the image</p>
+      </div>
+    </div>
+
+    <!-- Scene 4 — The outcome -->
+    <div class="about-scene about-scene-warm" id="about-scene-4">
+      <div class="about-scene-media">
+        <img class="about-scene-img" data-about-image="outcome" alt="">
+        <div class="about-scene-scrim about-scene-scrim-light"></div>
+      </div>
+      <div class="about-scene-copy">
+        <h2 class="about-scene-headline" data-reveal>You don't have to carry it by yourself.</h2>
+        <p class="about-scene-sub" data-reveal>Most people navigating loss do it quietly, without saying much to anyone — that's a real early research finding behind Griefcase, not just a guess. A private space today. Real people who understand, when you're ready for that.</p>
+        <div class="about-scene-actions" data-reveal>
+          <button type="button" class="btn btn-primary is-magnetic" data-open-writer>Open Griefcase</button>
+          <a class="btn-text" href="#founding-circle">Join the founding circle</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settling statement — brings the page back to its normal register -->
+    <div class="about-settle">
+      <div class="container">
+        <div class="about-layout">
+          <div data-reveal>
+            <span class="eyebrow" id="about-eyebrow">About</span>
+            <h2 style="font-size:var(--fs-h1)" id="about-headline">A room, not a solution.</h2>
+          </div>
+          <div class="about-copy" id="about-copy" data-reveal>
+            <p>Griefcase was built on a simple idea: not every thought needs an audience, an answer, or a fix. Sometimes it just needs somewhere to exist outside of you for a while.</p>
+            <p>We're not a therapy platform, a social network, or a productivity app. We're closer to a drawer, a shoebox, a case you can close. A small, private container for the things you're carrying.</p>
+            <p>If Griefcase gives you five quieter minutes in a hard day, it's done its job.</p>
+          </div>
         </div>
       </div>
     </div>
