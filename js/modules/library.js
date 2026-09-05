@@ -11,6 +11,7 @@ import { getEntries, deleteEntry } from "./state.js";
 let refs = {};
 let categories = [];
 let activeFilter = "all";
+let activeView = "cards";
 let activeEntryId = null;
 
 export function initLibrary(cmsContent) {
@@ -19,8 +20,11 @@ export function initLibrary(cmsContent) {
   refs = {
     overlay: document.getElementById("library-overlay"),
     closeBtn: document.getElementById("library-close"),
+    viewCardsBtn: document.getElementById("library-view-cards"),
+    viewTimelineBtn: document.getElementById("library-view-timeline"),
     filters: document.getElementById("library-filters"),
     grid: document.getElementById("library-grid"),
+    timeline: document.getElementById("library-timeline"),
     empty: document.getElementById("library-empty"),
     modalBackdrop: document.getElementById("entry-modal-backdrop"),
     modalDate: document.getElementById("entry-modal-date"),
@@ -37,6 +41,9 @@ export function initLibrary(cmsContent) {
     else trapFocus(refs.overlay, e);
   });
 
+  refs.viewCardsBtn.addEventListener("click", () => setView("cards"));
+  refs.viewTimelineBtn.addEventListener("click", () => setView("timeline"));
+
   refs.filters.addEventListener("click", (e) => {
     const chip = e.target.closest(".filter-chip");
     if (!chip) return;
@@ -50,6 +57,12 @@ export function initLibrary(cmsContent) {
     const slip = e.target.closest(".entry-slip");
     if (!slip) return;
     openEntry(slip.dataset.id);
+  });
+
+  refs.timeline.addEventListener("click", (e) => {
+    const dot = e.target.closest(".timeline-dot");
+    if (!dot) return;
+    openEntry(dot.dataset.id);
   });
 
   refs.modalClose.addEventListener("click", closeEntryModal);
@@ -66,24 +79,37 @@ export function initLibrary(cmsContent) {
 
 export function openLibrary() {
   activeFilter = "all";
+  activeView = "cards";
   refs.filters.querySelectorAll(".filter-chip").forEach((c) => c.setAttribute("aria-pressed", c.dataset.filter === "all" ? "true" : "false"));
+  syncViewButtons();
   render();
   openOverlay(refs.overlay);
 }
 
+function setView(view) {
+  if (view === activeView) return;
+  activeView = view;
+  syncViewButtons();
+  render();
+}
+
+function syncViewButtons() {
+  refs.viewCardsBtn.classList.toggle("is-active", activeView === "cards");
+  refs.viewCardsBtn.setAttribute("aria-pressed", activeView === "cards" ? "true" : "false");
+  refs.viewTimelineBtn.classList.toggle("is-active", activeView === "timeline");
+  refs.viewTimelineBtn.setAttribute("aria-pressed", activeView === "timeline" ? "true" : "false");
+}
+
+function currentEntries() {
+  return getEntries().filter((e) => activeFilter === "all" || e.mood === activeFilter);
+}
+
 function render() {
-  const entries = getEntries().filter((e) => activeFilter === "all" || e.mood === activeFilter);
-
-  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    refs.grid.classList.remove("is-filtering");
-    void refs.grid.offsetWidth;
-    refs.grid.classList.add("is-filtering");
-  }
-
-  refs.grid.innerHTML = "";
+  const entries = currentEntries();
 
   if (entries.length === 0) {
     refs.grid.hidden = true;
+    refs.timeline.hidden = true;
     refs.empty.hidden = false;
     refs.empty.querySelector("h3").textContent = activeFilter === "all"
       ? refs.empty.querySelector("h3").textContent
@@ -91,8 +117,26 @@ function render() {
     return;
   }
 
-  refs.grid.hidden = false;
   refs.empty.hidden = true;
+
+  if (activeView === "timeline") {
+    refs.grid.hidden = true;
+    renderTimeline(entries);
+  } else {
+    refs.timeline.hidden = true;
+    renderGrid(entries);
+  }
+}
+
+function renderGrid(entries) {
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    refs.grid.classList.remove("is-filtering");
+    void refs.grid.offsetWidth;
+    refs.grid.classList.add("is-filtering");
+  }
+
+  refs.grid.innerHTML = "";
+  refs.grid.hidden = false;
 
   const frag = document.createDocumentFragment();
   entries.forEach((entry, i) => {
@@ -106,7 +150,7 @@ function render() {
 
     const preview = entry.text
       ? entry.text
-      : "A recorded thought.";
+      : "A recorded musing.";
 
     card.innerHTML = `
       <span class="entry-text">${escapeHtml(preview)}</span>
@@ -118,6 +162,66 @@ function render() {
     frag.appendChild(card);
   });
   refs.grid.appendChild(frag);
+}
+
+/* Groups entries (already newest-first from getEntries()) by calendar day
+   and renders one row per day: a date label plus a small mood-colored dot
+   per entry left that day, threaded on a vertical line. The point isn't
+   to read any single entry here — it's to see how the days actually
+   looked, mood to mood, the way flipping back through a paper journal
+   does. Clicking a dot opens the same reader modal as a card. */
+function renderTimeline(entries) {
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    refs.timeline.classList.remove("is-filtering");
+    void refs.timeline.offsetWidth;
+    refs.timeline.classList.add("is-filtering");
+  }
+
+  refs.timeline.innerHTML = "";
+  refs.timeline.hidden = false;
+
+  const days = [];
+  let currentKey = null;
+  entries.forEach((entry) => {
+    const key = dayKey(entry.createdAt);
+    if (key !== currentKey) {
+      days.push({ date: entry.createdAt, items: [] });
+      currentKey = key;
+    }
+    days[days.length - 1].items.push(entry);
+  });
+
+  const frag = document.createDocumentFragment();
+  days.forEach((day) => {
+    const row = document.createElement("div");
+    row.className = "timeline-day";
+
+    const label = document.createElement("span");
+    label.className = "timeline-date";
+    label.textContent = formatDate(day.date);
+    row.appendChild(label);
+
+    const dots = document.createElement("div");
+    dots.className = "timeline-dots";
+    day.items.forEach((entry) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "timeline-dot";
+      dot.dataset.id = entry.id;
+      dot.style.setProperty("--mood-color", entry.mood ? `var(--mood-${entry.mood})` : "var(--color-taupe)");
+      const cat = categories.find((c) => c.id === entry.mood);
+      dot.setAttribute("aria-label", `${cat ? cat.label : "Untagged"} entry, ${formatDate(entry.createdAt, true)}`);
+      dots.appendChild(dot);
+    });
+    row.appendChild(dots);
+    frag.appendChild(row);
+  });
+  refs.timeline.appendChild(frag);
+}
+
+function dayKey(timestamp) {
+  const d = new Date(timestamp);
+  return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
 }
 
 function openEntry(id) {

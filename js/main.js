@@ -39,6 +39,7 @@ import { initPWA } from "./modules/pwa.js";
 import { initInterestForm } from "./modules/interest-form.js";
 import { initAboutShowcase } from "./modules/about-showcase.js";
 import { initCounters } from "./modules/counters.js";
+import { initPreviewSketches } from "./modules/preview-sketches.js";
 
 /** Minimal fallback so the app still functions if content.json can't be
  *  fetched (e.g. opened directly via file:// in a browser that blocks
@@ -54,7 +55,7 @@ const FALLBACK_CONTENT = {
       { label: "About", target: "#about" },
     ],
   },
-  hero: { eyebrow: "A quiet place for what you're carrying", headline: "Some things are easier to leave here.", subcopy: "Your thoughts don't need to make sense. They just need somewhere to go.", ctaPrimary: "Open Griefcase", ctaSecondary: "See how it works" },
+  hero: { eyebrow: "A quiet place for what you're carrying", headline: "Some things are easier to leave here.", subcopy: "Your musings don't need to make sense. They just need somewhere to go.", ctaPrimary: "Open Griefcase", ctaSecondary: "See how it works" },
   howItWorks: { eyebrow: "How it works", headline: "There's no right way to use this.", intro: "But if it helps, here's roughly how it goes.", steps: [] },
   why: { eyebrow: "Why Griefcase exists", headline: "You don't have to carry everything.", paragraphs: [], quote: { text: "You are allowed to feel this.", attribution: "— Griefcase" } },
   vision: { eyebrow: "Where this is headed", headline: "Presence first. Solutions only if you want them.", intro: "", paragraphs: [], layers: [], note: "", stats: [], statsCaveat: "" },
@@ -66,7 +67,7 @@ const FALLBACK_CONTENT = {
     { id: "sad", label: "Sad" }, { id: "confused", label: "Confused" }, { id: "hopeful", label: "Hopeful" }, { id: "unspoken", label: "Unspoken" },
   ],
   library: { eyebrow: "My Griefcase", headline: "What I've left here.", intro: "", emptyTitle: "Nothing here yet.", emptyBody: "Whatever you leave will stay here.", emptyCta: "Open Griefcase" },
-  privacy: { eyebrow: "Privacy & safety", headline: "Your thoughts belong to you.", points: [], disclaimer: "Griefcase isn't therapy, medical care, or crisis support.", safety: { label: "If you're in immediate danger", body: "Please contact your local emergency number or a crisis line where you live.", linkText: "Find support in your country", linkUrl: "https://findahelpline.com" } },
+  privacy: { eyebrow: "Privacy & safety", headline: "Your musings belong to you.", points: [], disclaimer: "Griefcase isn't therapy, medical care, or crisis support.", safety: { label: "If you're in immediate danger", body: "Please contact your local emergency number or a crisis line where you live.", linkText: "Find support in your country", linkUrl: "https://findahelpline.com" } },
   about: { eyebrow: "About", headline: "A room, not a solution.", paragraphs: [] },
   faq: [],
   footer: { tagline: "Leave it here. Feel a little lighter.", columns: [], safetyNote: "In immediate danger? Contact your local emergency number.", copyright: "Griefcase." },
@@ -120,6 +121,7 @@ async function bootstrap() {
   initInterestForm(content);
   initAboutShowcase();
   initCounters();
+  initPreviewSketches();
 
   wireGlobalActions();
   handleLaunchShortcut();

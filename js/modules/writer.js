@@ -92,7 +92,7 @@ function resetWriter() {
   recordedBlob = null;
   refs.voicePlayback.hidden = true;
   refs.voicePlayback.innerHTML = "";
-  refs.voiceStatus.textContent = "Tap to record a thought. It stays on this device.";
+  refs.voiceStatus.textContent = "Tap to record a musing. It stays on this device.";
   refs.recordDot.classList.remove("is-recording");
   refs.recordToggle.textContent = "Start recording";
   refs.helpText.textContent = "";
@@ -265,7 +265,7 @@ function stopRecordingIfActive() {
   }
   refs.recordDot.classList.remove("is-recording");
   refs.recordToggle.textContent = recordedBlob ? "Record again" : "Start recording";
-  if (!recordedBlob) refs.voiceStatus.textContent = "Tap to record a thought. It stays on this device.";
+  if (!recordedBlob) refs.voiceStatus.textContent = "Tap to record a musing. It stays on this device.";
   stopMediaStream();
 }
 

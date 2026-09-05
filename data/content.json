@@ -16,7 +16,7 @@
   "hero": {
     "eyebrow": "A quiet place for what you're carrying",
     "headline": "Some things are easier to leave here.",
-    "subcopy": "Your thoughts don't need to make sense. They just need somewhere to go.",
+    "subcopy": "Your musings don't need to make sense. They just need somewhere to go.",
     "ctaPrimary": "Open Griefcase",
     "ctaSecondary": "See how it works"
   },
@@ -34,7 +34,7 @@
       {
         "number": "02",
         "title": "Write, or say it out loud",
-        "body": "Type it, ramble it, leave it half-finished. Or record a thought instead."
+        "body": "Type it, ramble it, leave it half-finished. Or record a musing instead."
       },
       {
         "number": "03",
@@ -53,9 +53,9 @@
     "eyebrow": "Why Griefcase exists",
     "headline": "You don't have to carry everything.",
     "paragraphs": [
-      "Some thoughts don't have anywhere to go. They're too heavy for a text message, too unfinished for a journal, too honest for a conversation you're not ready to have.",
+      "Some musings don't have anywhere to go. They're too heavy for a text message, too unfinished for a journal, too honest for a conversation you're not ready to have.",
       "Griefcase isn't therapy, and it isn't trying to fix anything. It's just somewhere to put things down for a while — the anger you didn't say out loud, the grief that doesn't have an occasion, the sentence you keep almost sending.",
-      "Some thoughts aren't meant to be solved. Some days you just need somewhere to put them."
+      "Some musings aren't meant to be solved. Some days you just need somewhere to put them."
     ],
     "quote": {
       "text": "You are allowed to feel this. You don't have to explain it to anyone — not even to us.",
@@ -69,15 +69,17 @@
     "intro": "Griefcase today is exactly what you're using right now: a private space to write and let go, held only in your own browser. The thinking behind it is bigger than that, and it's honest to say so out loud.",
     "paragraphs": [
       "Griefcase started from lived grief — from noticing that most people don't want a diagnosis on day one. They want to be heard before anything else. Support that adapts to a person, instead of asking the person to adapt to a system.",
-      "The longer-term idea is a layered space that only ever goes as deep as you choose: reflective writing and listening; optional peer support; trained volunteers; and, when it's genuinely wanted, licensed professionals. Every step up would be something you choose — never something a system decides for you."
+      "The longer-term idea is a layered space that only ever goes as deep as you choose: reflective writing and listening, then peer support, then a clear path upward — counsellor, therapist, clinical psychologist, psychiatrist — for whenever more is genuinely wanted. Peer support sits at the heart of it: most people, we think, aren't looking for a diagnosis first. They're looking for others who get it. Every step up would be something you choose — never something a system decides for you."
     ],
     "layers": [
       { "title": "Reflection", "body": "A space to think out loud — private writing today, and eventually a gentle AI presence that reflects rather than diagnoses." },
-      { "title": "Peer support", "body": "Optional, moderated company from people who understand, for whenever you want it." },
-      { "title": "Trained volunteers", "body": "Real people, trained to listen, for moments that ask for more than reflection." },
-      { "title": "Professional care", "body": "A clear, consent-based path to licensed support — never forced, never assumed on your behalf." }
+      { "title": "Peer support", "body": "Optional, moderated company from people who understand what you're carrying — often the first and most human step past writing alone." },
+      { "title": "Counsellor", "body": "A trained listener for structured, ongoing support — regular sessions to help you process, not just get through the day." },
+      { "title": "Psychotherapist / Psychologist", "body": "Deeper, evidence-based therapy for patterns and pain that need more than conversation alone." },
+      { "title": "Clinical Psychologist", "body": "Specialist assessment and treatment for more complex grief, trauma, or mental health needs." },
+      { "title": "Psychiatrist", "body": "Medical care and, where appropriate, medication — for when the body needs support too, not just the mind." }
     ],
-    "note": "Only the first layer — private writing and voice notes — exists in this version. The rest is roadmap, not a promise with a date. When any of it ships, it will be opt-in, clearly labeled, and never a stand-in for emergency care.",
+    "note": "Only the first layer — private writing and voice notes — exists in this version. The rest is roadmap, not a promise with a date. When any of it ships, it will be opt-in, clearly labeled, and something you'd consent to at every step — never a stand-in for emergency care.",
     "stats": [
       { "value": "91%", "label": "of respondents had personally experienced grief — most navigating it quietly, without support", "source": "Independent survey, India, 2025 (n=65)" },
       { "value": "4.2 / 5", "label": "average expected helpfulness of talking to someone who'd been through something similar", "source": "Same survey" },
@@ -162,7 +164,7 @@
 
   "privacy": {
     "eyebrow": "Privacy & safety",
-    "headline": "Your thoughts belong to you.",
+    "headline": "Your musings belong to you.",
     "points": [
       {
         "title": "Private by design",
@@ -190,7 +192,7 @@
     "eyebrow": "About",
     "headline": "A room, not a solution.",
     "paragraphs": [
-      "Griefcase was built on a simple idea: not every thought needs an audience, an answer, or a fix. Sometimes it just needs somewhere to exist outside of you for a while.",
+      "Griefcase was built on a simple idea: not every musing needs an audience, an answer, or a fix. Sometimes it just needs somewhere to exist outside of you for a while.",
       "We're not a therapy platform, a social network, or a productivity app. We're closer to a drawer, a shoebox, a case you can close. A small, private container for the things you're carrying.",
       "If Griefcase gives you five quieter minutes in a hard day, it's done its job."
     ]

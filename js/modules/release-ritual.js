@@ -1,7 +1,7 @@
 /**
  * release-ritual.js
  * -----------------------------------------------------------------------
- * The signature Griefcase interaction: a finished thought folds into a
+ * The signature Griefcase interaction: a finished musing folds into a
  * paper shape, settles into the case, the case closes, and the entry is
  * only written to storage at that moment — the visual metaphor and the
  * actual "save" happen together. This is the one moment on the site
@@ -72,7 +72,7 @@ export async function startRelease(entry) {
   refs.stage.classList.add("is-open");
   refs.stage.setAttribute("tabindex", "-1");
   refs.stage.focus({ preventScroll: true });
-  announce("Folding your thought into the Griefcase.");
+  announce("Folding your musing into the Griefcase.");
 
   await wait(120);
   refs.paper.classList.add("fold-1");
@@ -117,7 +117,7 @@ export async function startRelease(entry) {
 
 function resetStage(entry) {
   refs.paper.className = "release-paper";
-  refs.paper.textContent = (entry.text || "A recorded thought").slice(0, 260);
+  refs.paper.textContent = (entry.text || "A recorded musing").slice(0, 260);
   refs.caseWrap.classList.remove("is-visible");
   refs.lid.style.transform = "rotate(0deg)";
   refs.line1.hidden = false;
