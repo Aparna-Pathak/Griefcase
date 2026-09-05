@@ -56,7 +56,7 @@ griefcase/
 │   ├── base.css                Reset, global element styles, a11y utilities
 │   ├── layout.css              Header, section rhythm, footer grid
 │   ├── components.css          Hero, writer, release ritual, library, modals, PWA/sound UI…
-│   ├── about-carousel.css      The auto-advancing About carousel (see below)
+│   ├── about-showcase.css      The compact interactive About showcase (see below)
 │   ├── prompts-orbit.css       Emotional prompts' desktop ring layout (see below)
 │   ├── finale.css              The closing "Whenever you're ready." section
 │   ├── animations.css          Scroll-reveal + shared motion utilities
@@ -79,8 +79,8 @@ griefcase/
 │       ├── ambient-sound.js    Generative ambient pad + release-ritual chime (Web Audio, opt-in)
 │       ├── pwa.js               Service worker registration + custom install prompt
 │       ├── interest-form.js    "Founding circle" form — the one thing that calls the API below
-│       ├── about-images.js     Centralized image config for the About carousel
-│       └── about-carousel.js   Autoplay, dots/arrows, swipe, and pause behavior for #about
+│       ├── about-images.js     Centralized image config for the About showcase
+│       └── about-showcase.js   Click/idle-advance, crossfade, and pause behavior for #about
 ├── icons/                      Generated app icons, favicons, OG/social card, manifest screenshots
 ├── scripts/
 │   └── make_icons.py           Regenerates everything in icons/ from plain geometry (no art assets)
@@ -338,10 +338,10 @@ was a deliberate choice, not a shortcut:
 
 ## Visual language: warm espresso, premium cards
 
-The marketing pages (hero through footer, plus the About experience) use a
-warm espresso-brown palette rather than flat black for every "dark"
-surface — `.section-dark` ("Why Griefcase exists"), the site footer, the
-install banner, and the About cinematic scenes all use `--gradient-dark`
+The marketing pages (hero through footer) use a warm espresso-brown
+palette rather than flat black for every "dark" surface — `.section-dark`
+("Why Griefcase exists"), the site footer, the install banner, and the
+"Before you write" FAQ section all use `--gradient-dark`
 (`--color-espresso` → `--color-espresso-deep`, defined in
 `css/variables.css`) instead of a solid near-black. Body ink itself
 (`--color-charcoal`) is a dark brown, not black, and a new `--color-gold`
@@ -387,48 +387,57 @@ Accessibility below):
 
 ---
 
-## The About section (auto-advancing carousel)
+## The About section (compact interactive showcase)
 
 `#about` is deliberately treated as the emotional centerpiece of the site,
-not a footnote section. It's a four-slide carousel that advances on its
-own every 2 seconds, followed by the original compact "About" statement
-(`.about-settle`) that brings the page back down to the site's calmer
-everyday register.
+not a footnote section — but it's built to *not* dominate the page. It's a
+compact "feature tour" pattern (a photo frame beside an interactive list of
+four beats, well under 400px tall) rather than a full-height set piece,
+followed by the original compact "About" statement (`.about-settle`) that
+brings the page back down to the site's calmer everyday register. An
+earlier version of this section was a full-height (~88vh), text-over-photo
+auto-advancing carousel; it was replaced because it took up too much of
+the page and the text-on-image treatment fought with photo legibility.
 
-**The story, and why it's told this way:** the four slides deliberately
+**The story, and why it's told this way:** the four beats deliberately
 open with the *practical* overwhelm of loss (the calls, the forms, the
 decisions) rather than going straight to something softer — that's the
-honest, relatable hook. Slide 3 is the turn: Griefcase is upfront that it
+honest, relatable hook. Beat 3 is the turn: Griefcase is upfront that it
 won't do any of that administrative work for you, and instead offers
-somewhere to put down what you're carrying. Slide 4 closes on the thesis's
+somewhere to put down what you're carrying. Beat 4 closes on the thesis's
 actual finding (most people navigating loss stay quiet about it) and
 gestures at peer connection as where this is headed, without overclaiming
 that it exists today. This blend was a deliberate choice — see [Where the
 product vision came from](#where-the-product-vision-came-from) below for
 why the copy doesn't just adopt an "estate paperwork" framing wholesale.
 
+The imagery direction is calm, homely, lifestyle photography — sheer white
+curtains, tea, journals, blankets — rather than office/corporate or
+outdoor scenes, so each beat reads as safe and domestic rather than
+transactional.
+
 - **`js/modules/about-images.js`** is the single place every photo URL for
   this section lives — swap an image by changing one line here, never by
-  hunting through `index.html` or CSS. Each entry also carries the
-  photographer credit and profile URL, kept for good practice even though
-  the license doesn't require it (see licensing below).
-- **`js/modules/about-carousel.js`** drives the autoplay: one slide every
-  2 seconds (`AUTOPLAY_MS`), with a progress bar that fills in sync so the
-  cadence is visible, not just felt. Hovering, focusing, or using a
-  dot/arrow pauses it; it resumes a few seconds after you look away. It
-  also pauses whenever the section scrolls out of view or the browser tab
-  is hidden, and supports touch swipe. It is never the *only* way through
-  the carousel — every slide is reachable via the dot and arrow buttons,
-  which are real `<button>` elements with `aria-label`s.
-- **`css/about-carousel.css`** holds the slide cross-fade, the slow
-  Ken-Burns image drift on the active slide, and the arrow/dot/progress
-  styling.
-- **Accessibility & fallback**: under `prefers-reduced-motion`, autoplay
-  never starts and the progress bar is hidden entirely — the carousel
-  becomes purely click/tap/keyboard-driven, with the same four slides
-  reachable the same way. All slide transitions are opacity/transform
-  only and already collapse to effectively-instant under the global
-  `prefers-reduced-motion` rule in `base.css`.
+  hunting through `index.html` or CSS. Each entry also carries a credit
+  and source link, kept for good practice even though the license doesn't
+  require it (see licensing below).
+- **`js/modules/about-showcase.js`** drives the interaction: clicking any
+  beat jumps straight to it (crossfading the photo and expanding that
+  beat's sub-copy); Arrow Up/Down/Left/Right move between beats when one
+  is focused. It also idle-advances one beat every 4.5 seconds
+  (`AUTOPLAY_MS`) with a thin progress bar under the active beat, purely
+  as a convenience — hovering, focusing, or clicking pauses it, and it's
+  never the *only* way through the four beats since every one is a real
+  `<button>`. Pauses whenever the section scrolls out of view or the
+  browser tab is hidden.
+- **`css/about-showcase.css`** holds the photo crossfade, the one-shot
+  light-sheen sweep on each change, and the beat list/progress-bar
+  styling. Because the copy now lives beside the photo instead of on top
+  of it, no scrim is needed — the photography reads at full richness.
+- **Accessibility & fallback**: under `prefers-reduced-motion`, idle-
+  advance never starts and the sheen sweep is disabled — the component
+  becomes purely click/tap/keyboard-driven, with the same four beats
+  reachable the same way.
 - **Imagery & licensing**: all four photographs are sourced from Unsplash
   and used under the [Unsplash License](https://unsplash.com/license) —
   free for commercial and non-commercial use, no permission required.

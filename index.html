@@ -49,7 +49,7 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/about-carousel.css">
+<link rel="stylesheet" href="css/about-showcase.css">
 <link rel="stylesheet" href="css/prompts-orbit.css">
 <link rel="stylesheet" href="css/finale.css">
 <link rel="stylesheet" href="css/animations.css">
@@ -402,83 +402,61 @@
     </div>
   </section>
 
-  <!-- ===================== ABOUT (auto-advancing carousel) ===================== -->
-  <section id="about" class="about-carousel" aria-label="About Griefcase" aria-roledescription="carousel">
-    <div class="about-carousel-track">
+  <!-- ===================== ABOUT (compact interactive showcase) ===================== -->
+  <section id="about" class="about-showcase" aria-label="About Griefcase">
+    <div class="container about-showcase-inner">
+      <div class="about-showcase-frame">
+        <div class="about-showcase-visual" id="about-showcase-visual">
+          <img class="about-showcase-img is-active" data-about-image="moment" data-eager="true" alt="">
+          <img class="about-showcase-img" data-about-image="practicalBurden" alt="">
+          <img class="about-showcase-img" data-about-image="reflectionBase" alt="">
+          <img class="about-showcase-img" data-about-image="outcome" alt="">
+          <div class="about-showcase-sheen" aria-hidden="true"></div>
+        </div>
 
-      <!-- Slide 1 — The moment -->
-      <div class="about-slide is-active" data-slide="0" aria-roledescription="slide" aria-label="1 of 4">
-        <div class="about-slide-media">
-          <div class="about-slide-parallax">
-            <img class="about-slide-img" data-about-image="moment" data-eager="true" alt="">
-          </div>
-          <div class="about-slide-scrim"></div>
-          <div class="grain" aria-hidden="true"></div>
-        </div>
-        <div class="about-slide-copy">
-          <h2 class="about-slide-headline">Something changes. All at once, nothing is routine.</h2>
-        </div>
-      </div>
+        <div class="about-showcase-panel">
+          <div class="about-showcase-list" aria-label="About Griefcase, in four parts">
+            <button type="button" class="about-beat is-active" aria-current="true" data-beat="0">
+              <span class="about-beat-index">01</span>
+              <span class="about-beat-body">
+                <span class="about-beat-head">Something changes. All at once, nothing is routine.</span>
+              </span>
+              <span class="about-beat-bar" aria-hidden="true"><span></span></span>
+            </button>
 
-      <!-- Slide 2 — What still needs to be handled -->
-      <div class="about-slide" data-slide="1" aria-roledescription="slide" aria-label="2 of 4">
-        <div class="about-slide-media">
-          <div class="about-slide-parallax">
-            <img class="about-slide-img" data-about-image="practicalBurden" alt="">
-          </div>
-          <div class="about-slide-scrim"></div>
-          <div class="grain" aria-hidden="true"></div>
-        </div>
-        <div class="about-slide-copy">
-          <h2 class="about-slide-headline">And everything else still needs to be handled.</h2>
-          <p class="about-slide-sub">The calls. The forms. The decisions nobody prepared you for. None of it pauses for what you're feeling.</p>
-        </div>
-      </div>
+            <button type="button" class="about-beat" aria-current="false" data-beat="1">
+              <span class="about-beat-index">02</span>
+              <span class="about-beat-body">
+                <span class="about-beat-head">And everything else still needs to be handled.</span>
+                <span class="about-beat-sub">The calls. The forms. The decisions nobody prepared you for. None of it pauses for what you're feeling.</span>
+              </span>
+              <span class="about-beat-bar" aria-hidden="true"><span></span></span>
+            </button>
 
-      <!-- Slide 3 — The turn: what Griefcase actually is -->
-      <div class="about-slide" data-slide="2" aria-roledescription="slide" aria-label="3 of 4">
-        <div class="about-slide-media">
-          <div class="about-slide-parallax">
-            <img class="about-slide-img" data-about-image="reflectionBase" alt="">
-          </div>
-          <div class="about-slide-scrim"></div>
-          <div class="grain" aria-hidden="true"></div>
-        </div>
-        <div class="about-slide-copy">
-          <h2 class="about-slide-headline">Griefcase won't do any of that for you.</h2>
-          <p class="about-slide-sub">What it can do is give you somewhere to put it down while you get through it — five honest minutes in an impossible week.</p>
-        </div>
-      </div>
+            <button type="button" class="about-beat" aria-current="false" data-beat="2">
+              <span class="about-beat-index">03</span>
+              <span class="about-beat-body">
+                <span class="about-beat-head">Griefcase won't do any of that for you.</span>
+                <span class="about-beat-sub">What it can do is give you somewhere to put it down while you get through it — five honest minutes in an impossible week.</span>
+              </span>
+              <span class="about-beat-bar" aria-hidden="true"><span></span></span>
+            </button>
 
-      <!-- Slide 4 — The outcome -->
-      <div class="about-slide about-slide-warm" data-slide="3" aria-roledescription="slide" aria-label="4 of 4">
-        <div class="about-slide-media">
-          <div class="about-slide-parallax">
-            <img class="about-slide-img" data-about-image="outcome" alt="">
+            <button type="button" class="about-beat" aria-current="false" data-beat="3">
+              <span class="about-beat-index">04</span>
+              <span class="about-beat-body">
+                <span class="about-beat-head">You don't have to carry it by yourself.</span>
+                <span class="about-beat-sub">Most people navigating loss do it quietly, without saying much to anyone — that's a real early research finding behind Griefcase, not just a guess. A private space today, real people when you're ready for that.</span>
+              </span>
+              <span class="about-beat-bar" aria-hidden="true"><span></span></span>
+            </button>
           </div>
-          <div class="about-slide-scrim about-slide-scrim-light"></div>
-        </div>
-        <div class="about-slide-copy">
-          <h2 class="about-slide-headline">You don't have to carry it by yourself.</h2>
-          <p class="about-slide-sub">Most people navigating loss do it quietly, without saying much to anyone — that's a real early research finding behind Griefcase, not just a guess. A private space today. Real people who understand, when you're ready for that.</p>
-          <div class="about-slide-actions">
+
+          <div class="about-showcase-cta">
             <button type="button" class="btn btn-primary is-magnetic" data-open-writer>Open Griefcase</button>
             <a class="btn-text" href="#founding-circle">Join the founding circle</a>
           </div>
         </div>
-      </div>
-
-      <div class="about-carousel-progress" aria-hidden="true"><span id="about-carousel-progress-bar"></span></div>
-
-      <div class="about-carousel-controls">
-        <button type="button" class="about-carousel-arrow" data-dir="-1" aria-label="Previous slide">&lsaquo;</button>
-        <div class="about-carousel-dots" role="tablist" aria-label="About slides">
-          <button type="button" class="about-carousel-dot is-active" aria-selected="true" aria-label="Slide 1"></button>
-          <button type="button" class="about-carousel-dot" aria-selected="false" aria-label="Slide 2"></button>
-          <button type="button" class="about-carousel-dot" aria-selected="false" aria-label="Slide 3"></button>
-          <button type="button" class="about-carousel-dot" aria-selected="false" aria-label="Slide 4"></button>
-        </div>
-        <button type="button" class="about-carousel-arrow" data-dir="1" aria-label="Next slide">&rsaquo;</button>
       </div>
     </div>
 

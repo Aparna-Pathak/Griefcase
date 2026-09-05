@@ -1,0 +1,195 @@
+/* ==========================================================================
+   ABOUT — compact interactive showcase
+   --------------------------------------------------------------------------
+   Replaces the earlier full-height auto-advancing carousel. Same four
+   narrative beats, but presented as a compact "feature tour" pattern: an
+   image frame beside an interactive list of beats. Clicking (or letting
+   it idle-advance) crossfades the photo and expands that beat's sub-copy
+   — the text lives beside the photo now, not on top of it, so nothing
+   needs a heavy scrim to stay legible and the photography can read at
+   full richness.
+
+   Driven by js/modules/about-showcase.js:
+     - Idle-advances one beat every 4.5s (ABOUT_AUTOPLAY_MS there), with a
+       thin progress bar under the active beat so the cadence is visible.
+     - Hovering/focusing the component, or clicking a beat, pauses the
+       idle-advance; it resumes a few seconds after you leave it alone.
+     - Fully operable by click/tap/keyboard — the idle-advance is a
+       convenience, never the only way to move through it.
+     - `prefers-reduced-motion` turns off idle-advance and the crossfade/
+       sheen motion; the component becomes purely click-driven.
+   ========================================================================== */
+
+.about-showcase {
+  background: var(--color-cream-alt);
+  position: relative;
+}
+
+.about-showcase-frame {
+  display: grid;
+  grid-template-columns: minmax(260px, 42%) 1fr;
+  gap: var(--space-7);
+  align-items: stretch;
+}
+
+/* ---- Visual (photo) side ---- */
+.about-showcase-visual {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  min-height: 320px;
+  box-shadow: var(--shadow-card);
+  background: var(--color-cream);
+}
+
+.about-showcase-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 800ms var(--ease-quiet), transform 1600ms var(--ease-quiet);
+}
+
+.about-showcase-img.is-active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 1;
+}
+
+.about-showcase-sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.18) 49%,
+    rgba(227, 168, 87, 0.2) 52%,
+    transparent 60%
+  );
+  transform: translateX(-130%);
+}
+
+.about-showcase-sheen.is-sweeping {
+  animation: about-showcase-sheen-sweep 1.1s var(--ease-quiet) 1;
+}
+
+@keyframes about-showcase-sheen-sweep {
+  to { transform: translateX(130%); }
+}
+
+/* ---- List (text) side ---- */
+.about-showcase-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.about-showcase-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-beat {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  width: 100%;
+  text-align: left;
+  padding: var(--space-4) var(--space-3);
+  border-radius: var(--radius-md);
+  border-bottom: 1px solid var(--color-line);
+  position: relative;
+  transition: background var(--dur-fast) var(--ease-standard);
+}
+
+.about-beat:last-of-type { border-bottom: none; }
+
+.about-beat:hover { background: rgba(193, 104, 63, 0.07); }
+
+.about-beat-index {
+  flex-shrink: 0;
+  width: 2.4ch;
+  padding-top: 0.15em;
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  color: var(--color-taupe-deep);
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+
+.about-beat.is-active .about-beat-index { color: var(--color-accent); }
+
+.about-beat-body { flex: 1; min-width: 0; }
+
+.about-beat-head {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  line-height: 1.32;
+  color: var(--color-charcoal-soft);
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+
+.about-beat.is-active .about-beat-head { color: var(--color-charcoal); }
+
+.about-beat-sub {
+  display: block;
+  max-height: 0;
+  margin-top: 0;
+  overflow: hidden;
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  color: var(--color-charcoal-soft);
+  opacity: 0;
+  transition: max-height var(--dur-med) var(--ease-quiet), opacity var(--dur-med) var(--ease-quiet), margin-top var(--dur-med) var(--ease-quiet);
+}
+
+.about-beat.is-active .about-beat-sub {
+  max-height: 9em;
+  margin-top: var(--space-2);
+  opacity: 1;
+}
+
+.about-beat-bar {
+  position: absolute;
+  left: var(--space-3);
+  right: var(--space-3);
+  bottom: -1px;
+  height: 2px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.about-beat-bar span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: var(--gradient-warm);
+}
+
+.about-showcase-cta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+  padding: 0 var(--space-3);
+}
+
+@media (max-width: 860px) {
+  .about-showcase-frame { grid-template-columns: 1fr; gap: var(--space-5); }
+  .about-showcase-visual { height: 260px; min-height: 260px; }
+  .about-beat-head { font-size: var(--fs-body-lg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-showcase-img { transition: opacity 200ms linear; transform: none !important; }
+  .about-showcase-sheen { display: none; }
+}

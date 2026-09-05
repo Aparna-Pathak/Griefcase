@@ -37,7 +37,7 @@ import { initInteractions } from "./modules/interactions.js";
 import { initAmbientSound } from "./modules/ambient-sound.js";
 import { initPWA } from "./modules/pwa.js";
 import { initInterestForm } from "./modules/interest-form.js";
-import { initAboutCarousel } from "./modules/about-carousel.js";
+import { initAboutShowcase } from "./modules/about-showcase.js";
 import { initCounters } from "./modules/counters.js";
 
 /** Minimal fallback so the app still functions if content.json can't be
@@ -118,7 +118,7 @@ async function bootstrap() {
   initAmbientSound();
   initPWA();
   initInterestForm(content);
-  initAboutCarousel();
+  initAboutShowcase();
   initCounters();
 
   wireGlobalActions();

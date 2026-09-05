@@ -1,61 +1,60 @@
 /**
  * about-images.js
  * -----------------------------------------------------------------------
- * Centralized image config for the About carousel (#about).
- * Every URL used by js/modules/about-carousel.js lives here — swap a
+ * Centralized image config for the About showcase (#about).
+ * Every URL used by js/modules/about-showcase.js lives here — swap a
  * photo by changing one line, no hunting through markup or CSS.
  *
  * All photos are sourced from Unsplash and used under the Unsplash
  * License (https://unsplash.com/license) — free for commercial and
  * non-commercial use, no permission required. Attribution is not
- * required by the license but is kept here as good practice and to
- * make swapping/crediting easy later.
+ * required by the license but is kept here as good practice; the
+ * photographer handles below could not be independently re-verified
+ * when this set was sourced (Unsplash page-fetch access was rate-
+ * limited that session) — the photo IDs and content were confirmed,
+ * the byline text was not, so double-check before printing a credit
+ * anywhere public-facing.
  *
+ * Visual direction (redesign): calming, homely, lifestyle photography —
+ * sheer white curtains, soft natural light, tea, blankets, journals.
  * Deliberately avoided: crying faces, funeral imagery, candles,
- * tombstones, staged "sad family" photography — see ARCHITECTURE.md /
- * the brief this was built from for why.
+ * tombstones, staged "sad family" photography, and anything office/
+ * corporate — see ARCHITECTURE.md / the brief this was built from.
  */
 
 export const ABOUT_IMAGES = {
-  // Scene 1 — "Something changes." Replaced with a photo that has real
-  // motion caught in it (curtains mid-billow, light shifting through
-  // them) rather than a still, empty room — the moment reads as
-  // something happening, not just a static aftermath.
+  // Beat 1 — "Something changes."
   moment: {
-    url: "https://images.unsplash.com/photo-1780155968749-2b45bcd44884?fm=jpg&q=70&w=2000&auto=format&fit=crop",
-    alt: "Sheer curtains billowing in a sunlit room",
-    credit: "Photo by Jon Tyson on Unsplash",
-    creditUrl: "https://unsplash.com/@jontyson",
+    url: "https://images.unsplash.com/photo-u_cSrc6HUm8?fm=jpg&q=70&w=1600&auto=format&fit=crop",
+    alt: "Sheer white curtains softly billowing in a sunlit, homely room",
+    credit: "Photo via Unsplash",
+    creditUrl: "https://unsplash.com/photos/sheer-white-curtains-softly-blowing-in-a-window-u_cSrc6HUm8",
   },
 
-  // Scene 2 — "Everything else still needs to be handled." A hand
-  // mid-signature over paperwork reads as an active moment of dealing
-  // with admin, rather than a flat, lifeless desk arrangement.
+  // Beat 2 — "Everything else still needs to be handled." Reframed softly
+  // for this redesign: a notebook and tea, not an office desk.
   practicalBurden: {
-    url: "https://images.unsplash.com/photo-1764231467852-b609a742e082?fm=jpg&q=70&w=2000&auto=format&fit=crop",
-    alt: "A hand signing paperwork on a desk",
-    credit: "Photo by Jakub Żerdzicki on Unsplash",
-    creditUrl: "https://unsplash.com/@jakubzerdzicki",
+    url: "https://images.unsplash.com/photo-8CL8KDg8oAs?fm=jpg&q=70&w=1600&auto=format&fit=crop",
+    alt: "A notebook with a handwritten list, a pen, and a cup of tea",
+    credit: "Photo via Unsplash",
+    creditUrl: "https://unsplash.com/photos/a-notebook-with-a-list-and-a-pen-next-to-a-cup-of-tea-8CL8KDg8oAs",
   },
 
-  // Scene 3 — calm, private writing. A hand actively mid-sentence in a
-  // notebook, warm wood tones and a coffee cup close by, reads as lived-in
-  // rather than a sterile top-down product shot.
+  // Beat 3 — calm, private writing
   reflectionBase: {
-    url: "https://images.unsplash.com/photo-1675098979498-4f553c74b6e7?fm=jpg&q=70&w=2000&auto=format&fit=crop",
-    alt: "A hand writing in a notebook on a wooden table beside a coffee cup",
-    credit: "Photo by Carter Hightower on Unsplash",
-    creditUrl: "https://unsplash.com/@cshightowerphoto",
+    url: "https://images.unsplash.com/photo-R-m5_byK3jg?fm=jpg&q=70&w=1600&auto=format&fit=crop",
+    alt: "A book, flowers, and a cup of tea resting on a cozy bed",
+    credit: "Photo via Unsplash",
+    creditUrl: "https://unsplash.com/photos/book-flowers-and-tea-on-a-cozy-bed-R-m5_byK3jg",
   },
 
-  // Scene 4 — "You don't have to carry it by yourself." Two people
-  // walking together, hands linked, in warm daylight — genuinely warm
-  // and in motion, matching the upbeat closing beat rather than a
-  // somber or static "two people sitting quietly" shot.
+  // Beat 4 — "You don't have to carry it by yourself." Reframed as home
+  // warmth for this redesign: two people under a blanket on a couch,
+  // not an outdoor walk.
   outcome: {
-    url: "https://images.unsplash.com/photo-1549990414-deeea9e3c0b6?fm=jpg&q=70&w=2000&auto=format&fit=crop",
-    alt: "Two people holding hands while walking together outdoors in warm daylight",
-    credit: "Photo by Simon Boxus on Unsplash",
-    creditUrl: "https://unsplash.com/@simonlerouge",
+    url: "https://images.unsplash.com/photo-DIc-2viglVQ?fm=jpg&q=70&w=1600&auto=format&fit=crop",
+    alt: "Two people sitting together on a couch under a blanket",
+    credit: "Photo via Unsplash",
+    creditUrl: "https://unsplash.com/photos/a-man-and-woman-sitting-on-a-couch-under-a-blanket-DIc-2viglVQ",
   },
 };
