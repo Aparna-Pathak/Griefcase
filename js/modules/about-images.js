@@ -23,7 +23,7 @@
  */
 
 export const ABOUT_IMAGES = {
-  // Beat 1 — "Something changes."
+  // Beat 1 — "This too shall pass."
   moment: {
     url: "https://images.unsplash.com/photo-u_cSrc6HUm8?fm=jpg&q=70&w=1600&auto=format&fit=crop",
     alt: "Sheer white curtains softly billowing in a sunlit, homely room",
@@ -31,8 +31,9 @@ export const ABOUT_IMAGES = {
     creditUrl: "https://unsplash.com/photos/sheer-white-curtains-softly-blowing-in-a-window-u_cSrc6HUm8",
   },
 
-  // Beat 2 — "Everything else still needs to be handled." Reframed softly
-  // for this redesign: a notebook and tea, not an office desk.
+  // Beat 2 — "Everyone's got some baggage. It's a part of life." A
+  // handwritten list stands in for baggage/things carried, kept homely
+  // (notebook and tea) rather than an office desk.
   practicalBurden: {
     url: "https://images.unsplash.com/photo-8CL8KDg8oAs?fm=jpg&q=70&w=1600&auto=format&fit=crop",
     alt: "A notebook with a handwritten list, a pen, and a cup of tea",
@@ -40,7 +41,7 @@ export const ABOUT_IMAGES = {
     creditUrl: "https://unsplash.com/photos/a-notebook-with-a-list-and-a-pen-next-to-a-cup-of-tea-8CL8KDg8oAs",
   },
 
-  // Beat 3 — calm, private writing
+  // Beat 3 — "So we built somewhere to put it down." Calm, private writing.
   reflectionBase: {
     url: "https://images.unsplash.com/photo-R-m5_byK3jg?fm=jpg&q=70&w=1600&auto=format&fit=crop",
     alt: "A book, flowers, and a cup of tea resting on a cozy bed",
@@ -48,9 +49,8 @@ export const ABOUT_IMAGES = {
     creditUrl: "https://unsplash.com/photos/book-flowers-and-tea-on-a-cozy-bed-R-m5_byK3jg",
   },
 
-  // Beat 4 — "You don't have to carry it by yourself." Reframed as home
-  // warmth for this redesign: two people under a blanket on a couch,
-  // not an outdoor walk.
+  // Beat 4 — "It's easier when someone gives you a hand with it." Home
+  // warmth and company: two people under a blanket on a couch.
   outcome: {
     url: "https://images.unsplash.com/photo-DIc-2viglVQ?fm=jpg&q=70&w=1600&auto=format&fit=crop",
     alt: "Two people sitting together on a couch under a blanket",

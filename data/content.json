@@ -209,7 +209,7 @@
     },
     {
       "q": "Can I lose what I've written?",
-      "a": "Since entries are stored only in this browser, clearing your browser data, using a different device, or using private/incognito mode will mean they don't appear. There's no account to recover them from."
+      "a": "Musings themselves are stored only in this browser — clearing your browser data, switching devices, or using private/incognito mode means they won't appear, with no way to recover them. Signing up (optional) doesn't change this: an account only remembers your sign-in and your AI-consent choice, never what you've written."
     },
     {
       "q": "Do I have to write something 'good'?",

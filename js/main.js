@@ -39,7 +39,7 @@ import { initPWA } from "./modules/pwa.js";
 import { initInterestForm } from "./modules/interest-form.js";
 import { initAboutShowcase } from "./modules/about-showcase.js";
 import { initCounters } from "./modules/counters.js";
-import { initPreviewSketches } from "./modules/preview-sketches.js";
+import { initAuth } from "./modules/auth.js";
 
 /** Minimal fallback so the app still functions if content.json can't be
  *  fetched (e.g. opened directly via file:// in a browser that blocks
@@ -121,7 +121,7 @@ async function bootstrap() {
   initInterestForm(content);
   initAboutShowcase();
   initCounters();
-  initPreviewSketches();
+  initAuth();
 
   wireGlobalActions();
   handleLaunchShortcut();

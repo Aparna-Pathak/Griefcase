@@ -89,9 +89,10 @@ griefcase/
 ├── data/
 │   └── content.json            All editable copy — the mock CMS
 ├── worker/
-│   └── index.js                API layer: POST /api/interest only — see "Backend" below
+│   └── index.js                API layer: /api/interest + /api/auth/* + /api/consent — see "Backend" below
 ├── migrations/
-│   └── 0001_init.sql           D1 schema: interest_signups (live) + Phase 2 tables (schema only)
+│   ├── 0001_init.sql           D1 schema: interest_signups (live) + Phase 2 tables (schema only)
+│   └── 0002_accounts.sql       D1 schema: accounts / auth_tokens / sessions (live)
 ├── wrangler.toml                Worker + D1 binding + static-assets config
 ├── ARCHITECTURE.md              What's built vs. designed-but-not-built, and why — read this first
 └── README.md
@@ -214,25 +215,44 @@ and store a URL instead once there's a backend.
 
 Griefcase is still a static site first — everything above this section is
 served straight from Cloudflare's asset store with no server involved.
-The one exception is `POST /api/interest`, which backs the "Join the
-founding circle" form.
+The exceptions are `POST /api/interest` (the "Join the founding circle"
+form) and the account routes below.
 
 - **`wrangler.toml`** — declares the Worker (`worker/index.js`) and binds
   a D1 database (`griefcase-db`) to it. `run_worker_first` is scoped to
   `/api/*` only, so the Worker script is never invoked for the site
   itself — a request for `index.html` or any asset never touches it.
-- **`worker/index.js`** — the entire API surface. One route,
-  `POST /api/interest`: validates the email server-side, honors a hidden
-  honeypot field for basic bot resistance, clips every field length, and
-  writes a row to `interest_signups`. Returns JSON either way.
+- **`worker/index.js`** — the entire API surface:
+  - `POST /api/interest`: validates the email server-side, honors a
+    hidden honeypot field for basic bot resistance, clips every field
+    length, and writes a row to `interest_signups`. Returns JSON either
+    way.
+  - `POST /api/auth/request-link`, `GET /api/auth/verify`,
+    `GET /api/auth/me`, `POST /api/auth/logout`, `POST /api/consent`:
+    optional accounts. A magic-link email (via [Resend](https://resend.com))
+    signs someone in; the only thing an account stores beyond the email
+    is one boolean, `ai_consent`. Musings are never uploaded — see
+    ARCHITECTURE.md's "Optional accounts + AI-consent" section for the
+    full design and the security choices (hashed single-use tokens,
+    HttpOnly session cookie, per-email rate limiting).
+  - **Required secret for sign-in emails to actually send**:
+    `RESEND_API_KEY`, set via `npx wrangler secret put RESEND_API_KEY`
+    (or the Cloudflare dashboard → Workers & Pages → griefcase →
+    Settings → Variables → add an encrypted secret). Get a free key at
+    [resend.com](https://resend.com/signup) — no domain setup required
+    to start, since the default `from` address is `onboarding@resend.dev`.
+    Without this secret, `request-link` fails with a clear error instead
+    of silently pretending an email was sent.
 - **`migrations/0001_init.sql`** — the full schema: `interest_signups`
   (live) plus the Phase 2 tables (`grief_profiles`, `matches`, `messages`,
   `reports`, `distress_flags` — schema only, not queried by anything
   yet). See [ARCHITECTURE.md](./ARCHITECTURE.md) for what those are for.
+- **`migrations/0002_accounts.sql`** — `accounts`, `auth_tokens` (hashed,
+  single-use, 15-minute expiry), `sessions` (hashed, 30-day expiry).
 - **Local development**: `npx wrangler dev` serves the site and the API
   together with a local D1 instance. `npx wrangler d1 execute
-  griefcase-db --local --file=migrations/0001_init.sql` applies the
-  schema locally first.
+  griefcase-db --local --file=migrations/0001_init.sql` and the same for
+  `0002_accounts.sql` apply the schema locally first.
 - **Deployment**: this repo is connected to Cloudflare via Git
   integration — pushing to `main` redeploys automatically, the same way
   it already did before this Worker/D1 setup existed. If Cloudflare's
@@ -399,17 +419,20 @@ earlier version of this section was a full-height (~88vh), text-over-photo
 auto-advancing carousel; it was replaced because it took up too much of
 the page and the text-on-image treatment fought with photo legibility.
 
-**The story, and why it's told this way:** the four beats deliberately
-open with the *practical* overwhelm of loss (the calls, the forms, the
-decisions) rather than going straight to something softer — that's the
-honest, relatable hook. Beat 3 is the turn: Griefcase is upfront that it
-won't do any of that administrative work for you, and instead offers
-somewhere to put down what you're carrying. Beat 4 closes on the thesis's
-actual finding (most people navigating loss stay quiet about it) and
-gestures at peer connection as where this is headed, without overclaiming
-that it exists today. This blend was a deliberate choice — see [Where the
-product vision came from](#where-the-product-vision-came-from) below for
-why the copy doesn't just adopt an "estate paperwork" framing wholesale.
+**The story, and why it's told this way:** the four beats are built around
+three lines that are the actual brand story — "This too shall pass,"
+"Everyone's got some baggage, it's a part of life," and "It's easier when
+someone gives you a hand with it" — used verbatim as three of the four
+beat headlines, in that order. Beat 1 acknowledges the feeling without
+promising it away. Beat 2 normalizes carrying something at all — "baggage"
+is a deliberate callback to Griefcase's own name, and to the settle
+statement below it ("A small, private container for the things you're
+carrying"). Beat 3 is the connective bridge from feeling to product: "So
+we built somewhere to put it down" turns the abstraction into the actual
+writing space. Beat 4 closes on the third brand line and gestures at peer
+support as where this is headed, without overclaiming that it exists
+today — consistent with [Where the product vision came from](#where-the-product-vision-came-from)
+below.
 
 The imagery direction is calm, homely, lifestyle photography — sheer white
 curtains, tea, journals, blankets — rather than office/corporate or

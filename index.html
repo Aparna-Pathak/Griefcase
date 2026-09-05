@@ -72,7 +72,7 @@
     "Private, distraction-free writing space",
     "Optional voice notes",
     "Entries stored only on your device",
-    "No account or sign-up required"
+    "No account required — optional sign-up available"
   ],
   "isAccessibleForFree": true
 }
@@ -95,7 +95,7 @@
     {
       "@type": "Question",
       "name": "Can I lose what I've written in Griefcase?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Since entries are stored only in this browser, clearing your browser data, using a different device, or using private/incognito mode will mean they don't appear. There's no account to recover them from." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Musings themselves are stored only in this browser — clearing your browser data, switching devices, or using private/incognito mode means they won't appear, with no way to recover them. Signing up (optional) doesn't change this: an account only remembers your sign-in and your AI-consent choice, never what you've written." }
     },
     {
       "@type": "Question",
@@ -366,30 +366,29 @@
         <a class="btn-text" id="safety-link" href="https://findahelpline.com" target="_blank" rel="noopener">Find support in your country</a>
       </div>
 
-      <!-- Non-functional sketches: an early, honest preview of two decisions
-           still ahead (optional accounts, AI consent). Nothing here submits
-           or stores anything — see js/modules/preview-sketches.js. -->
+      <!-- Real, optional account: a one-time emailed link to sign back in,
+           plus an AI-consent preference. Neither one changes where your
+           musings live — that's still only ever this browser. See
+           js/modules/auth.js and worker/index.js. -->
       <div class="preview-sketches" data-reveal-group>
-        <div class="preview-card premium-card">
-          <span class="preview-badge">Sketch — not live yet</span>
+        <div class="preview-card premium-card" id="signup-card">
           <h4>Optional sign-up</h4>
-          <p>So your musings could follow you to a new device, if you ever wanted that. Never required — Griefcase stays fully usable with no account at all.</p>
+          <p id="signup-copy">So you can sign back in on another device someday. Never required — Griefcase stays fully usable with no account at all.</p>
           <form class="preview-signup-form" data-preview-signup novalidate>
             <label class="sr-only" for="preview-signup-email">Email address</label>
-            <input type="email" id="preview-signup-email" placeholder="you@example.com" autocomplete="off">
-            <button type="submit" class="btn btn-primary">Send magic link</button>
+            <input type="email" id="preview-signup-email" placeholder="you@example.com" autocomplete="email" required>
+            <button type="submit" class="btn btn-primary" id="signup-submit">Send magic link</button>
           </form>
-          <p class="preview-footnote">No password to remember. Nothing is sent — this is a sketch of how it might feel.</p>
+          <p class="preview-footnote" id="signup-footnote">No password, ever. We'll email you a one-time link — it won't do anything until you open it.</p>
         </div>
         <div class="preview-card premium-card">
-          <span class="preview-badge">Sketch — not live yet</span>
           <h4>Your consent, spelled out</h4>
-          <p>Before any AI ever reflects on your musings or suggests support, you'd be asked plainly — and could change your mind at any time.</p>
+          <p>Before any AI ever reflects on your musings or suggests support, you say yes first — and can change your mind here anytime.</p>
           <label class="preview-consent-toggle" for="preview-consent-checkbox">
             <input type="checkbox" id="preview-consent-checkbox" data-preview-consent>
             <span>I'd like Griefcase's AI to gently notice patterns in what I write and suggest support if it seems like I need it.</span>
           </label>
-          <p class="preview-footnote">Off by default. This toggle doesn't do anything yet — it's here so you can react to the idea.</p>
+          <p class="preview-footnote" id="consent-footnote">Off by default. Check this now and it'll apply as soon as you sign up above — or sign up first and set it anytime.</p>
         </div>
       </div>
     </div>
@@ -421,7 +420,7 @@
         </div>
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2"><span>Can I lose what I've written?</span><span class="plus" aria-hidden="true"></span></button>
-          <div class="faq-answer" id="faq-answer-2"><p>Since entries are stored only in this browser, clearing your browser data, using a different device, or using private/incognito mode will mean they don't appear. There's no account to recover them from.</p></div>
+          <div class="faq-answer" id="faq-answer-2"><p>Musings themselves are stored only in this browser — clearing your browser data, switching devices, or using private/incognito mode means they won't appear, with no way to recover them. Signing up (optional) doesn't change this: an account only remembers your sign-in and your AI-consent choice, never what you've written.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3"><span>Do I have to write something "good"?</span><span class="plus" aria-hidden="true"></span></button>
@@ -448,7 +447,8 @@
             <button type="button" class="about-beat is-active" aria-current="true" data-beat="0">
               <span class="about-beat-index">01</span>
               <span class="about-beat-body">
-                <span class="about-beat-head">Something changes. All at once, nothing is routine.</span>
+                <span class="about-beat-head">This too shall pass.</span>
+                <span class="about-beat-sub">Grief doesn't stay this heavy forever — even on the days it feels permanent. Griefcase is somewhere to sit with it while it passes, not perform being okay before you are.</span>
               </span>
               <span class="about-beat-bar" aria-hidden="true"><span></span></span>
             </button>
@@ -456,8 +456,8 @@
             <button type="button" class="about-beat" aria-current="false" data-beat="1">
               <span class="about-beat-index">02</span>
               <span class="about-beat-body">
-                <span class="about-beat-head">And everything else still needs to be handled.</span>
-                <span class="about-beat-sub">The calls. The forms. The decisions nobody prepared you for. None of it pauses for what you're feeling.</span>
+                <span class="about-beat-head">Everyone's got some baggage. It's a part of life.</span>
+                <span class="about-beat-sub">Loss, regret, the things left unsaid — nobody gets through life without carrying something. You don't owe anyone an explanation for yours here.</span>
               </span>
               <span class="about-beat-bar" aria-hidden="true"><span></span></span>
             </button>
@@ -465,8 +465,8 @@
             <button type="button" class="about-beat" aria-current="false" data-beat="2">
               <span class="about-beat-index">03</span>
               <span class="about-beat-body">
-                <span class="about-beat-head">Griefcase won't do any of that for you.</span>
-                <span class="about-beat-sub">What it can do is give you somewhere to put it down while you get through it — five honest minutes in an impossible week.</span>
+                <span class="about-beat-head">So we built somewhere to put it down.</span>
+                <span class="about-beat-sub">A private, distraction-free space to write it out — typed or spoken, half-finished or not. Five honest minutes, whenever you need them.</span>
               </span>
               <span class="about-beat-bar" aria-hidden="true"><span></span></span>
             </button>
@@ -474,8 +474,8 @@
             <button type="button" class="about-beat" aria-current="false" data-beat="3">
               <span class="about-beat-index">04</span>
               <span class="about-beat-body">
-                <span class="about-beat-head">You don't have to carry it by yourself.</span>
-                <span class="about-beat-sub">Most people navigating loss do it quietly, without saying much to anyone — that's a real early research finding behind Griefcase, not just a guess. A private space today, real people when you're ready for that.</span>
+                <span class="about-beat-head">It's easier when someone gives you a hand with it.</span>
+                <span class="about-beat-sub">A private space today. Real peer support — people who get it — as Griefcase grows into that next.</span>
               </span>
               <span class="about-beat-bar" aria-hidden="true"><span></span></span>
             </button>

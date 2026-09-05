@@ -790,6 +790,21 @@
   margin-bottom: var(--space-4);
 }
 
+.account-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  background: var(--color-cream-alt);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--fs-small);
+  color: var(--color-charcoal-soft);
+}
+
+.account-status strong { color: var(--color-charcoal); font-weight: 600; }
+
 .preview-card h4 { font-size: var(--fs-h3); margin-bottom: var(--space-2); }
 .preview-card > p { font-size: var(--fs-small); color: var(--color-charcoal-soft); margin-bottom: var(--space-4); }
 

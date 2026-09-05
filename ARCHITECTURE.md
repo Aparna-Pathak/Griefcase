@@ -21,6 +21,20 @@ and writes to the `interest_signups` table in a Cloudflare D1 database
 (`griefcase-db`). It captures: email, optional grief type, whether someone wants to
 train as a peer listener, and (if so) their motivation and availability.
 
+**Optional accounts + AI-consent (new).** A second, deliberately small thing that
+leaves the browser: the "Optional sign-up" and "Your consent, spelled out" cards in
+Privacy & Safety. Requesting a link calls `POST /api/auth/request-link`, which stores
+a single-use, hashed, 15-minute token in `auth_tokens` and emails a sign-in link via
+Resend (`RESEND_API_KEY`, a Worker secret — sign-in fails loudly, not silently, if
+it isn't set). Opening that link hits `GET /api/auth/verify`, which creates or
+updates a row in `accounts` and sets an HttpOnly session cookie. `GET /api/auth/me`
+and `POST /api/consent` read and update that account's `ai_consent` flag. This is
+**not** entry sync — `accounts` holds only an email and a consent boolean, nothing a
+person wrote. Musings still never leave the browser; see `js/modules/state.js`,
+unchanged. The point of the account is narrow on purpose: let someone sign back in,
+and give the AI-consent question — asked ahead of the AI feature it governs, not
+bolted on after — a real, honest place to live. Schema: `migrations/0002_accounts.sql`.
+
 This exists to satisfy the thesis's own suggestion #5 — *"start small, build
 trust... a Minimum Viable Product can be built around just one type of grief"* —
 before committing engineering effort to matching and messaging. It turns "we believe

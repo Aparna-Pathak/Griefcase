@@ -7,7 +7,8 @@
 - A distraction-free writing space ("Open Griefcase") for unfiltered musings, grief, anger, or anything that doesn't have anywhere else to go.
 - Entries can be typed or recorded as a short voice note.
 - Finished entries go through a brief animated "release ritual" (fold → place in the case → close) and are then stored privately as part of "My Griefcase," the user's personal archive.
-- In its current version, all data is stored only in the visitor's own browser (localStorage) — nothing is sent to a server, there is no account, and no sign-up is required.
+- Musings themselves are stored only in the visitor's own browser (localStorage) — nothing you write is ever sent to a server, and no sign-up is required to use Griefcase fully.
+- A genuinely optional account exists (email + a one-time sign-in link) for two narrow reasons: signing back in, and saving an AI-consent preference for a future AI feature that isn't built yet. Signing up never syncs or uploads your musings.
 - It is installable as a Progressive Web App and works offline after the first load.
 
 ## What it explicitly is not
