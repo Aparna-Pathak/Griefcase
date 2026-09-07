@@ -434,16 +434,19 @@
   <section id="about" class="about-showcase" aria-label="About Griefcase">
     <div class="container about-showcase-inner">
       <div class="about-showcase-frame">
-        <div class="about-showcase-visual" id="about-showcase-visual">
+        <div class="about-showcase-glow" aria-hidden="true"></div>
+        <div class="about-showcase-visual" id="about-showcase-visual" data-reveal>
           <img class="about-showcase-img is-active" data-about-image="moment" data-eager="true" alt="">
           <img class="about-showcase-img" data-about-image="practicalBurden" alt="">
           <img class="about-showcase-img" data-about-image="reflectionBase" alt="">
           <img class="about-showcase-img" data-about-image="outcome" alt="">
+          <div class="about-showcase-vignette" aria-hidden="true"></div>
+          <div class="grain" aria-hidden="true" style="opacity:0.04"></div>
           <div class="about-showcase-sheen" aria-hidden="true"></div>
         </div>
 
         <div class="about-showcase-panel">
-          <div class="about-showcase-list" aria-label="About Griefcase, in four parts">
+          <div class="about-showcase-list" aria-label="About Griefcase, in four parts" data-reveal-group>
             <button type="button" class="about-beat is-active" aria-current="true" data-beat="0">
               <span class="about-beat-index">01</span>
               <span class="about-beat-body">
@@ -481,7 +484,7 @@
             </button>
           </div>
 
-          <div class="about-showcase-cta">
+          <div class="about-showcase-cta" data-reveal>
             <button type="button" class="btn btn-primary is-magnetic" data-open-writer>Open Griefcase</button>
             <a class="btn-text" href="#founding-circle">Join the founding circle</a>
           </div>

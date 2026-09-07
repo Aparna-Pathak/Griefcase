@@ -199,8 +199,60 @@ export function initAboutShowcase() {
     else startAutoplay();
   });
 
+  wirePointerTilt(root, reduced);
+
   paint(null);
   startAutoplay();
+}
+
+/* A light pointer-driven tilt on the photo frame — the one genuinely
+   interactive "premium" touch in this redesign. Deliberately narrow:
+   only wired on precise pointers (matchMedia "(pointer: fine)"), so it
+   never engages on touch devices, and skipped entirely under
+   prefers-reduced-motion. The transition defined in CSS is disabled
+   while the pointer is actively moving (so tracking feels immediate,
+   not eased) and restored on pointerleave so the frame settles back to
+   neutral smoothly rather than snapping. */
+function wirePointerTilt(root, reduced) {
+  if (reduced) return;
+  if (!window.matchMedia("(pointer: fine)").matches) return;
+
+  const visual = root.querySelector(".about-showcase-visual");
+  if (!visual) return;
+
+  const MAX_TILT_DEG = 5;
+  let raf = null;
+  let pending = null;
+
+  function apply() {
+    raf = null;
+    if (!pending) return;
+    visual.style.transform = `perspective(900px) rotateX(${pending.rotateX}deg) rotateY(${pending.rotateY}deg)`;
+  }
+
+  visual.addEventListener("pointermove", (e) => {
+    if (e.pointerType && e.pointerType !== "mouse") return;
+    const rect = visual.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top) / rect.height;
+    pending = {
+      rotateY: (px - 0.5) * MAX_TILT_DEG * 2,
+      rotateX: (0.5 - py) * MAX_TILT_DEG * 2,
+    };
+    visual.style.transition = "none";
+    if (!raf) raf = requestAnimationFrame(apply);
+  });
+
+  visual.addEventListener("pointerleave", (e) => {
+    if (e.pointerType && e.pointerType !== "mouse") return;
+    pending = null;
+    if (raf) {
+      cancelAnimationFrame(raf);
+      raf = null;
+    }
+    visual.style.transition = "";
+    visual.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
+  });
 }
 
 function wireImages(root) {
