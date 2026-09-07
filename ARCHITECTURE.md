@@ -25,8 +25,10 @@ train as a peer listener, and (if so) their motivation and availability.
 leaves the browser: the "Optional sign-up" and "Your consent, spelled out" cards in
 Privacy & Safety. Requesting a link calls `POST /api/auth/request-link`, which stores
 a single-use, hashed, 15-minute token in `auth_tokens` and emails a sign-in link via
-Resend (`RESEND_API_KEY`, a Worker secret — sign-in fails loudly, not silently, if
-it isn't set). Opening that link hits `GET /api/auth/verify`, which creates or
+Brevo or Resend — whichever Worker secret is set, `BREVO_API_KEY` or `RESEND_API_KEY`
+(both have a permanent free tier, not a trial; sign-in fails loudly, not silently, if
+neither is set — see README.md's "Backend" section for exact setup steps). Opening
+that link hits `GET /api/auth/verify`, which creates or
 updates a row in `accounts` and sets an HttpOnly session cookie. `GET /api/auth/me`
 and `POST /api/consent` read and update that account's `ai_consent` flag. This is
 **not** entry sync — `accounts` holds only an email and a consent boolean, nothing a

@@ -26,6 +26,10 @@
  *
  * There is still no matching, no messaging, no peer accounts here — see
  * ARCHITECTURE.md for why that's sequenced separately.
+ *
+ * Sign-in emails need one of BREVO_API_KEY or RESEND_API_KEY set as a
+ * Worker secret — both have a permanent free tier, not a trial. See
+ * sendMagicLinkEmail() below and README.md's "Backend" section.
  */
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -116,15 +120,73 @@ async function getAccountFromSession(request, env) {
 }
 
 /* ---------------------------------------------------------------------
- * Email delivery — Resend, only if RESEND_API_KEY is configured as a
- * Worker secret. If it isn't, sign-in requests fail loudly and honestly
- * (never a silent "check your email" that never arrives).
+ * Email delivery. Two providers are supported, both with a genuinely
+ * permanent free tier (not a trial) at the volume a magic-link flow
+ * needs:
+ *
+ *   - Brevo (BREVO_API_KEY)  — 300 emails/day forever, no credit card.
+ *     Checked first, since it's the higher daily cap of the two.
+ *   - Resend (RESEND_API_KEY) — 100 emails/day / 3,000/month forever,
+ *     no credit card. Kept as a fallback since it was already wired up
+ *     and needs zero sender verification to start (sends from
+ *     onboarding@resend.dev out of the box).
+ *
+ * Set whichever one secret you actually have — the other is simply
+ * unused. If neither secret is set, sign-in requests fail loudly and
+ * honestly (never a silent "check your email" that never arrives).
+ * See README.md's "Backend" section for exact setup steps.
  * ------------------------------------------------------------------- */
 
 async function sendMagicLinkEmail(env, email, magicUrl) {
-  if (!env.RESEND_API_KEY) {
-    return { ok: false, reason: "not_configured" };
+  const subject = "Your Griefcase sign-in link";
+  const html = `<p>Tap below to sign in to Griefcase. This link works once and expires in ${TOKEN_TTL_MINUTES} minutes.</p><p><a href="${magicUrl}">Sign in to Griefcase</a></p><p style="color:#8a8178;font-size:13px">If you didn't request this, you can safely ignore this email — nothing happens unless the link is opened.</p>`;
+  const text = `Sign in to Griefcase: ${magicUrl}\n\nThis link works once and expires in ${TOKEN_TTL_MINUTES} minutes. If you didn't request this, you can ignore this email.`;
+
+  if (env.BREVO_API_KEY) {
+    return sendViaBrevo(env, email, subject, html, text);
   }
+  if (env.RESEND_API_KEY) {
+    return sendViaResend(env, email, subject, html, text);
+  }
+  return { ok: false, reason: "not_configured" };
+}
+
+// Brevo requires a *verified* sender (single-sender email verification —
+// no domain/DNS ownership needed, just clicking a confirmation link Brevo
+// emails to that inbox). Set MAIL_FROM_EMAIL in wrangler.toml's [vars] to
+// whatever address you verified there.
+async function sendViaBrevo(env, email, subject, html, text) {
+  try {
+    const res = await fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: {
+        "api-key": env.BREVO_API_KEY,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        sender: {
+          name: env.MAIL_FROM_NAME || "Griefcase",
+          email: env.MAIL_FROM_EMAIL || "no-reply@griefcase.app",
+        },
+        to: [{ email }],
+        subject,
+        htmlContent: html,
+        textContent: text,
+      }),
+    });
+    if (!res.ok) {
+      console.error("Brevo send failed", res.status, await res.text().catch(() => ""));
+      return { ok: false, reason: "send_failed" };
+    }
+    return { ok: true };
+  } catch (err) {
+    console.error("Brevo send error", err);
+    return { ok: false, reason: "send_failed" };
+  }
+}
+
+async function sendViaResend(env, email, subject, html, text) {
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -133,11 +195,11 @@ async function sendMagicLinkEmail(env, email, magicUrl) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: env.MAIL_FROM || "Griefcase <onboarding@resend.dev>",
+        from: env.MAIL_FROM_RESEND || "Griefcase <onboarding@resend.dev>",
         to: [email],
-        subject: "Your Griefcase sign-in link",
-        html: `<p>Tap below to sign in to Griefcase. This link works once and expires in ${TOKEN_TTL_MINUTES} minutes.</p><p><a href="${magicUrl}">Sign in to Griefcase</a></p><p style="color:#8a8178;font-size:13px">If you didn't request this, you can safely ignore this email — nothing happens unless the link is opened.</p>`,
-        text: `Sign in to Griefcase: ${magicUrl}\n\nThis link works once and expires in ${TOKEN_TTL_MINUTES} minutes. If you didn't request this, you can ignore this email.`,
+        subject,
+        html,
+        text,
       }),
     });
     if (!res.ok) {

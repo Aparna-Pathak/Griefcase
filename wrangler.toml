@@ -11,11 +11,24 @@ directory = "./"
 binding = "ASSETS"
 run_worker_first = ["/api/*"]
 
-# Phase 1 backend: the "founding circle" interest-capture form.
-# See migrations/0001_init.sql for the full schema (including the Phase 2
+# Phase 1 backend: the "founding circle" interest-capture form, plus
+# optional accounts (sign-in + AI-consent). See migrations/0001_init.sql
+# and 0002_accounts.sql for the schema (0001 also carries the Phase 2
 # tables for matching/messaging/safety, which nothing queries yet) and
 # ARCHITECTURE.md for what's built vs. what's designed-but-not-shipped.
 [[d1_databases]]
 binding = "DB"
 database_name = "griefcase-db"
 database_id = "8e3039ff-9d95-4dbf-8b99-6a6d867e953e"
+
+# Sender identity for magic-link sign-in emails. Not secret — just an
+# address and a display name — so these are plain vars, not
+# `wrangler secret put`. MAIL_FROM_EMAIL only matters if you're using
+# Brevo (BREVO_API_KEY): it must be an address you've verified in
+# Brevo's dashboard under Senders (single-sender verification — click a
+# confirmation link Brevo emails you, no domain/DNS ownership needed).
+# Resend (RESEND_API_KEY) ignores these and sends from
+# onboarding@resend.dev unless you set MAIL_FROM_RESEND as a secret.
+[vars]
+MAIL_FROM_NAME = "Griefcase"
+MAIL_FROM_EMAIL = "no-reply@griefcase.app"

@@ -229,20 +229,40 @@ form) and the account routes below.
     way.
   - `POST /api/auth/request-link`, `GET /api/auth/verify`,
     `GET /api/auth/me`, `POST /api/auth/logout`, `POST /api/consent`:
-    optional accounts. A magic-link email (via [Resend](https://resend.com))
-    signs someone in; the only thing an account stores beyond the email
-    is one boolean, `ai_consent`. Musings are never uploaded — see
-    ARCHITECTURE.md's "Optional accounts + AI-consent" section for the
-    full design and the security choices (hashed single-use tokens,
-    HttpOnly session cookie, per-email rate limiting).
-  - **Required secret for sign-in emails to actually send**:
-    `RESEND_API_KEY`, set via `npx wrangler secret put RESEND_API_KEY`
-    (or the Cloudflare dashboard → Workers & Pages → griefcase →
-    Settings → Variables → add an encrypted secret). Get a free key at
-    [resend.com](https://resend.com/signup) — no domain setup required
-    to start, since the default `from` address is `onboarding@resend.dev`.
-    Without this secret, `request-link` fails with a clear error instead
-    of silently pretending an email was sent.
+    optional accounts. A magic-link email signs someone in; the only
+    thing an account stores beyond the email is one boolean,
+    `ai_consent`. Musings are never uploaded — see ARCHITECTURE.md's
+    "Optional accounts + AI-consent" section for the full design and the
+    security choices (hashed single-use tokens, HttpOnly session cookie,
+    per-email rate limiting).
+  - **Required secret for sign-in emails to actually send** — one of:
+
+    **Brevo (recommended)** — 300 emails/day forever free, no credit
+    card, no domain/DNS needed to start:
+    1. Sign up free at [brevo.com](https://www.brevo.com) (no card
+       required).
+    2. Dashboard → **Senders, Domains & Dedicated IPs** → **Senders** →
+       add a sender using any email address you can receive mail at
+       (your own inbox is fine). Brevo emails that address a
+       confirmation link — click it. That's the whole verification
+       step; no domain ownership needed.
+    3. Dashboard → **SMTP & API** → **API Keys** → create a key.
+    4. `npx wrangler secret put BREVO_API_KEY` (or Cloudflare dashboard
+       → Workers & Pages → griefcase → Settings → Variables → add an
+       encrypted secret) and paste the key.
+    5. In `wrangler.toml`, set `MAIL_FROM_EMAIL` under `[vars]` to the
+       exact address you verified in step 2, then push.
+
+    **Resend (already wired, also forever free)** — 100 emails/day /
+    3,000/month, no credit card, and no sender verification needed at
+    all to start (it sends from `onboarding@resend.dev` by default).
+    Get a key at [resend.com/signup](https://resend.com/signup), then
+    `npx wrangler secret put RESEND_API_KEY`.
+
+    Set whichever one secret you actually have — `worker/index.js`
+    checks `BREVO_API_KEY` first, then `RESEND_API_KEY`. Without either
+    secret set, `request-link` fails with a clear error instead of
+    silently pretending an email was sent.
 - **`migrations/0001_init.sql`** — the full schema: `interest_signups`
   (live) plus the Phase 2 tables (`grief_profiles`, `matches`, `messages`,
   `reports`, `distress_flags` — schema only, not queried by anything
