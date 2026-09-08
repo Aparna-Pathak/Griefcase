@@ -20,6 +20,8 @@
  *     functional.
  *   - Pauses whenever the tab is hidden or the section scrolls out of
  *     view.
+ *   - The luggage-tag chip beside the photo (#about-tag-num) is kept in
+ *     sync with the active beat here in paint() — 01/04, 02/04, etc.
  */
 
 import { ABOUT_IMAGES } from "./about-images.js";
@@ -38,6 +40,7 @@ export function initAboutShowcase() {
   const beats = Array.from(root.querySelectorAll(".about-beat"));
   const images = Array.from(root.querySelectorAll(".about-showcase-img"));
   const sheen = root.querySelector(".about-showcase-sheen");
+  const tagNum = root.querySelector("#about-tag-num");
   if (!beats.length || !images.length) return;
 
   const reduced = prefersReducedMotion();
@@ -57,6 +60,7 @@ export function initAboutShowcase() {
       b.setAttribute("aria-current", active ? "true" : "false");
     });
     images.forEach((img, i) => img.classList.toggle("is-active", i === index));
+    if (tagNum) tagNum.textContent = String(index + 1).padStart(2, "0");
     if (!reduced && sheen && previous !== index) {
       sheen.classList.remove("is-sweeping");
       void sheen.offsetWidth; // eslint-disable-line no-unused-expressions
@@ -132,9 +136,17 @@ export function initAboutShowcase() {
      which resets to zero rather than freezing a stale fraction). Resuming
      still restarts the bar from zero (via startAutoplay -> restartProgress)
      — the freeze here is only to stop it looking like it's still animating
-     while paused. */
+     while paused.
+     Bails under reduced-motion: the bar never animates there in the first
+     place (restartProgress's animated branch is itself gated on !reduced),
+     so there's no in-flight progress to freeze. Without this guard, the
+     IntersectionObserver's very first callback — fired while the section
+     is still below the fold, before progressStart is ever set — computes
+     elapsed against Date.now() - 0 and freezes the first beat's bar at a
+     permanent, wrong 100%. */
   function pauseAutoplay() {
     stopAutoplay();
+    if (reduced) return;
     const bar = activeBar();
     if (bar) {
       const elapsed = Date.now() - progressStart;

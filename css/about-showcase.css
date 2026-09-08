@@ -19,21 +19,41 @@
      - `prefers-reduced-motion` turns off idle-advance and the crossfade/
        sheen motion; the component becomes purely click-driven.
 
-   Premium motion pass (redesign):
-     - The whole component now enters via [data-reveal]/[data-reveal-group]
-       (see animations.css + reveal.js) — it used to just appear instantly
-       on scroll, with no entrance choreography at all.
+   Premium motion pass:
+     - The whole component enters via [data-reveal]/[data-reveal-group]
+       (see animations.css + reveal.js) instead of just appearing on scroll.
      - Each active photo runs a slow, one-shot Ken Burns pan/zoom
        (about-kenburns-a/b, alternating direction per image) instead of a
        static crossfade snap — cinematic rather than a hard cut.
      - A soft, slowly breathing ambient glow (.about-showcase-glow) sits
-       behind the photo frame; a subtle vignette + the site's existing
-       .grain texture sit on top of it, for a filmic, less "raw stock
-       photo" read.
-     - A light pointer-driven tilt on the photo frame (desktop with a
-       precise pointer only — see wirePointerTilt() in the JS) is the one
-       genuinely interactive premium touch; it's inert on touch devices
-       and fully off under prefers-reduced-motion.
+       behind the photo frame.
+     - A light pointer-driven tilt on .about-showcase-visual (desktop with
+       a precise pointer only — see wirePointerTilt() in the JS); inert on
+       touch devices and fully off under prefers-reduced-motion.
+
+   Creative redesign — "kept in the case":
+     - The single premise this pass is built on: the product is named
+       *Griefcase*. Nothing in the About section had ever visually said so.
+       This redesign treats the photo the way you'd treat something kept
+       inside an actual case — a small stack of photographs, one on top
+       tucked at a slight angle (.about-photo-mat, a white "mat" border
+       like an instant photo, sitting a couple of degrees off true) with
+       two plain .about-photo-ghost cards just visible behind it, and a
+       hand-punched luggage tag (.about-tag, clip-path die-cut) reading
+       the current photo's position — 01 of 4, 02 of 4... — that updates
+       as you move through the beats (see paint() in the JS).
+     - The beat list itself becomes a small stack of torn ticket stubs:
+       .about-beat rows keep their divider but gain semicircle "punches"
+       cut into each edge (colored to match .about-showcase-cream-alt bg)
+       so the dashed line between them reads as a perforation, not just
+       a border.
+     - Entrance choreography is layered on top of the existing generic
+       [data-reveal] fade (which still handles the outer opacity/position)
+       with a bespoke settle: the mat scales up from 0.96, the tag swings
+       in on a short delay, the ghosts fade in beneath — composed via the
+       ancestor's .is-revealed class rather than new JS, and using the
+       same --dur-* tokens as the rest of the site so it collapses to
+       instant under prefers-reduced-motion for free.
    ========================================================================== */
 
 .about-showcase {
@@ -77,21 +97,110 @@
   50% { transform: scale(1.08); opacity: 1; }
 }
 
-/* ---- Visual (photo) side ---- */
+/* ---- Visual (photo) side ----
+   .about-showcase-visual is now just a positioning context — a bit taller
+   than the mat it holds, so the ghost cards and the luggage tag have room
+   to sit outside the mat's own edges. wirePointerTilt() applies the 3D
+   pointer transform here; the mat's own fixed "sitting at an angle" tilt
+   lives one level down so the two transforms never fight. */
 .about-showcase-visual {
   grid-column: 1;
   grid-row: 1;
   position: relative;
   z-index: 1;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
   min-height: 320px;
-  box-shadow: var(--shadow-card);
-  background: var(--color-cream);
+  padding: 22px 18px 14px;
   transform: perspective(900px) rotateX(0deg) rotateY(0deg);
-  transition: transform 500ms var(--ease-quiet), box-shadow 500ms var(--ease-quiet);
+  transition: transform 500ms var(--ease-quiet);
   will-change: transform;
 }
+
+/* A couple of plain cards peeking out from behind the mat — the rest of
+   the "kept photographs" you don't see the front of. Static rotation
+   only; they never move once revealed. */
+.about-photo-stack {
+  position: absolute;
+  inset: 22px 18px 14px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.about-photo-ghost {
+  position: absolute;
+  inset: 4% 6%;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-quiet);
+}
+
+.about-photo-ghost--a { background: var(--color-cream-alt); transform: rotate(-7deg) translate(-3%, 2%); transition-delay: 60ms; }
+.about-photo-ghost--b { background: var(--color-paper); transform: rotate(5deg) translate(3%, -2%); transition-delay: 200ms; }
+
+.about-showcase-visual.is-revealed .about-photo-ghost { opacity: 1; }
+
+/* The top photograph: a white "mat" border like an instant photo, sitting
+   a couple of degrees off true — as if it were set down rather than
+   snapped into a frame. Scales in slightly on reveal for a soft "settling
+   into place" beat on top of the generic fade the ancestor already gets. */
+.about-photo-mat {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  min-height: 320px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-cream);
+  box-shadow: var(--shadow-lift);
+  border: 6px solid var(--color-paper);
+  box-sizing: border-box;
+  transform: rotate(-2deg) scale(0.96);
+  transition: transform var(--dur-slow) var(--ease-settle) 120ms;
+}
+
+.about-showcase-visual.is-revealed .about-photo-mat { transform: rotate(-2deg) scale(1); }
+
+/* A small hand-punched luggage tag — reads the current photo's position
+   in the set (01/04, 02/04...), kept in sync with the active beat by
+   paint() in the JS. Die-cut with clip-path so the pointed end reads as
+   an actual tag rather than a rounded chip. */
+.about-tag {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: 12%;
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  padding: 7px 14px 7px 20px;
+  background: var(--color-gold-soft);
+  color: var(--color-charcoal);
+  font-family: var(--font-serif);
+  border-radius: 2px;
+  box-shadow: var(--shadow-card);
+  clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);
+  transform: rotate(6deg) translateY(-14px);
+  opacity: 0;
+  transition: transform var(--dur-med) var(--ease-settle) 380ms, opacity var(--dur-fast) var(--ease-quiet) 380ms;
+}
+
+.about-showcase-visual.is-revealed .about-tag { transform: rotate(6deg) translateY(0); opacity: 1; }
+
+.about-tag::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-paper);
+  box-shadow: inset 0 0 0 1px rgba(61, 42, 28, 0.28);
+  transform: translateY(-50%);
+}
+
+.about-tag-num { font-size: var(--fs-body); font-weight: 600; }
+.about-tag-total { font-size: var(--fs-micro); color: var(--color-charcoal-soft); }
 
 .about-showcase-img {
   position: absolute;
@@ -175,6 +284,12 @@
   flex-direction: column;
 }
 
+/* Each beat reads as a small torn ticket stub: a dashed perforation
+   between rows, with a semicircle "punch" cut into each end — colored to
+   match the section background so it reads as a cutout, not a decoration.
+   (.about-showcase's own background, not the page default — see top of
+   file. If that background token ever changes, these two colors need to
+   move with it.) */
 .about-beat {
   display: flex;
   align-items: flex-start;
@@ -183,12 +298,29 @@
   text-align: left;
   padding: var(--space-4) var(--space-3);
   border-radius: var(--radius-md);
-  border-bottom: 1px solid var(--color-line);
+  border-bottom: 1.5px dashed var(--color-line);
   position: relative;
   transition: background var(--dur-fast) var(--ease-standard);
 }
 
+.about-beat::before,
+.about-beat::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--color-cream-alt);
+  pointer-events: none;
+}
+
+.about-beat::before { left: -5.5px; }
+.about-beat::after { right: -5.5px; }
+
 .about-beat:last-of-type { border-bottom: none; }
+.about-beat:last-of-type::before,
+.about-beat:last-of-type::after { display: none; }
 
 .about-beat:hover { background: rgba(193, 104, 63, 0.07); }
 
@@ -267,7 +399,14 @@
   .about-showcase-glow,
   .about-showcase-visual { grid-column: 1; grid-row: 1; }
   .about-showcase-panel { grid-column: 1; grid-row: 2; }
-  .about-showcase-visual { height: 260px; min-height: 260px; transform: none; }
+  .about-showcase-visual { min-height: 0; padding: 20px 14px 10px; transform: none; }
+  /* The ghost stack is a nicety, not the point — drop it rather than
+     crowd a narrow screen. Tag and mat stay; the mat's tilt is toned
+     down slightly since a full -2deg reads more "off" on a smaller card. */
+  .about-photo-stack { display: none; }
+  .about-photo-mat { height: 260px; min-height: 260px; transform: rotate(-1.2deg) scale(0.96); }
+  .about-showcase-visual.is-revealed .about-photo-mat { transform: rotate(-1.2deg) scale(1); }
+  .about-tag { right: 8%; padding: 6px 12px 6px 17px; }
   .about-beat-head { font-size: var(--fs-body-lg); }
 }
 
