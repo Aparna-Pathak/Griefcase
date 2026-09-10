@@ -983,6 +983,15 @@
   margin: 0 auto;
 }
 
+/* Reading measure capped explicitly rather than left to whatever width
+   the 1.3fr column happens to resolve to — keeps lines at a comfortable
+   ~66ch on wide screens instead of stretching edge-to-edge, and the last
+   paragraph gets a touch more breathing room since it's the section's
+   closing line. */
+.about-copy {
+  max-width: 66ch;
+}
+
 .about-copy p {
   font-size: var(--fs-body-lg);
   margin-bottom: var(--space-5);
@@ -990,9 +999,11 @@
 }
 
 .about-copy p:first-child { color: var(--color-charcoal); }
+.about-copy p:last-child { margin-bottom: 0; }
 
 @media (max-width: 860px) {
   .about-layout { grid-template-columns: 1fr; gap: var(--space-5); }
+  .about-copy { max-width: none; }
 }
 
 /* ==========================================================================
