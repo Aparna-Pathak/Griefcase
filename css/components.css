@@ -2272,3 +2272,81 @@
     margin-bottom: var(--space-3);
   }
 }
+
+
+/* ========================================================================
+   VISION SECTION — Editorial Hierarchy & Composition
+   ======================================================================== */
+
+.vision-content {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--space-8);
+  margin-top: var(--space-7);
+}
+
+.vision-idea {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Micro-label for each idea */
+.vision-idea-label {
+  font-size: var(--fs-small);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: rgba(227, 168, 87, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+/* Vision idea copy */
+.vision-idea p {
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: rgba(251, 248, 243, 0.85);
+  margin: 0;
+  max-width: 75ch;
+}
+
+/* Subtle emphasis on key phrases */
+.vision-emphasis {
+  font-style: italic;
+  color: rgba(227, 168, 87, 0.8);
+  font-weight: 500;
+}
+
+/* Responsive: stack on smaller screens */
+@media (max-width: 860px) {
+  .vision-content {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    margin-top: var(--space-5);
+  }
+  
+  .vision-idea {
+    gap: var(--space-2);
+  }
+  
+  .vision-idea-label {
+    font-size: var(--fs-small);
+  }
+  
+  .vision-idea p {
+    font-size: var(--fs-body);
+    line-height: 1.65;
+  }
+}
+
+@media (max-width: 480px) {
+  .vision-content {
+    gap: var(--space-4);
+  }
+  
+  .vision-idea p {
+    max-width: 100%;
+    font-size: var(--fs-body);
+  }
+}
