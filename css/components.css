@@ -380,6 +380,33 @@
 @media (max-width: 860px) {
   .why-layout { grid-template-columns: 1fr; gap: var(--space-6); }
 }
+/* Quote positioned at top of why section */
+.why-quote-top {
+  margin: var(--space-5) 0 var(--space-6) 0;
+  padding: 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  line-height: 1.6;
+  font-weight: 400;
+  text-align: center;
+  border: none;
+}
+
+.why-quote-text {
+  color: rgba(246, 223, 179, 1);
+  font-style: italic;
+  margin: 0 0 var(--space-3) 0;
+}
+
+.why-quote-top cite {
+  display: block;
+  font-size: var(--fs-body);
+  color: rgba(246, 223, 179, 0.8);
+  font-style: normal;
+  margin-top: var(--space-2);
+}
+
+
 
 /* ==========================================================================
    VISION ("Where this is headed")
