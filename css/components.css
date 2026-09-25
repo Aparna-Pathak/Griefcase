@@ -1824,56 +1824,6 @@
   .install-banner-actions { justify-content: center; }
 }
 
-/* Enhanced About section — premium, compact redesign */
-.about-copy-lead {
-  font-size: var(--fs-h3);
-  font-family: var(--font-serif);
-  line-height: 1.4;
-  color: var(--color-charcoal);
-  margin-bottom: var(--space-6);
-  font-weight: 500;
-}
-
-.about-copy-details {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: var(--space-5);
-  margin-top: 0;
-}
-
-.about-detail {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  padding: var(--space-4);
-  background: linear-gradient(135deg, rgba(227, 168, 87, 0.04), rgba(193, 104, 63, 0.02));
-  border-radius: var(--radius-md);
-  border-left: 2px solid var(--color-gold-soft);
-}
-
-.about-detail strong {
-  font-family: var(--font-serif);
-  font-size: var(--fs-body);
-  color: var(--color-charcoal);
-  font-weight: 600;
-}
-
-.about-detail span {
-  font-size: var(--fs-body);
-  line-height: var(--lh-relaxed);
-  color: var(--color-charcoal-soft);
-}
-
-@media (max-width: 860px) {
-  .about-copy-lead {
-    font-size: var(--fs-body-lg);
-  }
-  
-  .about-copy-details {
-    grid-template-columns: 1fr;
-    gap: var(--space-4);
-  }
-}
 
 
 /* Increased spacing between About beats and closing section */
@@ -1938,5 +1888,128 @@
   
   .finale-cta {
     width: 100%;
+  }
+}
+
+/* ========================================================================
+   PREMIUM ABOUT SECTION — Creative Redesign
+   ======================================================================== */
+
+.about-copy-intro {
+  font-size: var(--fs-h2);
+  font-family: var(--font-serif);
+  line-height: 1.3;
+  color: var(--color-charcoal);
+  margin-bottom: var(--space-8);
+  font-weight: 500;
+  max-width: 90%;
+}
+
+/* Philosophy items grid — two-column on desktop, stack on mobile */
+.about-philosophy {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-7);
+  margin-bottom: var(--space-8);
+}
+
+.philosophy-item {
+  position: relative;
+  padding: var(--space-6);
+  background: linear-gradient(135deg, rgba(227, 168, 87, 0.06) 0%, rgba(193, 104, 63, 0.03) 100%);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(227, 168, 87, 0.15);
+  transition: all var(--dur-med) var(--ease-quiet);
+}
+
+.philosophy-item:hover {
+  border-color: rgba(227, 168, 87, 0.3);
+  background: linear-gradient(135deg, rgba(227, 168, 87, 0.1) 0%, rgba(193, 104, 63, 0.06) 100%);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(193, 104, 63, 0.12);
+}
+
+/* Accent line indicator */
+.philosophy-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 24px;
+  background: var(--gradient-warm);
+  border-radius: 0 2px 2px 0;
+}
+
+.philosophy-accent--secondary {
+  background: linear-gradient(180deg, rgba(193, 104, 63, 0.4), rgba(227, 168, 87, 0.3));
+}
+
+.philosophy-item h3 {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  color: var(--color-charcoal);
+  margin-bottom: var(--space-3);
+  margin-top: 0;
+  font-weight: 600;
+}
+
+.philosophy-item p {
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  color: var(--color-charcoal-soft);
+  margin: 0;
+}
+
+/* Closing statement with emphasis */
+.about-closing {
+  padding: var(--space-5) var(--space-6);
+  background: linear-gradient(90deg, 
+    rgba(227, 168, 87, 0.04) 0%, 
+    rgba(193, 104, 63, 0.02) 50%, 
+    rgba(227, 168, 87, 0.04) 100%);
+  border-left: 3px solid var(--color-gold-soft);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-2);
+}
+
+.about-closing p {
+  font-size: var(--fs-body-lg);
+  line-height: 1.6;
+  color: var(--color-charcoal);
+  margin: 0;
+  font-weight: 500;
+}
+
+.about-closing strong {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+/* Responsive: stack on smaller screens */
+@media (max-width: 860px) {
+  .about-copy-intro {
+    font-size: var(--fs-h3);
+    max-width: 100%;
+  }
+  
+  .about-philosophy {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+  
+  .philosophy-item {
+    padding: var(--space-5);
+  }
+  
+  .philosophy-item h3 {
+    font-size: var(--fs-body-lg);
+  }
+  
+  .about-closing {
+    padding: var(--space-4) var(--space-5);
+  }
+  
+  .about-closing p {
+    font-size: var(--fs-body);
   }
 }
