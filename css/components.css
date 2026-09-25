@@ -2280,15 +2280,16 @@
 
 .vision-content {
   display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: var(--space-8);
-  margin-top: var(--space-7);
+  grid-template-columns: 1fr;
+  gap: 3.5rem;
+  margin-top: 2rem;
 }
 
 .vision-idea {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: 1rem;
+  padding-bottom: 1rem;
 }
 
 /* Micro-label for each idea */
@@ -2296,17 +2297,17 @@
   font-size: var(--fs-small);
   font-family: var(--font-sans);
   font-weight: 600;
-  color: rgba(227, 168, 87, 0.5);
+  color: rgba(0, 0, 0, 0.5);
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin: 0;
+  margin: 0 0 0.5rem 0;
 }
 
 /* Vision idea copy */
 .vision-idea p {
-  font-size: var(--fs-body);
-  line-height: 1.7;
-  color: rgba(251, 248, 243, 0.85);
+  font-size: 1.0625rem;
+  line-height: 1.9;
+  color: rgba(0, 0, 0, 0.82);
   margin: 0;
   max-width: 75ch;
 }
@@ -2314,17 +2315,32 @@
 /* Subtle emphasis on key phrases */
 .vision-emphasis {
   font-style: italic;
-  color: rgba(227, 168, 87, 0.8);
-  font-weight: 500;
+  color: #D4A574;
+  font-weight: 600;
 }
 
 /* Responsive: stack on smaller screens */
 @media (max-width: 860px) {
   .vision-content {
     grid-template-columns: 1fr;
-    gap: var(--space-5);
-    margin-top: var(--space-5);
+    gap: 2.5rem;
+    margin-top: 1.5rem;
   }
+  
+  .vision-idea {
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+  
+  .vision-idea-label {
+    font-size: var(--fs-small);
+  }
+  
+  .vision-idea p {
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+}
   
   .vision-idea {
     gap: var(--space-2);
