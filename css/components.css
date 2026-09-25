@@ -20,7 +20,7 @@
 
 .btn-primary {
   background: linear-gradient(135deg, #4A3222 0%, var(--color-charcoal) 100%);
-  color: var(--color-paper);
+  color: var(--color-charcoal);
   border: 1px solid var(--color-charcoal);
 }
 
@@ -311,7 +311,7 @@
   height: 46px;
   border-radius: 50%;
   background: var(--gradient-warm);
-  color: var(--color-paper);
+  color: var(--color-charcoal);
   font-family: var(--font-serif);
   font-size: 1.15rem;
   box-shadow: 0 6px 16px -6px rgba(193, 104, 63, 0.5);
@@ -366,7 +366,7 @@
   font-family: var(--font-serif);
   font-size: var(--fs-h2);
   line-height: var(--lh-snug);
-  color: var(--color-paper);
+  color: var(--color-charcoal);
 }
 
 .why-quote cite {
@@ -505,7 +505,7 @@
 
 .vision-layer:hover .vision-layer-index {
   background: var(--gradient-warm);
-  color: var(--color-paper);
+  color: var(--color-charcoal);
   transform: scale(1.08);
 }
 
@@ -630,7 +630,7 @@
 
 .glossary-term:hover .glossary-mark {
   background: var(--gradient-warm);
-  color: var(--color-paper);
+  color: var(--color-charcoal);
   transform: scale(1.08) rotate(-4deg);
 }
 
@@ -961,7 +961,7 @@
   text-align: left;
   font-family: var(--font-serif);
   font-size: var(--fs-h3);
-  color: var(--color-paper);
+  color: var(--color-charcoal);
 }
 
 .faq-question .plus {
@@ -1118,7 +1118,7 @@
 
 .mode-btn[aria-pressed="true"] {
   background: var(--color-charcoal);
-  color: var(--color-paper);
+  color: var(--color-charcoal);
   border-color: var(--color-charcoal);
 }
 
@@ -1416,7 +1416,7 @@
 .filter-chip[aria-pressed="true"] {
   background: var(--color-charcoal);
   border-color: var(--color-charcoal);
-  color: var(--color-paper);
+  color: var(--color-charcoal);
 }
 
 .filter-chip:hover:not([aria-pressed="true"]) { border-color: var(--color-charcoal); }
@@ -1576,7 +1576,7 @@
   left: 50%;
   transform: translateX(-50%) translateY(10px);
   background: var(--color-charcoal);
-  color: var(--color-paper);
+  color: var(--color-charcoal);
   padding: var(--space-3) var(--space-5);
   border-radius: 999px;
   font-size: var(--fs-small);
@@ -1844,7 +1844,7 @@
 
 .install-banner-actions { display: flex; align-items: center; gap: var(--space-3); flex-shrink: 0; }
 .install-banner .btn-text { color: var(--text-on-dark); text-decoration-color: rgba(251, 248, 243, 0.5); }
-.install-banner .btn-text:hover { color: var(--color-paper); }
+.install-banner .btn-text:hover { color: var(--color-charcoal); }
 
 @media (max-width: 640px) {
   .install-banner { left: var(--space-3); right: var(--space-3); bottom: calc(var(--space-3) + 56px); flex-direction: column; align-items: stretch; text-align: center; }
