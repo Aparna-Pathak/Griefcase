@@ -1874,3 +1874,69 @@
     gap: var(--space-4);
   }
 }
+
+
+/* Increased spacing between About beats and closing section */
+.about-settle {
+  padding-top: var(--space-9);
+  margin-top: var(--space-8);
+}
+
+/* Enhanced CTA button styling - more distinctive */
+.finale-cta {
+  position: relative;
+  font-size: var(--fs-body-lg);
+  letter-spacing: 0.3px;
+  font-weight: 600;
+  padding: 14px 32px;
+  background: var(--gradient-warm);
+  box-shadow: 0 8px 24px rgba(193, 104, 63, 0.2);
+  transition: all var(--dur-fast) var(--ease-standard);
+}
+
+.finale-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(193, 104, 63, 0.3);
+}
+
+.finale-cta:active {
+  transform: translateY(0);
+}
+
+/* Founding circle link - premium styling */
+.founding-circle-link {
+  position: relative;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 2px solid var(--color-gold-soft);
+  transition: all var(--dur-fast) var(--ease-standard);
+}
+
+.founding-circle-link:hover {
+  color: var(--color-charcoal);
+  border-bottom-color: var(--color-charcoal);
+  padding-bottom: 2px;
+}
+
+.founding-circle-link::after {
+  content: " →";
+  opacity: 0;
+  margin-left: 4px;
+  transition: opacity var(--dur-fast) var(--ease-standard);
+}
+
+.founding-circle-link:hover::after {
+  opacity: 1;
+}
+
+@media (max-width: 860px) {
+  .about-settle {
+    padding-top: var(--space-7);
+    margin-top: var(--space-6);
+  }
+  
+  .finale-cta {
+    width: 100%;
+  }
+}
