@@ -39,10 +39,10 @@ export const ABOUT_IMAGES = {
   // handwritten list stands in for baggage/things carried, kept homely
   // (notebook and tea) rather than an office desk.
   practicalBurden: {
-    url: "https://images.unsplash.com/photo-8CL8KDg8oAs?fm=jpg&q=70&w=1600&auto=format&fit=crop",
+    url: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?fm=jpg&q=70&w=1600&auto=format&fit=crop",
     alt: "A notebook with a handwritten list, a pen, and a cup of tea",
-    credit: "Photo via Unsplash",
-    creditUrl: "https://unsplash.com/photos/a-notebook-with-a-list-and-a-pen-next-to-a-cup-of-tea-8CL8KDg8oAs",
+    credit: "Photo by Lum3n on Unsplash",
+    creditUrl: "https://unsplash.com/photos/a-notebook-a-pen-and-a-cup-of-coffee-on-a-table-_QR2FGJfJI8",
   },
 
   // Beat 3 — "So we built somewhere to put it down." Calm, private writing.
@@ -59,9 +59,9 @@ export const ABOUT_IMAGES = {
   // Beat 4 — "It's easier when someone gives you a hand with it." Home
   // warmth and company: two people under a blanket on a couch.
   outcome: {
-    url: "https://images.unsplash.com/photo-DIc-2viglVQ?fm=jpg&q=70&w=1600&auto=format&fit=crop",
+    url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fm=jpg&q=70&w=1600&auto=format&fit=crop",
     alt: "Two people sitting together on a couch under a blanket",
-    credit: "Photo via Unsplash",
+    credit: "Photo by Omar Lopez on Unsplash",
     creditUrl: "https://unsplash.com/photos/a-man-and-woman-sitting-on-a-couch-under-a-blanket-DIc-2viglVQ",
   },
 };

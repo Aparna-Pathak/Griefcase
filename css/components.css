@@ -1823,3 +1823,54 @@
   .install-banner { left: var(--space-3); right: var(--space-3); bottom: calc(var(--space-3) + 56px); flex-direction: column; align-items: stretch; text-align: center; }
   .install-banner-actions { justify-content: center; }
 }
+
+/* Enhanced About section — premium, compact redesign */
+.about-copy-lead {
+  font-size: var(--fs-h3);
+  font-family: var(--font-serif);
+  line-height: 1.4;
+  color: var(--color-charcoal);
+  margin-bottom: var(--space-6);
+  font-weight: 500;
+}
+
+.about-copy-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-5);
+  margin-top: 0;
+}
+
+.about-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: linear-gradient(135deg, rgba(227, 168, 87, 0.04), rgba(193, 104, 63, 0.02));
+  border-radius: var(--radius-md);
+  border-left: 2px solid var(--color-gold-soft);
+}
+
+.about-detail strong {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  color: var(--color-charcoal);
+  font-weight: 600;
+}
+
+.about-detail span {
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  color: var(--color-charcoal-soft);
+}
+
+@media (max-width: 860px) {
+  .about-copy-lead {
+    font-size: var(--fs-body-lg);
+  }
+  
+  .about-copy-details {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
