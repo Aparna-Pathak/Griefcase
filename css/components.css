@@ -354,7 +354,7 @@
 .why-copy p {
   font-size: var(--fs-body-lg);
   margin-bottom: var(--space-5);
-  color: rgba(251,248,243,0.86);
+  color: var(--text-primary);
 }
 
 .why-quote {
@@ -967,7 +967,7 @@
 
 .faq-answer p {
   padding: 0 var(--space-4) var(--space-5);
-  color: rgba(251, 248, 243, 0.78);
+  color: var(--text-primary-soft);
   max-width: 58ch;
 }
 
@@ -1816,7 +1816,7 @@
 .install-banner strong { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 500; }
 
 .install-banner-actions { display: flex; align-items: center; gap: var(--space-3); flex-shrink: 0; }
-.install-banner .btn-text { color: rgba(251,248,243,0.7); text-decoration-color: rgba(251,248,243,0.3); }
+.install-banner .btn-text { color: var(--text-on-dark); text-decoration-color: rgba(251, 248, 243, 0.5); }
 .install-banner .btn-text:hover { color: var(--color-paper); }
 
 @media (max-width: 640px) {
@@ -1923,7 +1923,7 @@
 }
 
 .philosophy-item:hover {
-  border-color: rgba(227, 168, 87, 0.3);
+  border-color: var(--text-secondary);
   background: linear-gradient(135deg, rgba(227, 168, 87, 0.1) 0%, rgba(193, 104, 63, 0.06) 100%);
   transform: translateY(-4px);
   box-shadow: 0 12px 32px rgba(193, 104, 63, 0.12);
@@ -2022,7 +2022,7 @@
   top: var(--space-4);
   left: var(--space-4);
   font-size: 3rem;
-  color: rgba(227, 168, 87, 0.3);
+  color: var(--text-secondary);
   font-family: var(--font-serif);
   line-height: 0;
 }
@@ -2042,7 +2042,7 @@
   display: block;
   margin-top: var(--space-4);
   font-size: var(--fs-body);
-  color: rgba(227, 168, 87, 0.8);
+  color: var(--text-accent);
   font-style: normal;
   font-family: var(--font-sans);
 }
@@ -2098,7 +2098,7 @@
   font-size: var(--fs-h3);
   font-family: var(--font-serif);
   line-height: 1.5;
-  color: rgba(251, 248, 243, 0.9);
+  color: var(--text-primary);
   font-weight: 400;
   margin: 0 0 var(--space-6) 0;
   max-width: 85%;
@@ -2145,28 +2145,28 @@
 .why-item-number {
   font-size: var(--fs-small);
   font-weight: 600;
-  color: rgba(227, 168, 87, 0.6);
+  color: var(--text-accent);
   flex-shrink: 0;
 }
 
 .why-item-title {
   font-size: var(--fs-body);
   font-family: var(--font-serif);
-  color: rgba(251, 248, 243, 0.9);
+  color: var(--text-primary);
   font-weight: 500;
   flex: 1;
 }
 
 .why-item-indicator {
   font-size: var(--fs-body);
-  color: rgba(227, 168, 87, 0.4);
+  color: var(--text-accent-soft);
   flex-shrink: 0;
   transition: color 0.3s ease;
   font-weight: 300;
 }
 
 .why-item-button--active .why-item-indicator {
-  color: rgba(227, 168, 87, 0.6);
+  color: var(--text-accent);
 }
 
 /* Reveal area */
@@ -2185,7 +2185,7 @@
 .why-reveal-text {
   font-size: var(--fs-body);
   line-height: var(--lh-relaxed);
-  color: rgba(251, 248, 243, 0.8);
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -2211,7 +2211,7 @@
 .why-quote cite {
   display: block;
   font-size: var(--fs-body);
-  color: rgba(227, 168, 87, 0.6);
+  color: var(--text-accent);
   font-style: normal;
   font-family: var(--font-sans);
   letter-spacing: 0.5px;
@@ -2297,7 +2297,7 @@
   font-size: var(--fs-small);
   font-family: var(--font-sans);
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 1px;
   margin: 0 0 0.5rem 0;
@@ -2307,7 +2307,7 @@
 .vision-idea p {
   font-size: 1.0625rem;
   line-height: 1.9;
-  color: rgba(0, 0, 0, 0.82);
+  color: var(--text-primary);
   margin: 0;
   max-width: 75ch;
 }

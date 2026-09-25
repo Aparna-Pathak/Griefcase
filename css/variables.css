@@ -43,7 +43,35 @@
   --gradient-card-sheen: linear-gradient(155deg, #FFFFFF 0%, var(--color-paper) 60%, var(--color-cream) 100%);
   --glow-gold: 0 0 0 8px rgba(227, 168, 87, 0.1);
 
-  /* ---- Typography ---- */
+
+  /* ---- Text hierarchy: semantic color system for readability ---- */
+  /* Use these instead of arbitrary opacity-based colors throughout the app */
+  
+  /* Primary text: main content, body copy, important information */
+  --text-primary: var(--color-charcoal);              /* #3D2A1C — dark espresso brown */
+  --text-primary-soft: var(--color-charcoal-soft);   /* #6B5642 — warm mid-brown for secondary headings */
+  
+  /* Secondary text: supporting information, metadata, muted labels */
+  --text-secondary: var(--color-taupe-deep);         /* #93765C — deeper taupe, readable but recessed */
+  
+  /* Tertiary text: very subtle, decorative, truly optional info */
+  --text-tertiary: rgba(61, 42, 28, 0.55);           /* charcoal at 55% — for decorative elements only */
+  
+  /* Text on dark backgrounds (espresso sections) */
+  --text-on-dark: var(--color-cream);                /* #FBF6ED — cream on dark */
+  --text-on-dark-soft: rgba(251, 248, 243, 0.8);    /* cream at 80% opacity for secondary info on dark */
+  --text-on-dark-muted: rgba(251, 248, 243, 0.65);  /* cream at 65% opacity for very subtle text on dark */
+  
+  /* Accent text: emphasis, highlights, interactive elements */
+  --text-accent: var(--color-gold);                  /* #E3A857 — full saturation gold for emphasis */
+  --text-accent-soft: var(--color-gold-soft);        /* #F6DFB3 — lighter gold for softer emphasis */
+  
+  /* Disabled/placeholder text */
+  --text-disabled: rgba(61, 42, 28, 0.4);            /* charcoal at 40% — for disabled states */
+  --text-placeholder: rgba(61, 42, 28, 0.35);        /* charcoal at 35% — for input placeholders */
+
+
+    /* ---- Typography ---- */
   --font-serif: "Newsreader", "Iowan Old Style", "Georgia", serif;
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
