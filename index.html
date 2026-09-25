@@ -201,71 +201,77 @@
           <h2 id="why-headline" style="font-size:var(--fs-h1)">You don't have to carry everything.</h2>
         </div>
         
-        <!-- Quote right after headline -->
+        <!-- Opening quote -->
         <blockquote class="why-quote-top" data-reveal>
           <p class="why-quote-text">You are allowed to feel this. You don't have to explain it to anyone — not even to us.</p>
           <cite>— Griefcase</cite>
         </blockquote>
         
-        <div class="why-wrapper" data-reveal>
-          <p class="why-intro">Some musings don't have anywhere to go. They're too heavy for a text, too unfinished for a journal, too honest for a conversation you're not ready to have.</p>
+        <!-- Context -->
+        <div class="why-context" data-reveal>
+          <p class="why-context-text">Some musings don't have anywhere to go. They're too heavy for a text, too unfinished for a journal, too honest for a conversation you're not ready to have.</p>
+        </div>
+        
+        <!-- Three elegant ideas -->
+        <div class="why-ideas" data-reveal>
           
-          <!-- Horizontal strip of three items -->
-          <div class="why-items-strip">
-            <button class="why-item-button why-item-button--active" data-item="0" aria-expanded="true" aria-controls="why-reveal">
-              <span class="why-item-number">01</span>
-              <span class="why-item-title">It's not therapy</span>
-              <span class="why-item-indicator">−</span>
+          <div class="why-idea-item">
+            <button class="why-idea-toggle" data-idea="0" aria-expanded="true">
+              <span class="why-idea-label">It's not therapy</span>
+              <span class="why-idea-toggle-icon">−</span>
             </button>
-            
-            <button class="why-item-button" data-item="1" aria-expanded="false" aria-controls="why-reveal">
-              <span class="why-item-number">02</span>
-              <span class="why-item-title">It's not a confession</span>
-              <span class="why-item-indicator">+</span>
-            </button>
-            
-            <button class="why-item-button" data-item="2" aria-expanded="false" aria-controls="why-reveal">
-              <span class="why-item-number">03</span>
-              <span class="why-item-title">It's just somewhere to put things</span>
-              <span class="why-item-indicator">+</span>
-            </button>
+            <div class="why-idea-content why-idea-content--open">
+              <p>Griefcase isn't trying to diagnose, fix, or solve anything. We're here to hold space while you figure out what you need.</p>
+            </div>
           </div>
           
-          <!-- Reveal area for full explanations -->
-          <div class="why-reveal" id="why-reveal" aria-live="polite" aria-label="Item explanation">
-            <p class="why-reveal-text">Griefcase isn't trying to diagnose, fix, or solve anything. We're here to hold space while you figure out what you need.</p>
+          <div class="why-idea-item">
+            <button class="why-idea-toggle" data-idea="1" aria-expanded="false">
+              <span class="why-idea-label">It's not a confession</span>
+              <span class="why-idea-toggle-icon">+</span>
+            </button>
+            <div class="why-idea-content">
+              <p>Nothing here needs an audience. No explanation required. No one has to know you were here. It stays between you and the page.</p>
+            </div>
           </div>
+          
+          <div class="why-idea-item">
+            <button class="why-idea-toggle" data-idea="2" aria-expanded="false">
+              <span class="why-idea-label">It's just somewhere to put things</span>
+              <span class="why-idea-toggle-icon">+</span>
+            </button>
+            <div class="why-idea-content">
+              <p>The anger you didn't say out loud. The grief without an occasion. The unsent message. Some days you just need somewhere to set them down.</p>
+            </div>
+          </div>
+          
         </div>
       </div>
       
       <script>
         (function() {
-          const buttons = document.querySelectorAll('.why-item-button');
-          const reveal = document.getElementById('why-reveal');
-          const revealText = reveal.querySelector('.why-reveal-text');
+          const toggles = document.querySelectorAll('.why-idea-toggle');
           
-          const explanations = [
-            "Griefcase isn't trying to diagnose, fix, or solve anything. We're here to hold space while you figure out what you need.",
-            "Nothing here needs an audience. No explanation required. No one has to know you were here. It stays between you and the page.",
-            "The anger you didn't say out loud. The grief without an occasion. The unsent message. Some days you just need somewhere to set them down."
-          ];
-          
-          function setActive(index) {
-            buttons.forEach((btn, i) => {
-              const isActive = i === index;
-              btn.classList.toggle('why-item-button--active', isActive);
-              btn.setAttribute('aria-expanded', isActive);
-              btn.querySelector('.why-item-indicator').textContent = isActive ? '−' : '+';
+          toggles.forEach(toggle => {
+            toggle.addEventListener('click', function() {
+              const content = this.nextElementSibling;
+              const isOpen = this.getAttribute('aria-expanded') === 'true';
+              
+              // Close all others
+              toggles.forEach(other => {
+                if (other !== this) {
+                  other.setAttribute('aria-expanded', 'false');
+                  other.nextElementSibling.classList.remove('why-idea-content--open');
+                  other.querySelector('.why-idea-toggle-icon').textContent = '+';
+                }
+              });
+              
+              // Toggle this one
+              this.setAttribute('aria-expanded', !isOpen);
+              content.classList.toggle('why-idea-content--open');
+              this.querySelector('.why-idea-toggle-icon').textContent = isOpen ? '+' : '−';
             });
-            revealText.textContent = explanations[index];
-            reveal.classList.add('why-reveal--visible');
-          }
-          
-          buttons.forEach((btn, i) => {
-            btn.addEventListener('click', () => setActive(i));
           });
-          
-          setActive(0);
         })();
       </script>
 

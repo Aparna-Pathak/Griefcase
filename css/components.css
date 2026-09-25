@@ -380,9 +380,15 @@
 @media (max-width: 860px) {
   .why-layout { grid-template-columns: 1fr; gap: var(--space-6); }
 }
-/* Quote positioned at top of why section */
+/* WHY GRIEFCASE — Premium Editorial Design ===================== */
+
+.why-layout {
+  max-width: var(--content-reading);
+}
+
+/* Opening quote styling */
 .why-quote-top {
-  margin: var(--space-5) 0 var(--space-6) 0;
+  margin: var(--space-5) 0 var(--space-7) 0;
   padding: 0;
   font-family: var(--font-serif);
   font-size: 1.15rem;
@@ -406,11 +412,111 @@
   margin-top: var(--space-2);
 }
 
+/* Context paragraph */
+.why-context {
+  margin: var(--space-6) 0 var(--space-7) 0;
+}
 
+.why-context-text {
+  font-size: var(--fs-body);
+  line-height: 1.8;
+  color: var(--text-primary-soft);
+  margin: 0;
+  max-width: 75ch;
+}
 
-/* ==========================================================================
-   VISION ("Where this is headed")
-   ========================================================================== */
+/* Three ideas container */
+.why-ideas {
+  margin: var(--space-6) 0 0 0;
+}
+
+.why-idea-item {
+  margin-bottom: var(--space-5);
+  border: none;
+}
+
+/* Idea toggle button */
+.why-idea-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-3) 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(61, 42, 28, 0.15);
+  cursor: pointer;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 400;
+  text-align: left;
+  color: var(--text-primary);
+  transition: all var(--dur-fast) var(--ease-quiet);
+}
+
+.why-idea-toggle:hover {
+  color: var(--text-accent);
+  border-bottom-color: rgba(227, 168, 87, 0.3);
+}
+
+.why-idea-label {
+  flex: 1;
+  display: block;
+}
+
+.why-idea-toggle-icon {
+  flex-shrink: 0;
+  margin-left: var(--space-3);
+  font-size: 1.2rem;
+  color: inherit;
+  transition: color var(--dur-fast) var(--ease-quiet);
+}
+
+/* Expandable content */
+.why-idea-content {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height var(--dur-med) var(--ease-quiet),
+              opacity var(--dur-med) var(--ease-quiet),
+              padding var(--dur-med) var(--ease-quiet);
+  padding: 0;
+}
+
+.why-idea-content--open {
+  max-height: 500px;
+  opacity: 1;
+  padding: var(--space-4) 0;
+}
+
+.why-idea-content p {
+  font-size: var(--fs-body);
+  line-height: 1.8;
+  color: var(--text-primary-soft);
+  margin: 0;
+  max-width: 75ch;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .why-quote-top {
+    font-size: 1.05rem;
+  }
+
+  .why-context-text {
+    font-size: 1rem;
+  }
+
+  .why-idea-toggle {
+    font-size: 1rem;
+    padding: var(--space-3) 0;
+  }
+
+  .why-idea-content p {
+    font-size: 1rem;
+  }
+}
+
 
 .vision-copy {
   max-width: var(--content-reading);
