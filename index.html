@@ -204,63 +204,70 @@
         <div class="why-wrapper" data-reveal>
           <p class="why-intro">Some musings don't have anywhere to go. They're too heavy for a text, too unfinished for a journal, too honest for a conversation you're not ready to have.</p>
           
-          <div class="why-accordions">
-            <details class="why-item">
-              <summary class="why-summary">It's not therapy</summary>
-              <p class="why-detail">Griefcase isn't trying to diagnose, fix, or solve anything. We're here to hold space while you figure out what you need.</p>
-            </details>
+          <!-- Horizontal strip of three items -->
+          <div class="why-items-strip">
+            <button class="why-item-button why-item-button--active" data-item="0" aria-expanded="true" aria-controls="why-reveal">
+              <span class="why-item-number">01</span>
+              <span class="why-item-title">It's not therapy</span>
+              <span class="why-item-indicator">−</span>
+            </button>
             
-            <details class="why-item">
-              <summary class="why-summary">It's not a confession</summary>
-              <p class="why-detail">Nothing here needs an audience. No explanation required. No one has to know you were here. It stays between you and the page.</p>
-            </details>
+            <button class="why-item-button" data-item="1" aria-expanded="false" aria-controls="why-reveal">
+              <span class="why-item-number">02</span>
+              <span class="why-item-title">It's not a confession</span>
+              <span class="why-item-indicator">+</span>
+            </button>
             
-            <details class="why-item">
-              <summary class="why-summary">It's just somewhere to put things</summary>
-              <p class="why-detail">The anger you didn't say out loud. The grief without an occasion. The unsent message. Some days you just need somewhere to set them down.</p>
-            </details>
+            <button class="why-item-button" data-item="2" aria-expanded="false" aria-controls="why-reveal">
+              <span class="why-item-number">03</span>
+              <span class="why-item-title">It's just somewhere to put things</span>
+              <span class="why-item-indicator">+</span>
+            </button>
+          </div>
+          
+          <!-- Reveal area for full explanations -->
+          <div class="why-reveal" id="why-reveal" aria-live="polite" aria-label="Item explanation">
+            <p class="why-reveal-text">Griefcase isn't trying to diagnose, fix, or solve anything. We're here to hold space while you figure out what you need.</p>
           </div>
         </div>
         
+        <!-- Quote section -->
         <blockquote class="why-quote" data-reveal>
           <p>You are allowed to feel this. You don't have to explain it to anyone — not even to us.</p>
           <cite>— Griefcase</cite>
         </blockquote>
-      </div>>
-          
-          <div class="why-pillars" data-reveal-group>
-            <div class="why-pillar">
-              <div class="why-pillar-mark"></div>
-              <h3>It's not therapy</h3>
-              <p>Griefcase isn't trying to diagnose, fix, or solve anything. That's not our job. Our job is to hold space while you figure out what you need.</p>
-            </div>
-            <div class="why-pillar">
-              <div class="why-pillar-mark"></div>
-              <h3>It's not a confession</h3>
-              <p>Nothing you write here needs an audience. No explanation required. No one has to know you were here. It can stay between you and the page.</p>
-            </div>
-            <div class="why-pillar">
-              <div class="why-pillar-mark"></div>
-              <h3>It's just somewhere to put things</h3>
-              <p>The anger you didn't say out loud. The grief without an occasion. The unsent message. Some days you just need somewhere to set them down.</p>
-            </div>
-          </div>
-          
-          <blockquote class="why-quote" id="why-quote" data-reveal>
-            <div class="why-quote-mark">"</div>
-            <p class="why-quote-text">You are allowed to feel this. You don't have to explain it to anyone — not even to us.</p>
-            <cite class="why-quote-credit">— Griefcase</cite>
-          </blockquote>
-        </div>
       </div>
-          <blockquote class="why-quote" id="why-quote" data-reveal>
-            <p>You are allowed to feel this. You don't have to explain it to anyone — not even to us.</p>
-            <cite>— Griefcase</cite>
-          </blockquote>
-        </div>
-      </div>
-    </div>
-  </section>
+      
+      <script>
+        (function() {
+          const buttons = document.querySelectorAll('.why-item-button');
+          const reveal = document.getElementById('why-reveal');
+          const revealText = reveal.querySelector('.why-reveal-text');
+          
+          const explanations = [
+            "Griefcase isn't trying to diagnose, fix, or solve anything. We're here to hold space while you figure out what you need.",
+            "Nothing here needs an audience. No explanation required. No one has to know you were here. It stays between you and the page.",
+            "The anger you didn't say out loud. The grief without an occasion. The unsent message. Some days you just need somewhere to set them down."
+          ];
+          
+          function setActive(index) {
+            buttons.forEach((btn, i) => {
+              const isActive = i === index;
+              btn.classList.toggle('why-item-button--active', isActive);
+              btn.setAttribute('aria-expanded', isActive);
+              btn.querySelector('.why-item-indicator').textContent = isActive ? '−' : '+';
+            });
+            revealText.textContent = explanations[index];
+            reveal.classList.add('why-reveal--visible');
+          }
+          
+          buttons.forEach((btn, i) => {
+            btn.addEventListener('click', () => setActive(i));
+          });
+          
+          setActive(0);
+        })();
+      </script>
 
   <!-- ===================== VISION / WHERE THIS IS HEADED ===================== -->
   <section id="vision" class="section-alt">
