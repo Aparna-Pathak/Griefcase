@@ -2013,3 +2013,166 @@
     font-size: var(--fs-body);
   }
 }
+
+
+/* ========================================================================
+   PREMIUM WHY GRIEFCASE SECTION — Polished UI/UX Redesign
+   ======================================================================== */
+
+.why-intro {
+  margin-bottom: var(--space-8);
+}
+
+.why-intro-text {
+  font-size: var(--fs-h2);
+  font-family: var(--font-serif);
+  line-height: 1.35;
+  color: rgba(251, 248, 243, 0.95);
+  font-weight: 500;
+  margin: 0;
+  max-width: 85%;
+}
+
+/* Three pillars of Why Griefcase */
+.why-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  margin-bottom: var(--space-9);
+}
+
+.why-pillar {
+  position: relative;
+  padding: var(--space-6);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(227, 168, 87, 0.12);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+  transition: all var(--dur-med) var(--ease-quiet);
+}
+
+.why-pillar:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(227, 168, 87, 0.25);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Accent mark for each pillar */
+.why-pillar-mark {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-warm);
+  border-radius: 3px 3px 0 0;
+}
+
+.why-pillar h3 {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--color-cream);
+  margin-top: 0;
+  margin-bottom: var(--space-2);
+  font-weight: 600;
+}
+
+.why-pillar p {
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  color: rgba(251, 248, 243, 0.8);
+  margin: 0;
+}
+
+/* Premium quote styling */
+.why-quote {
+  position: relative;
+  margin: var(--space-8) 0 0 0;
+  padding: var(--space-7) var(--space-6);
+  background: linear-gradient(135deg, 
+    rgba(227, 168, 87, 0.08) 0%, 
+    rgba(193, 104, 63, 0.05) 100%);
+  border-left: 4px solid var(--gradient-warm);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.why-quote::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(227, 168, 87, 0.1), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.why-quote-mark {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  font-size: 3rem;
+  color: rgba(227, 168, 87, 0.3);
+  font-family: var(--font-serif);
+  line-height: 0;
+}
+
+.why-quote-text {
+  font-size: var(--fs-h3);
+  font-family: var(--font-serif);
+  line-height: 1.5;
+  color: var(--color-cream);
+  margin: 0;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+.why-quote-credit {
+  display: block;
+  margin-top: var(--space-4);
+  font-size: var(--fs-body);
+  color: rgba(227, 168, 87, 0.8);
+  font-style: normal;
+  font-family: var(--font-sans);
+}
+
+/* Responsive adjustments */
+@media (max-width: 860px) {
+  .why-intro-text {
+    font-size: var(--fs-h3);
+    max-width: 100%;
+  }
+  
+  .why-pillars {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    margin-bottom: var(--space-7);
+  }
+  
+  .why-pillar {
+    padding: var(--space-5);
+  }
+  
+  .why-pillar h3 {
+    font-size: var(--fs-body-lg);
+  }
+  
+  .why-quote {
+    padding: var(--space-5) var(--space-4);
+    margin-top: var(--space-6);
+  }
+  
+  .why-quote-text {
+    font-size: var(--fs-body-lg);
+  }
+  
+  .why-quote-mark {
+    font-size: 2rem;
+    top: var(--space-2);
+    left: var(--space-2);
+  }
+}
